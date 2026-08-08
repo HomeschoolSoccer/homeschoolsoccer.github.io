@@ -128,7 +128,10 @@
     .grid-3{grid-template-columns:1fr;}
     .pricing-grid{grid-template-columns:1fr;}
     header.hero h1{font-size:2rem;}
-    .nav-links{display:none;}
+    .nav-links a{display:none;}
+    .nav-links{gap:6px;}
+    .nav-links button.portal-btn{padding:8px 10px;font-size:11.5px;}
+    .nav-links button.lang-toggle{padding:8px 10px;font-size:11.5px;}
   }
 
   /* ── PORTAL MODAL (login) ── */
@@ -253,7 +256,7 @@
       <a href="#horario" data-i18n="navHorario">Horario y Precios</a>
       <a href="#contacto" data-i18n="navContacto">Contacto</a>
       <button class="portal-btn" onclick="abrirModal()">🔒 <span data-i18n="navPortal">Portal de Familias</span></button>
-      <button class="lang-toggle" onclick="toggleLang()">🌐 <span id="langBtnText">EN</span></button>
+      <button class="lang-toggle" onclick="toggleLang()">🌐 <span id="langBtnText">ES</span></button>
     </div>
   </div>
 </nav>
@@ -441,7 +444,7 @@
 const PORTAL_PASSWORD = 'cancha2026';
 
 // ── Traducciones ──
-let currentLang = 'es';
+let currentLang = 'en';
 const translations = {
   es: {
     navSobre:'Sobre Nosotros', navHorario:'Horario y Precios', navContacto:'Contacto', navPortal:'Portal de Familias',
@@ -893,6 +896,7 @@ function toggleReto(i){
   guardarMiProgreso();
 }
 
+applyTranslations(currentLang);
 cargarDatosPractica();
 </script>
 </body>
