@@ -120,6 +120,12 @@
   .contact-item .icon{font-size:24px;margin-bottom:6px;}
   .contact-item .label{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.5px;}
   .contact-item .value{font-weight:700;color:var(--pitch);margin-top:2px;}
+  .map-link{
+    display:inline-block;margin-top:10px;font-size:12px;font-weight:700;
+    color:var(--grass);text-decoration:none;border-bottom:1.5px solid var(--grass);
+    padding-bottom:1px;
+  }
+  .map-link:hover{color:var(--pitch);border-color:var(--pitch);}
 
   footer{background:var(--pitch-dark);color:rgba(251,248,243,0.65);text-align:center;padding:28px 20px;font-size:12.5px;}
   footer strong{color:var(--cream);}
@@ -297,6 +303,7 @@
         <div class="icon">📍</div>
         <h3 data-i18n="card3H">Miramar, FL</h3>
         <p data-i18n="card3P">Entrenamos en Miramar Regional Park — fácil acceso para familias de Miramar y ciudades cercanas de Broward County.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Miramar+Regional+Park+Miramar+FL" target="_blank" rel="noopener" class="map-link" data-i18n="verMapa">📍 Ver en Google Maps</a>
       </div>
     </div>
   </div>
@@ -345,6 +352,7 @@
         <div class="icon">📍</div>
         <div class="label" data-i18n="contactoLabel3">Ubicación</div>
         <div class="value">Miramar Regional Park, FL</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Miramar+Regional+Park+Miramar+FL" target="_blank" rel="noopener" class="map-link" data-i18n="verMapa">📍 Ver en Google Maps</a>
       </div>
     </div>
   </div>
@@ -460,6 +468,7 @@ const translations = {
     precio1:'Inscripción anual<br>(incluye uniforme, pago único)', precio2:'Mensualidad',
     contactoEyebrow:'Contacto', contactoH2:'¿Tenés preguntas?',
     contactoLabel1:'WhatsApp / Teléfono', contactoLabel2:'Email', contactoLabel3:'Ubicación',
+    verMapa:'📍 Ver en Google Maps',
     portalEyebrow:'Portal de familias', calH2:'Fechas sin práctica por feriado',
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:',
     practicaEyebrow:'Para los jugadores', practicaH2:'⚽ Zona de Práctica', practicaP:'Trivia y desafíos para practicar en casa cuando tengan un rato libre.',
@@ -490,6 +499,7 @@ const translations = {
     precio1:'Annual registration<br>(uniform included, one-time)', precio2:'Monthly fee',
     contactoEyebrow:'Contact', contactoH2:'Have questions?',
     contactoLabel1:'WhatsApp / Phone', contactoLabel2:'Email', contactoLabel3:'Location',
+    verMapa:'📍 View on Google Maps',
     portalEyebrow:'Family portal', calH2:'Dates with no practice due to holidays',
     calP:'Season August 3, 2026 to May 31, 2027 — Monday & Wednesday, except these dates:',
     practicaEyebrow:'For players', practicaH2:'⚽ Practice Zone', practicaP:'Trivia and challenges to practice at home in your free time.',
