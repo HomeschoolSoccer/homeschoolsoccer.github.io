@@ -199,6 +199,14 @@
   .progreso-item .lbl{font-size:11px;color:rgba(251,248,243,0.7);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
 
   .practica-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:22px;}
+
+  .nivel-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .nivel-tab{
+    background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);color:rgba(251,248,243,0.75);
+    padding:7px 14px;border-radius:99px;font-weight:600;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .nivel-tab.active{background:var(--gold);border-color:var(--gold);color:var(--pitch-dark);}
+  .nivel-tab.locked{opacity:0.55;cursor:not-allowed;}
   .practica-tab{
     background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);color:rgba(251,248,243,0.8);
     padding:9px 18px;border-radius:99px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;
@@ -225,6 +233,14 @@
   .trivia-opcion.incorrecta{background:var(--red-soft,#F7DCD3);border-color:var(--red,#C1440E);color:var(--red,#C1440E);}
   .trivia-opcion:disabled{cursor:default;}
   .trivia-feedback{margin-top:14px;font-size:13px;color:var(--ink-soft);line-height:1.5;padding:12px;background:var(--cream);border-radius:10px;display:none;}
+  .aliento-msg{margin-top:8px;font-weight:700;color:var(--grass);font-size:14px;}
+  .toast-aliento{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--pitch-dark);color:var(--cream);padding:12px 22px;border-radius:99px;
+    font-weight:700;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    opacity:0;pointer-events:none;transition:all .25s ease;z-index:200;
+  }
+  .toast-aliento.show{opacity:1;transform:translateX(-50%) translateY(0);}
   .trivia-feedback.show{display:block;}
   .trivia-nav{display:flex;justify-content:flex-end;margin-top:16px;}
 
@@ -403,6 +419,7 @@
         </div>
 
         <div class="practica-panel active" id="ppanel-trivia">
+          <div class="nivel-tabs" id="nivelTabs"></div>
           <div class="trivia-card" id="triviaCard"></div>
         </div>
 
@@ -476,7 +493,8 @@ const translations = {
     cambiarJugador:'Cambiar jugador', tabTrivia:'Trivia', tabRetos:'Retos',
     pedirCodigo:'Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):',
     codigoIncorrecto:'Código incorrecto, probá de nuevo.', confirmarCodigo:'Confirmar',
-    puntosLbl:'Puntos de trivia', retosLbl:'Retos completados',
+    puntosLbl:'Puntos de trivia', retosLbl:'Retos completados', hoyLbl:'Preguntas hoy',
+    limiteTitulo:'¡Listo por hoy!', limiteTexto:'Ya respondiste todas las preguntas de hoy. Volvé mañana para seguir sumando puntos y subir de nivel.',
     retoHecho:'✔ Completado', retoTocar:'Tocar para marcar',
     siguienteTrivia:'Siguiente →',
     novedadesEyebrow:'Novedades', novedadesH2:'Reportes de la academia',
@@ -507,7 +525,8 @@ const translations = {
     cambiarJugador:'Switch player', tabTrivia:'Trivia', tabRetos:'Challenges',
     pedirCodigo:"Enter this player's 4-digit code (we emailed it when they registered):",
     codigoIncorrecto:'Incorrect code, try again.', confirmarCodigo:'Confirm',
-    puntosLbl:'Trivia points', retosLbl:'Challenges completed',
+    puntosLbl:'Trivia points', retosLbl:'Challenges completed', hoyLbl:'Questions today',
+    limiteTitulo:'Done for today!', limiteTexto:"You've answered all of today's questions. Come back tomorrow to keep earning points and leveling up.",
     retoHecho:'✔ Completed', retoTocar:'Tap to mark',
     siguienteTrivia:'Next →',
     novedadesEyebrow:'News', novedadesH2:'Academy reports',
@@ -650,14 +669,19 @@ let progresoData = {}; // { id: {puntos, retos:[...]} }
 let jugadorActual = null; // { id, nombre }
 
 function parseProgresoSite(rows){
-  // 'rows' acá ya viene como array de objetos {id, puntos, retos} desde el
-  // endpoint público minimalista, no como matriz cruda del Sheet.
+  // 'rows' acá ya viene como array de objetos {id, puntos, retos, fechaHoy, preguntasHoy}
+  // desde el endpoint público minimalista, no como matriz cruda del Sheet.
   const map = {};
   if(!rows) return map;
   rows.forEach(row => {
     const retosStr = (row.retos||'').toString();
     const retos = retosStr ? retosStr.split(',').map(x=>parseInt(x,10)).filter(x=>!isNaN(x)) : [];
-    map[row.id] = { puntos: parseInt(row.puntos,10) || 0, retos };
+    map[row.id] = {
+      puntos: parseInt(row.puntos,10) || 0,
+      retos,
+      fechaHoy: row.fechaHoy || '',
+      preguntasHoy: parseInt(row.preguntasHoy,10) || 0
+    };
   });
   return map;
 }
@@ -733,21 +757,39 @@ function cambiarJugador(){
   document.getElementById('pinWrap').style.display = 'none';
 }
 
+const LIMITE_TRIVIAS_DIA = 5;
+
+function hoyStr(){
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
 function getMiProgreso(){
-  if(!jugadorActual) return {puntos:0, retos:[]};
-  return progresoData[jugadorActual.id] || {puntos:0, retos:[]};
+  if(!jugadorActual) return {puntos:0, retos:[], fechaHoy:'', preguntasHoy:0};
+  const p = progresoData[jugadorActual.id] || {puntos:0, retos:[], fechaHoy:'', preguntasHoy:0};
+  // Si cambió el día desde el último registro, el contador diario se resetea (solo localmente,
+  // se guarda de nuevo en el próximo intento de trivia).
+  if(p.fechaHoy !== hoyStr()) return { ...p, fechaHoy: hoyStr(), preguntasHoy: 0 };
+  return p;
+}
+
+function preguntasRestantesHoy(){
+  return Math.max(0, LIMITE_TRIVIAS_DIA - getMiProgreso().preguntasHoy);
 }
 
 async function guardarMiProgreso(){
   if(!jugadorActual) return;
   const p = getMiProgreso();
+  progresoData[jugadorActual.id] = p; // asegurar que el reset de fecha quede reflejado localmente
   try{
     await jsonpRequest({
       action:'saveProgreso',
       id: jugadorActual.id,
       nombre: jugadorActual.nombre,
       puntos: p.puntos,
-      retos: p.retos.join(',')
+      retos: p.retos.join(','),
+      fechaHoy: p.fechaHoy,
+      preguntasHoy: p.preguntasHoy
     });
   }catch(err){
     console.error('No se pudo guardar el progreso en el Sheet (queda igual localmente):', err);
@@ -757,9 +799,11 @@ async function guardarMiProgreso(){
 function renderProgreso(){
   const p = getMiProgreso();
   const t = translations[currentLang];
+  const restantes = preguntasRestantesHoy();
   document.getElementById('progresoBox').innerHTML = `
     <div class="progreso-item"><div class="num">${p.puntos}</div><div class="lbl">${t.puntosLbl}</div></div>
     <div class="progreso-item"><div class="num">${p.retos.length}</div><div class="lbl">${t.retosLbl}</div></div>
+    <div class="progreso-item"><div class="num">${restantes}/${LIMITE_TRIVIAS_DIA}</div><div class="lbl">${t.hoyLbl}</div></div>
   `;
 }
 
@@ -805,6 +849,32 @@ const TRIVIA = [
 
 let triviaIdx = 0;
 let triviaOrden = [];
+let nivelActual = 1;
+
+const MENSAJES_ALIENTO_ES = [
+  '¡Vas muy bien! ⚽', '¡Excelente! Seguí así 🔥', '¡Sos un crack! 🌟',
+  '¡Increíble! 💪', '¡Cada vez sabés más! 🧠', '¡Así se juega! ⚽🎉',
+  '¡Un jugador de primera! 🏅', '¡Seguí sumando puntos! 🚀',
+];
+const MENSAJES_ALIENTO_EN = [
+  "You're doing great! ⚽", 'Excellent! Keep it up 🔥', "You're a star! 🌟",
+  'Amazing! 💪', 'You know more every day! 🧠', "That's how it's done! ⚽🎉",
+  'A top-notch player! 🏅', 'Keep racking up points! 🚀',
+];
+function mensajeAliento(){
+  const banco = currentLang === 'es' ? MENSAJES_ALIENTO_ES : MENSAJES_ALIENTO_EN;
+  return banco[Math.floor(Math.random() * banco.length)];
+}
+
+const NIVELES = [
+  { id:1, categoria:'Reglas', minPuntos:0,  nombreEs:'🥉 Básico',      nombreEn:'🥉 Basic' },
+  { id:2, categoria:'Posiciones', minPuntos:30, nombreEs:'🥈 Competición', nombreEn:'🥈 Competition' },
+  { id:3, categoria:'Táctica', minPuntos:60, nombreEs:'🏆 Pro',         nombreEn:'🏆 Pro' },
+];
+
+function nivelDesbloqueado(nivel){
+  return getMiProgreso().puntos >= nivel.minPuntos;
+}
 
 function shuffle(arr){
   const a = [...arr];
@@ -815,13 +885,55 @@ function shuffle(arr){
   return a;
 }
 
-function renderTrivia(){
-  if(triviaOrden.length === 0) triviaOrden = shuffle(TRIVIA.map((_,i)=>i));
-  if(triviaIdx >= triviaOrden.length) triviaIdx = 0;
-  const q = TRIVIA[triviaOrden[triviaIdx]];
+function renderNivelTabs(){
   const t = translations[currentLang];
-  const esES = currentLang === 'es';
+  const wrap = document.getElementById('nivelTabs');
+  wrap.innerHTML = NIVELES.map(n=>{
+    const desbloqueado = nivelDesbloqueado(n);
+    const nombre = currentLang==='es' ? n.nombreEs : n.nombreEn;
+    const activo = n.id === nivelActual;
+    return `<button class="nivel-tab ${activo?'active':''} ${!desbloqueado?'locked':''}"
+      onclick="${desbloqueado ? `cambiarNivel(${n.id})` : ''}"
+      title="${desbloqueado ? '' : (currentLang==='es' ? 'Necesitás '+n.minPuntos+' puntos para desbloquear' : 'You need '+n.minPuntos+' points to unlock')}">
+      ${desbloqueado ? '' : '🔒 '}${nombre}
+    </button>`;
+  }).join('');
+}
+
+function cambiarNivel(nivelId){
+  const nivel = NIVELES.find(n=>n.id===nivelId);
+  if(!nivel || !nivelDesbloqueado(nivel)) return;
+  nivelActual = nivelId;
+  triviaOrden = [];
+  triviaIdx = 0;
+  renderNivelTabs();
+  renderTrivia();
+}
+
+function preguntasDelNivel(){
+  const nivel = NIVELES.find(n=>n.id===nivelActual);
+  return TRIVIA.filter(q => q.categoria === nivel.categoria);
+}
+
+function renderTrivia(){
+  renderNivelTabs();
+  const t = translations[currentLang];
   const card = document.getElementById('triviaCard');
+
+  if(preguntasRestantesHoy() <= 0){
+    card.innerHTML = `<div style="text-align:center;padding:20px 10px;">
+      <div style="font-size:34px;margin-bottom:10px;">🎉</div>
+      <h3 style="margin-bottom:8px;">${t.limiteTitulo}</h3>
+      <p style="color:var(--ink-soft);font-size:13.5px;">${t.limiteTexto}</p>
+    </div>`;
+    return;
+  }
+
+  const preguntas = preguntasDelNivel();
+  if(triviaOrden.length === 0) triviaOrden = shuffle(preguntas.map((_,i)=>i));
+  if(triviaIdx >= triviaOrden.length) triviaIdx = 0;
+  const q = preguntas[triviaOrden[triviaIdx]];
+  const esES = currentLang === 'es';
   card.innerHTML = `
     <span class="cat-tag">${esES ? q.categoria : q.categoriaEn}</span>
     <h3>${esES ? q.pregunta : q.preguntaEn}</h3>
@@ -834,7 +946,8 @@ function renderTrivia(){
 }
 
 function responderTrivia(i){
-  const q = TRIVIA[triviaOrden[triviaIdx]];
+  const preguntas = preguntasDelNivel();
+  const q = preguntas[triviaOrden[triviaIdx]];
   const esES = currentLang === 'es';
   const opciones = esES ? q.opciones : q.opcionesEn;
   const explicacion = esES ? q.explicacion : q.explicacionEn;
@@ -846,20 +959,30 @@ function responderTrivia(i){
   });
   const fb = document.getElementById('triviaFeedback');
   fb.classList.add('show');
+
+  if(jugadorActual){
+    const p = getMiProgreso();
+    if(i === q.correcta) p.puntos += 10;
+    p.preguntasHoy += 1;
+    progresoData[jugadorActual.id] = p;
+    renderProgreso();
+    guardarMiProgreso();
+  }
+
   if(i === q.correcta){
     fb.textContent = (esES ? '✅ ¡Correcto! ' : '✅ Correct! ') + explicacion;
-    if(jugadorActual){
-      if(!progresoData[jugadorActual.id]) progresoData[jugadorActual.id] = {puntos:0, retos:[]};
-      progresoData[jugadorActual.id].puntos += 10;
-      renderProgreso();
-      guardarMiProgreso();
-    }
+    fb.innerHTML += `<div class="aliento-msg">${mensajeAliento()}</div>`;
   } else {
     fb.textContent = (esES
       ? '❌ La respuesta correcta era "' + opciones[q.correcta] + '". '
       : '❌ The correct answer was "' + opciones[q.correcta] + '". ') + explicacion;
   }
-  document.getElementById('btnSiguienteTrivia').style.display = 'inline-flex';
+
+  const btnSig = document.getElementById('btnSiguienteTrivia');
+  if(preguntasRestantesHoy() <= 0){
+    btnSig.textContent = translations[currentLang].limiteTitulo;
+  }
+  btnSig.style.display = 'inline-flex';
 }
 
 function siguienteTrivia(){
@@ -899,11 +1022,27 @@ function toggleReto(i){
   if(!jugadorActual) return;
   if(!progresoData[jugadorActual.id]) progresoData[jugadorActual.id] = {puntos:0, retos:[]};
   const p = progresoData[jugadorActual.id];
-  if(p.retos.includes(i)) p.retos = p.retos.filter(x=>x!==i);
-  else p.retos.push(i);
+  const yaCompletado = p.retos.includes(i);
+  if(yaCompletado) p.retos = p.retos.filter(x=>x!==i);
+  else { p.retos.push(i); mostrarToast(mensajeAliento()); }
   renderProgreso();
   renderRetos();
   guardarMiProgreso();
+}
+
+let toastTimer = null;
+function mostrarToast(msg){
+  let toast = document.getElementById('toastAliento');
+  if(!toast){
+    toast = document.createElement('div');
+    toast.id = 'toastAliento';
+    toast.className = 'toast-aliento';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 2500);
 }
 
 applyTranslations(currentLang);
