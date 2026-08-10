@@ -416,6 +416,7 @@
         <div class="practica-tabs">
           <button class="practica-tab active" data-ptab="trivia" onclick="cambiarPracticaTab('trivia')">🧠 <span data-i18n="tabTrivia">Trivia</span></button>
           <button class="practica-tab" data-ptab="retos" onclick="cambiarPracticaTab('retos')">🏆 <span data-i18n="tabRetos">Retos</span></button>
+          <button class="practica-tab" data-ptab="curiosidades" onclick="cambiarPracticaTab('curiosidades')">🎉 <span data-i18n="tabCuriosidades">Datos Curiosos</span></button>
         </div>
 
         <div class="practica-panel active" id="ppanel-trivia">
@@ -425,6 +426,10 @@
 
         <div class="practica-panel" id="ppanel-retos">
           <div class="retos-grid" id="retosGrid"></div>
+        </div>
+
+        <div class="practica-panel" id="ppanel-curiosidades">
+          <div class="trivia-card" id="curiosidadCard"></div>
         </div>
       </div>
     </div>
@@ -490,7 +495,8 @@ const translations = {
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:',
     practicaEyebrow:'Para los jugadores', practicaH2:'⚽ Zona de Práctica', practicaP:'Trivia y desafíos para practicar en casa cuando tengan un rato libre.',
     elegirJugador:'Elegí quién sos para guardar tu progreso:', elegirNombre:'Elegí tu nombre...',
-    cambiarJugador:'Cambiar jugador', tabTrivia:'Trivia', tabRetos:'Retos',
+    cambiarJugador:'Cambiar jugador', tabTrivia:'Trivia', tabRetos:'Retos', tabCuriosidades:'Datos Curiosos',
+    otroDato:'Otro dato →',
     pedirCodigo:'Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):',
     codigoIncorrecto:'Código incorrecto, probá de nuevo.', confirmarCodigo:'Confirmar',
     puntosLbl:'Puntos de trivia', retosLbl:'Retos completados', hoyLbl:'Preguntas hoy',
@@ -523,7 +529,8 @@ const translations = {
     calP:'Season August 3, 2026 to May 31, 2027 — Monday & Wednesday, except these dates:',
     practicaEyebrow:'For players', practicaH2:'⚽ Practice Zone', practicaP:'Trivia and challenges to practice at home in your free time.',
     elegirJugador:'Choose who you are to save your progress:', elegirNombre:'Choose your name...',
-    cambiarJugador:'Switch player', tabTrivia:'Trivia', tabRetos:'Challenges',
+    cambiarJugador:'Switch player', tabTrivia:'Trivia', tabRetos:'Challenges', tabCuriosidades:'Fun Facts',
+    otroDato:'Another fact →',
     pedirCodigo:"Enter this player's 4-digit code (we emailed it when they registered):",
     codigoIncorrecto:'Incorrect code, try again.', confirmarCodigo:'Confirm',
     puntosLbl:'Trivia points', retosLbl:'Challenges completed', hoyLbl:'Questions today',
@@ -555,6 +562,7 @@ function applyTranslations(lang){
     renderProgreso();
     renderTrivia();
     renderRetos();
+    if(document.getElementById('curiosidadCard').innerHTML) renderCuriosidad();
   }
 }
 
@@ -818,6 +826,7 @@ function cambiarPracticaTab(tab){
   document.querySelectorAll('.practica-tab').forEach(b=>b.classList.toggle('active', b.dataset.ptab===tab));
   document.querySelectorAll('.practica-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('ppanel-'+tab).classList.add('active');
+  if(tab === 'curiosidades' && !document.getElementById('curiosidadCard').innerHTML) renderCuriosidad();
 }
 
 // ── ZONA DE PRÁCTICA ──
@@ -1112,6 +1121,85 @@ function renderRetos(){
       <div class="reto-check">${done ? t.retoHecho : t.retoTocar}</div>
     </div>`;
   }).join('');
+}
+
+// ── DATOS CURIOSOS ──
+const DATOS_CURIOSOS = [
+  { icon:'🏆', es:'El primer Mundial de fútbol se jugó en 1930, en Uruguay — ¡y Uruguay salió campeón, jugando en su propia casa!', en:'The first World Cup was played in 1930, in Uruguay — and Uruguay won it, playing at home!' },
+  { icon:'⚽', es:'La pelota clásica blanca y negra de 32 paneles (20 hexágonos y 12 pentágonos) se creó recién en 1970, para verse mejor en la tele en blanco y negro.', en:'The classic black-and-white 32-panel ball (20 hexagons and 12 pentagons) was created in 1970, so it would show up better on black-and-white TV.' },
+  { icon:'👑', es:'Pelé es el único jugador de la historia que ganó 3 Copas del Mundo: en 1958, 1962 y 1970.', en:'Pelé is the only player in history to win 3 World Cups: in 1958, 1962, and 1970.' },
+  { icon:'📜', es:'Las reglas modernas del fútbol se escribieron en 1863 en Inglaterra, cuando se fundó la primera asociación de fútbol del mundo.', en:'The modern rules of soccer were written in 1863 in England, when the world\'s first football association was founded.' },
+  { icon:'🌍', es:'El fútbol es el deporte más popular del mundo — se juega y se sigue en más de 200 países.', en:'Soccer is the most popular sport in the world — it\'s played and followed in more than 200 countries.' },
+  { icon:'👕', es:'El arquero usa una camiseta de color distinto a la del resto del equipo para que el árbitro lo distinga fácil, sobre todo cuando puede usar las manos.', en:'The goalkeeper wears a different colored jersey than the rest of the team so the referee can easily tell them apart, especially since they\'re allowed to use their hands.' },
+  { icon:'🎩', es:'Cuando un jugador mete 3 goles en un mismo partido se llama "hat-trick" — el nombre viene de una vieja tradición del cricket inglés, donde le regalaban un sombrero al jugador.', en:'When a player scores 3 goals in one match it\'s called a "hat-trick" — the name comes from an old cricket tradition, where the player was given a hat as a gift.' },
+  { icon:'🇬🇧', es:'En muchos países le dicen "soccer" al fútbol porque viene de la abreviación de "association football", el nombre original del deporte en inglés.', en:'In many countries soccer is called "soccer" because it comes from an abbreviation of "association football", the sport\'s original English name.' },
+  { icon:'👩', es:'La primera Copa del Mundo femenina se jugó en 1991, en China.', en:'The first Women\'s World Cup was played in 1991, in China.' },
+  { icon:'📏', es:'Un campo de fútbol profesional puede medir entre 100 y 110 metros de largo — ¡eso es más de una cancha de fútbol americano!', en:'A professional soccer field can be between 100 and 110 meters long — that\'s longer than an American football field!' },
+  { icon:'⏱️', es:'Un partido dura 90 minutos divididos en dos tiempos de 45, más el tiempo extra que agrega el árbitro al final de cada uno.', en:'A match lasts 90 minutes split into two 45-minute halves, plus the extra time the referee adds at the end of each one.' },
+  { icon:'🔢', es:'Un equipo necesita al menos 7 jugadores en la cancha para poder empezar o seguir un partido oficial — si tiene menos, el partido se suspende.', en:'A team needs at least 7 players on the field to start or continue an official match — with fewer, the match gets called off.' },
+  { icon:'🔄', es:'La Copa del Mundo se juega cada 4 años — el próximo Mundial siempre es motivo de fiesta en todo el planeta.', en:'The World Cup is played every 4 years — the next World Cup is always a reason for celebration all over the planet.' },
+  { icon:'🥅', es:'El área grande (donde el arquero puede usar las manos) mide 16.5 metros desde cada palo del arco.', en:'The penalty area (where the goalkeeper can use their hands) extends 16.5 meters from each goalpost.' },
+  { icon:'🟨', es:'Las tarjetas amarilla y roja se usaron por primera vez en un Mundial en 1970 — antes, el árbitro solo hablaba con el jugador para amonestarlo.', en:'Yellow and red cards were first used at a World Cup in 1970 — before that, the referee could only talk to a player to warn them.' },
+  { icon:'🧤', es:'Antes de los años 70, muchos arqueros jugaban sin guantes — hoy son una parte clave del equipo para atajar mejor.', en:'Before the 1970s, many goalkeepers played without gloves — today they\'re a key part of the gear for better saves.' },
+  { icon:'📺', es:'El Mundial de fútbol es el evento deportivo más visto del planeta, por encima incluso de los Juegos Olímpicos.', en:'The World Cup is the most-watched sporting event on the planet, even bigger than the Olympics.' },
+  { icon:'🇧🇷', es:'Brasil es el único país que jugó absolutamente todos los Mundiales desde que empezaron en 1930.', en:'Brazil is the only country that has played in every single World Cup since they began in 1930.' },
+  { icon:'🏆', es:'La copa que se entrega al campeón del Mundial se llama "Copa FIFA" y está hecha de oro macizo.', en:'The trophy given to the World Cup champion is called the "FIFA World Cup Trophy" and is made of solid gold.' },
+  { icon:'🔥', es:'Un "clásico" es el nombre que se le da al partido entre dos equipos rivales históricos, muchas veces de la misma ciudad.', en:'A "derby" is the name given to a match between two historic rival teams, often from the same city.' },
+  { icon:'🥇', es:'Durante un tiempo existió la regla del "gol de oro": el primer equipo en marcar en el tiempo extra ganaba el partido al instante.', en:'For a while there was a "golden goal" rule: the first team to score in extra time won the match instantly.' },
+  { icon:'🚩', es:'Los banderines en las esquinas de la cancha ayudan a ver bien los límites del campo, incluso desde lejos.', en:'The corner flags help everyone see the field boundaries clearly, even from far away.' },
+  { icon:'🔊', es:'El silbato del árbitro se usa desde fines del siglo XIX, para poder detener el juego sin tener que gritar.', en:'The referee\'s whistle has been used since the late 1800s, to stop play without having to shout.' },
+  { icon:'📐', es:'Un córner (saque de esquina) se ejecuta desde el arco de la esquina más cercana a donde salió la pelota.', en:'A corner kick is taken from the corner arc nearest to where the ball went out.' },
+  { icon:'🌱', es:'Las canchas de fútbol pueden ser de pasto natural o sintético — muchos estadios modernos combinan los dos.', en:'Soccer fields can be natural grass or artificial turf — many modern stadiums use a mix of both.' },
+  { icon:'😅', es:'Un "gol en contra" (autogol) es cuando un jugador mete la pelota sin querer en su propio arco.', en:'An "own goal" is when a player accidentally puts the ball into their own net.' },
+  { icon:'👕', es:'El uniforme alternativo (de visitante) existe para que los dos equipos no se confundan cuando sus colores principales se parecen.', en:'The away kit exists so the two teams don\'t get mixed up when their main colors look similar.' },
+  { icon:'👶', es:'En el fútbol juvenil, muchas ligas usan canchas más chicas y menos jugadores por equipo, para que los chicos toquen más la pelota.', en:'In youth soccer, many leagues use smaller fields and fewer players per team, so kids get more touches on the ball.' },
+  { icon:'📹', es:'El "VAR" (Árbitro Asistente de Video) se usa en el fútbol profesional para revisar jugadas dudosas con cámaras.', en:'"VAR" (Video Assistant Referee) is used in professional soccer to review close calls using cameras.' },
+  { icon:'🏘️', es:'Muchos jugadores profesionales empezaron a jugar en la calle o en canchas improvisadas de sus barrios.', en:'Many professional players started out playing in the street or on makeshift fields in their neighborhoods.' },
+  { icon:'👩‍⚽️', es:'El fútbol femenino creció muchísimo en las últimas décadas, con más ligas profesionales que nunca alrededor del mundo.', en:'Women\'s soccer has grown enormously in recent decades, with more professional leagues than ever around the world.' },
+  { icon:'📡', es:'El primer partido de fútbol televisado del mundo fue en Inglaterra, en 1937.', en:'The world\'s first televised soccer match was in England, in 1937.' },
+  { icon:'🧤', es:'Los guantes de arquero tienen material especial en las palmas para agarrar mejor la pelota, sobre todo cuando llueve.', en:'Goalkeeper gloves have special material on the palms for a better grip on the ball, especially in the rain.' },
+  { icon:'🚫', es:'Un jugador puede tocar la pelota con cualquier parte del cuerpo excepto los brazos y las manos (salvo el arquero en su área).', en:'A player can touch the ball with any part of the body except the arms and hands (except the goalkeeper in their own area).' },
+  { icon:'📣', es:'La palabra "hincha" (o "fan") para los seguidores de un equipo viene de la pasión y el aliento que le dan a su equipo.', en:'The word "fan" for a team\'s supporters comes from "fanatic" — someone with real passion for their team.' },
+  { icon:'🏖️', es:'En algunos países se juega al fútbol playa, con reglas adaptadas para jugar sobre la arena.', en:'In some countries, beach soccer is played, with rules adapted for playing on sand.' },
+  { icon:'🏢', es:'El fútbol sala (o futsal) se juega en una cancha techada más chica, con una pelota especial que rebota menos.', en:'Futsal is played on a smaller indoor court, with a special ball that bounces less.' },
+  { icon:'🎟️', es:'Muchos estadios de fútbol tienen capacidad para más de 80.000 personas, y se llenan por completo en partidos importantes.', en:'Many soccer stadiums hold more than 80,000 people, and fill up completely for important matches.' },
+  { icon:'🔢', es:'Desde el Mundial de 1950, los equipos empezaron a usar números fijos de camiseta durante todo el torneo.', en:'Since the 1950 World Cup, teams began using fixed jersey numbers throughout the whole tournament.' },
+  { icon:'↔️', es:'"La banda" es el nombre que se le da a las líneas laterales de la cancha, por donde suelen correr los extremos.', en:'"The touchline" is the name for the sidelines of the field, where wingers usually run.' },
+  { icon:'🎯', es:'Un tiro de esquina puede terminar en gol directo sin que nadie más toque la pelota — es raro, pero pasa.', en:'A corner kick can result in a direct goal without anyone else touching the ball — it\'s rare, but it happens.' },
+  { icon:'🤝', es:'El fútbol ayuda a desarrollar trabajo en equipo, coordinación y resistencia física — por eso es tan bueno aprenderlo de chico.', en:'Soccer helps build teamwork, coordination, and physical endurance — that\'s why it\'s so great to learn as a kid.' },
+  { icon:'🎌', es:'Muchos países tienen una selección nacional que los representa en torneos internacionales como el Mundial o la Copa América.', en:'Many countries have a national team that represents them in international tournaments like the World Cup or the Copa América.' },
+  { icon:'🏟️', es:'Algunos de los estadios de fútbol más antiguos del mundo, construidos en el siglo XIX, todavía se usan hoy en día.', en:'Some of the oldest soccer stadiums in the world, built in the 1800s, are still used today.' },
+  { icon:'🤸', es:'Calentar bien antes de un partido o entrenamiento ayuda a prevenir lesiones musculares.', en:'Warming up well before a match or practice helps prevent muscle injuries.' },
+  { icon:'👟', es:'La "Bota de Oro" es un premio que se le entrega al máximo goleador de cada Copa del Mundo.', en:'The "Golden Boot" is an award given to the top goal-scorer of each World Cup.' },
+  { icon:'2️⃣', es:'Un "doblete" es cuando un jugador anota 2 goles en un mismo partido (y un "hat-trick" son 3).', en:'A "brace" is when a player scores 2 goals in the same match (and a "hat-trick" is 3).' },
+  { icon:'🌏', es:'El fútbol, tal como lo conocemos hoy, tiene raíces en juegos con pelota que se jugaban hace más de 2000 años en distintas culturas del mundo.', en:'Soccer as we know it today has roots in ball games played more than 2,000 years ago across different cultures around the world.' },
+  { icon:'🌟', es:'Los mejores jugadores del mundo empezaron exactamente igual que vos: practicando y divirtiéndose con la pelota.', en:'The best players in the world started out exactly like you: practicing and having fun with the ball.' },
+  { icon:'🏃‍♂️', es:'Un jugador de campo puede correr entre 9 y 12 kilómetros durante un partido completo — ¡casi como correr una carrera!', en:'A field player can run between 9 and 12 kilometers during a full match — almost like running a race!' },
+];
+
+let curiosidadOrden = [];
+let curiosidadIdx = 0;
+
+function renderCuriosidad(){
+  if(curiosidadOrden.length === 0 || curiosidadIdx >= curiosidadOrden.length){
+    curiosidadOrden = shuffle(DATOS_CURIOSOS.map((_,i)=>i));
+    curiosidadIdx = 0;
+  }
+  const d = DATOS_CURIOSOS[curiosidadOrden[curiosidadIdx]];
+  const t = translations[currentLang];
+  const texto = currentLang === 'es' ? d.es : d.en;
+  const card = document.getElementById('curiosidadCard');
+  card.innerHTML = `
+    <div style="text-align:center;">
+      <div style="font-size:40px;margin-bottom:14px;">${d.icon}</div>
+      <p style="font-size:15px;line-height:1.6;color:var(--ink);">${texto}</p>
+      <button class="btn gold" style="margin-top:20px;" onclick="siguienteCuriosidad()">${t.otroDato}</button>
+    </div>`;
+}
+
+function siguienteCuriosidad(){
+  curiosidadIdx++;
+  renderCuriosidad();
 }
 
 function toggleReto(i){
