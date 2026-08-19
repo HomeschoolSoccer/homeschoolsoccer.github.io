@@ -470,8 +470,8 @@
 </footer>
 
 <script>
-// Contraseña compartida del portal de familias — cambiala acá cuando quieras.
-const PORTAL_PASSWORD = 'cancha2026';
+
+
 
 // ── Traducciones ──
 let currentLang = 'en';
@@ -580,9 +580,9 @@ function abrirModal(){
 function cerrarModal(){
   document.getElementById('modalOverlay').classList.remove('open');
 }
-function verificarPassword(){
+async function verificarPassword(){
   const val = document.getElementById('passwordInput').value;
-  if(val === PORTAL_PASSWORD){
+  const resp = await jsonpRequest({ action:'checkPortalPassword', password: val }); if(resp && resp.ok){
     cerrarModal();
     abrirPortal();
   } else {
@@ -798,7 +798,7 @@ async function guardarMiProgreso(){
   progresoData[jugadorActual.id] = p; // asegurar que el reset de fecha quede reflejado localmente
   try{
     await jsonpRequest({
-      action:'saveProgreso',
+      action:'saveProgreso', key: 'bUc1nm8UunOSp7eU1VTD6P5u',
       id: jugadorActual.id,
       nombre: jugadorActual.nombre,
       puntos: p.puntos,
