@@ -172,9 +172,15 @@
   .newsletter-item h3, .actividad-item h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
   .newsletter-item p, .actividad-item p{font-size:13px;color:var(--text-soft);line-height:1.6;}
   .empty-list{
-    text-align:center;padding:34px 20px;color:var(--text-soft);font-size:13.5px;
-    background:var(--card);border-radius:var(--r-md);border:1px dashed var(--card-border);
+    text-align:center;padding:44px 24px;color:var(--text-soft);font-size:13.5px;line-height:1.6;
+    background:var(--card);border-radius:var(--r-lg);border:1px solid var(--card-border);
+    box-shadow:var(--shadow-card);
   }
+  .empty-list .el-icon{
+    width:48px;height:48px;border-radius:14px;background:rgba(50,199,102,0.1);color:var(--green);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+  }
+  .empty-list .el-title{color:var(--text);font-weight:700;font-size:14.5px;margin-bottom:4px;}
 
   /* ── ZONA DE PRÁCTICA ── */
   .full{
@@ -456,17 +462,21 @@
       <span class="nt-link" id="startPracticeLink"></span>
     </div>
 
-    <div class="home-section-title">
-      <h2 data-i18n="latestNewsTitle">Latest News</h2>
-      <button class="see-all" onclick="cambiarAppScreen('newsletter')" id="seeAllNews"></button>
+    <div id="newsPreviewWrap">
+      <div class="home-section-title">
+        <h2 data-i18n="latestNewsTitle">Latest News</h2>
+        <button class="see-all" onclick="cambiarAppScreen('newsletter')" id="seeAllNews"></button>
+      </div>
+      <div class="preview-list" id="newsPreview"></div>
     </div>
-    <div class="preview-list" id="newsPreview"></div>
 
-    <div class="home-section-title">
-      <h2 data-i18n="upcomingEventsTitle">Upcoming Events</h2>
-      <button class="see-all" onclick="cambiarAppScreen('actividades')" id="seeAllEvents"></button>
+    <div id="eventsPreviewWrap">
+      <div class="home-section-title">
+        <h2 data-i18n="upcomingEventsTitle">Upcoming Events</h2>
+        <button class="see-all" onclick="cambiarAppScreen('actividades')" id="seeAllEvents"></button>
+      </div>
+      <div class="preview-list" id="eventsPreview"></div>
     </div>
-    <div class="preview-list" id="eventsPreview"></div>
   </section>
 
   <!-- CALENDARIO -->
@@ -605,9 +615,11 @@ const translations = {
     retoHecho:'Completado', retoTocar:'Tocar para marcar',
     siguienteTrivia:'Siguiente',
     newsletterEyebrow:'Newsletter', newsletterH2:'Novedades para familias homeschool',
-    newsletterVacio:'Todavía no hay novedades cargadas.',
+    newsletterVacio:'Cuando publiquemos algo, va a aparecer acá.',
+    newsletterVacioTitulo:'Todavía no hay novedades',
     actividadesEyebrow:'Eventos', actividadesH2:'Próximos eventos',
-    actividadesVacio:'Todavía no hay eventos programados.',
+    actividadesVacio:'Cuando organicemos algo especial, va a aparecer acá.',
+    actividadesVacioTitulo:'Sin eventos por ahora',
     salirPortal:'Salir',
     modalP:'Ingresá tu código personal de 4 dígitos.',
     modalErr:'Código incorrecto, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
@@ -638,9 +650,11 @@ const translations = {
     retoHecho:'Completed', retoTocar:'Tap to mark',
     siguienteTrivia:'Next',
     newsletterEyebrow:'Newsletter', newsletterH2:'News for Homeschool Families',
-    newsletterVacio:'No updates posted yet.',
+    newsletterVacio:"When we post something, it'll show up here.",
+    newsletterVacioTitulo:'No news yet',
     actividadesEyebrow:'Events', actividadesH2:'Upcoming Events',
-    actividadesVacio:'No events scheduled yet.',
+    actividadesVacio:"When we plan something special, it'll show up here.",
+    actividadesVacioTitulo:'No events yet',
     salirPortal:'Log Out',
     modalP:'Enter your personal 4-digit code.',
     modalErr:'Incorrect code, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
@@ -853,10 +867,12 @@ function renderHomeDynamic(){
     </div>
   `;
 
+  const newsWrap = document.getElementById('newsPreviewWrap');
   const newsPrev = document.getElementById('newsPreview');
   if(NEWSLETTER.length === 0){
-    newsPrev.innerHTML = `<div class="empty-list">${t.newsletterVacio}</div>`;
+    newsWrap.style.display = 'none';
   } else {
+    newsWrap.style.display = '';
     const top2 = [...NEWSLETTER].sort((a,b)=>new Date(b.fecha)-new Date(a.fecha)).slice(0,2);
     newsPrev.innerHTML = top2.map(n => `
       <div class="newsletter-item" onclick="cambiarAppScreen('newsletter')" style="cursor:pointer;">
@@ -866,10 +882,12 @@ function renderHomeDynamic(){
       </div>`).join('');
   }
 
+  const eventsWrap = document.getElementById('eventsPreviewWrap');
   const evPrev = document.getElementById('eventsPreview');
   if(ACTIVIDADES.length === 0){
-    evPrev.innerHTML = `<div class="empty-list">${t.actividadesVacio}</div>`;
+    eventsWrap.style.display = 'none';
   } else {
+    eventsWrap.style.display = '';
     const top2 = [...ACTIVIDADES].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,2);
     evPrev.innerHTML = top2.map(a => `
       <div class="actividad-item" onclick="cambiarAppScreen('actividades')" style="cursor:pointer;">
@@ -930,8 +948,13 @@ const NEWSLETTER = [
 
 function renderNewsletter(){
   const wrap = document.getElementById('newsletterList');
+  const t = translations[currentLang];
   if(NEWSLETTER.length === 0){
-    wrap.innerHTML = `<div class="empty-list">${translations[currentLang].newsletterVacio}</div>`;
+    wrap.innerHTML = `<div class="empty-list">
+      <div class="el-icon">${icon('news',22)}</div>
+      <div class="el-title">${t.newsletterVacioTitulo}</div>
+      ${t.newsletterVacio}
+    </div>`;
     return;
   }
   const ordenado = [...NEWSLETTER].sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
@@ -952,8 +975,13 @@ const ACTIVIDADES = [
 
 function renderActividades(){
   const wrap = document.getElementById('actividadesList');
+  const t = translations[currentLang];
   if(ACTIVIDADES.length === 0){
-    wrap.innerHTML = `<div class="empty-list">${translations[currentLang].actividadesVacio}</div>`;
+    wrap.innerHTML = `<div class="empty-list">
+      <div class="el-icon">${icon('events',22)}</div>
+      <div class="el-title">${t.actividadesVacioTitulo}</div>
+      ${t.actividadesVacio}
+    </div>`;
     return;
   }
   const ordenado = [...ACTIVIDADES].sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
