@@ -108,44 +108,10 @@
   .section-head h2{font-size:1.8rem;font-weight:700;color:var(--pitch);}
   .section-head p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
 
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto;}
-  .info-card{
-    background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 22px;text-align:center;
-  }
-  section.alt .info-card{background:var(--cream);}
-  .info-card .icon{font-size:30px;margin-bottom:10px;}
-  .info-card h3{font-size:16px;font-weight:600;color:var(--pitch);margin-bottom:8px;}
-  .info-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
-
-  .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:560px;margin:0 auto;}
-  .price-card{
-    background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:26px;text-align:center;
-  }
-  .price-card.featured{border-color:var(--gold);background:var(--gold-soft);}
-  .price-card .amount{font-family:'Fraunces',serif;font-weight:800;font-size:2.2rem;color:var(--pitch);}
-  .price-card .label{font-size:13px;color:var(--ink-soft);margin-top:4px;font-weight:600;}
-  .payment-note{
-    max-width:560px;margin:20px auto 0;text-align:center;font-size:13px;color:var(--ink-soft);
-    background:var(--cream);border-radius:10px;padding:14px;
-  }
-
-  .contact-grid{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;text-align:center;}
-  .contact-item .icon{font-size:24px;margin-bottom:6px;}
-  .contact-item .label{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.5px;}
-  .contact-item .value{font-weight:700;color:var(--pitch);margin-top:2px;}
-  .map-link{
-    display:inline-block;margin-top:10px;font-size:12px;font-weight:700;
-    color:var(--grass);text-decoration:none;border-bottom:1.5px solid var(--grass);
-    padding-bottom:1px;
-  }
-  .map-link:hover{color:var(--pitch);border-color:var(--pitch);}
-
   footer{background:var(--pitch-dark);color:rgba(251,248,243,0.65);text-align:center;padding:28px 20px;font-size:12.5px;}
   footer strong{color:var(--cream);}
 
   @media (max-width:720px){
-    .grid-3{grid-template-columns:1fr;}
-    .pricing-grid{grid-template-columns:1fr;}
     header.hero h1{font-size:2rem;}
     .nav-links a{display:none;}
     .nav-links{gap:6px;}
@@ -416,6 +382,13 @@
       <h2 data-i18n="calH2">Fechas sin práctica por feriado</h2>
       <p data-i18n="calP">Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:</p>
     </div>
+    <div class="home-card wide" style="max-width:640px;margin:0 auto 16px;cursor:default;">
+      <div class="hc-icon">📍</div>
+      <div>
+        <h3 data-i18n="horarioBaseH">Horario habitual</h3>
+        <p data-i18n="horarioBaseP">Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park</p>
+      </div>
+    </div>
     <div class="cal-list" id="feriadosPortal"></div>
   </section>
 
@@ -430,13 +403,6 @@
     <div class="jugador-selector" id="jugadorSelector">
       <p style="color:var(--ink-soft);font-size:13.5px;margin-bottom:12px;" data-i18n="elegirJugador">Elegí quién sos para guardar tu progreso:</p>
       <select id="selectJugador" class="full" style="max-width:320px;margin:0 auto;display:block;"></select>
-
-      <div id="pinWrap" style="display:none;max-width:320px;margin:14px auto 0;">
-        <p style="color:var(--ink-soft);font-size:12.5px;margin-bottom:8px;" data-i18n="pedirCodigo">Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):</p>
-        <input type="text" id="pinInput" class="full" maxlength="4" inputmode="numeric" style="text-align:center;letter-spacing:4px;font-weight:700;">
-        <div id="pinErr" style="color:var(--red);font-size:12px;margin-top:6px;display:none;font-weight:600;" data-i18n="codigoIncorrecto">Código incorrecto, probá de nuevo.</div>
-        <button class="btn gold" style="margin-top:10px;width:100%;justify-content:center;" onclick="confirmarPin()" data-i18n="confirmarCodigo">Confirmar</button>
-      </div>
     </div>
 
     <div id="practicaContenido" style="display:none;">
@@ -535,21 +501,12 @@ const PORTAL_PASSWORD = 'cancha2026';
 let currentLang = 'en';
 const translations = {
   es: {
-    navSobre:'Sobre Nosotros', navHorario:'Horario y Precios', navContacto:'Contacto', navPortal:'Entrar',
+    navPortal:'Entrar',
     heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidos, familias',
     heroSub:'Este es el espacio de las familias de Homeschool Soccer — calendario, novedades, y la Zona de Práctica para que los chicos sigan aprendiendo de fútbol en casa.',
-    heroCta1:'Inscribite ahora',
-    sobreEyebrow:'Sobre nosotros', sobreH2:'Fútbol pensado para familias homeschool',
-    sobreP:'Homeschool Soccer LLC ofrece un espacio de entrenamiento y comunidad para chicos de 4 a 14 años cuyas familias educan en casa — con horarios pensados para encajar en el día de una familia homeschool.',
-    card1H:'Todas las edades', card1P:'Categorías desde Sub-6 hasta Sub-14, agrupadas por edad para un desarrollo acorde a cada etapa.',
-    card2H:'Comunidad homeschool', card2P:'Un espacio pensado por y para familias que educan en casa, con horarios matutinos que no compiten con la rutina escolar tradicional.',
-    card3H:'Miramar, FL', card3P:'Entrenamos en Miramar Regional Park — fácil acceso para familias de Miramar y ciudades cercanas de Broward County.',
     horarioEyebrow:'Horario y precios', horarioH2:'Cómo funciona la temporada', horarioP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    precio1:'Inscripción anual<br>(incluye uniforme, pago único)', precio2:'Mensualidad',
-    contactoEyebrow:'Contacto', contactoH2:'¿Tenés preguntas?',
-    contactoLabel1:'WhatsApp / Teléfono', contactoLabel2:'Email', contactoLabel3:'Ubicación',
-    verMapa:'📍 Ver en Google Maps',
     portalEyebrow:'Portal de familias', calH2:'Fechas sin práctica por feriado',
+    horarioBaseH:'Horario habitual', horarioBaseP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
     homeSaludo:'¡Hola de nuevo! 👋', homeSub:'Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.',
     homeCardPracticaH:'Zona de Práctica', homeCardPracticaP:'Trivia, retos y datos curiosos',
     homeCardCalendarioH:'Calendario', homeCardCalendarioP:'Fechas sin práctica',
@@ -561,8 +518,6 @@ const translations = {
     elegirJugador:'Elegí quién sos para guardar tu progreso:', elegirNombre:'Elegí tu nombre...',
     cambiarJugador:'Cambiar jugador', tabTrivia:'Trivia', tabRetos:'Retos', tabCuriosidades:'Datos Curiosos',
     otroDato:'Otro dato →',
-    pedirCodigo:'Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):',
-    codigoIncorrecto:'Código incorrecto, probá de nuevo.', confirmarCodigo:'Confirmar',
     puntosLbl:'Puntos de trivia', retosLbl:'Retos completados', hoyLbl:'Preguntas hoy',
     limiteTitulo:'¡Listo por hoy!', limiteTexto:'Ya respondiste todas las preguntas de hoy. Volvé mañana para seguir sumando puntos y subir de nivel.',
     diaNoHabilitadoTitulo:'La trivia abre Lunes a Miércoles', diaNoHabilitadoTexto:'Para que las preguntas duren toda la temporada, la Zona de Práctica se juega de Lunes a Miércoles. ¡Te esperamos el próximo lunes! ⚽',
@@ -581,21 +536,12 @@ const translations = {
     modalErr:'Contraseña incorrecta, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
   },
   en: {
-    navSobre:'About Us', navHorario:'Schedule & Pricing', navContacto:'Contact', navPortal:'Enter',
+    navPortal:'Enter',
     heroBadge:'Season 2026–2027', heroTitulo:'Welcome, families',
     heroSub:"This is the space for Homeschool Soccer families — calendar, updates, and the Practice Zone so kids can keep learning about soccer at home.",
-    heroCta1:'Register now',
-    sobreEyebrow:'About us', sobreH2:'Soccer built for homeschool families',
-    sobreP:'Homeschool Soccer LLC offers a training and community space for kids ages 4 to 14 whose families homeschool — with schedules designed to fit a homeschool family\'s day.',
-    card1H:'All ages welcome', card1P:'Categories from Sub-6 through Sub-14, grouped by age for development suited to each stage.',
-    card2H:'Homeschool community', card2P:'A space built by and for homeschool families, with morning schedules that don\'t compete with a traditional school day.',
-    card3H:'Miramar, FL', card3P:'We train at Miramar Regional Park — easy access for families in Miramar and nearby Broward County cities.',
     horarioEyebrow:'Schedule & pricing', horarioH2:'How the season works', horarioP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    precio1:'Annual registration<br>(uniform included, one-time)', precio2:'Monthly fee',
-    contactoEyebrow:'Contact', contactoH2:'Have questions?',
-    contactoLabel1:'WhatsApp / Phone', contactoLabel2:'Email', contactoLabel3:'Location',
-    verMapa:'📍 View on Google Maps',
     portalEyebrow:'Family portal', calH2:'Dates with no practice due to holidays',
+    horarioBaseH:'Regular schedule', horarioBaseP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
     homeSaludo:'Welcome back! 👋', homeSub:'Choose where you want to go — the calendar, the news, or straight into the Practice Zone.',
     homeCardPracticaH:'Practice Zone', homeCardPracticaP:'Trivia, challenges & fun facts',
     homeCardCalendarioH:'Calendar', homeCardCalendarioP:'Dates with no practice',
@@ -607,8 +553,6 @@ const translations = {
     elegirJugador:'Choose who you are to save your progress:', elegirNombre:'Choose your name...',
     cambiarJugador:'Switch player', tabTrivia:'Trivia', tabRetos:'Challenges', tabCuriosidades:'Fun Facts',
     otroDato:'Another fact →',
-    pedirCodigo:"Enter this player's 4-digit code (we emailed it when they registered):",
-    codigoIncorrecto:'Incorrect code, try again.', confirmarCodigo:'Confirm',
     puntosLbl:'Trivia points', retosLbl:'Challenges completed', hoyLbl:'Questions today',
     limiteTitulo:'Done for today!', limiteTexto:"You've answered all of today's questions. Come back tomorrow to keep earning points and leveling up.",
     diaNoHabilitadoTitulo:'Trivia is open Monday–Wednesday', diaNoHabilitadoTexto:"So the questions last all season, the Practice Zone runs Monday through Wednesday. See you next Monday! ⚽",
@@ -863,41 +807,16 @@ async function cargarDatosPractica(){
   }
 }
 
-let jugadorPendiente = null;
-
 function poblarSelectorJugador(){
   const sel = document.getElementById('selectJugador');
   const ordenados = [...jugadoresList].sort((a,b)=>a.nombre.localeCompare(b.nombre));
   sel.innerHTML = '<option value="">' + translations[currentLang].elegirNombre + '</option>' +
     ordenados.map(j => `<option value="${j.id}">${j.nombre}</option>`).join('');
   sel.addEventListener('change', ()=>{
-    if(!sel.value) { document.getElementById('pinWrap').style.display='none'; return; }
+    if(!sel.value) return;
     const j = jugadoresList.find(x=>x.id===sel.value);
-    if(j){
-      jugadorPendiente = j;
-      document.getElementById('pinInput').value = '';
-      document.getElementById('pinErr').style.display = 'none';
-      document.getElementById('pinWrap').style.display = 'block';
-      document.getElementById('pinInput').focus();
-    }
+    if(j) seleccionarJugador(j);
   });
-  document.getElementById('pinInput').addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter') confirmarPin();
-  });
-
-  // Ya no auto-selecciona por localStorage — el código sigue siendo obligatorio
-  // cada vez, así un dispositivo compartido no queda "abierto" para cualquiera.
-}
-
-function confirmarPin(){
-  if(!jugadorPendiente) return;
-  const val = document.getElementById('pinInput').value.trim();
-  const codigoReal = jugadorPendiente.id.slice(-4);
-  if(val === codigoReal){
-    seleccionarJugador(jugadorPendiente);
-  } else {
-    document.getElementById('pinErr').style.display = 'block';
-  }
 }
 
 function seleccionarJugador(j){
@@ -913,11 +832,9 @@ function seleccionarJugador(j){
 
 function cambiarJugador(){
   jugadorActual = null;
-  jugadorPendiente = null;
   document.getElementById('jugadorSelector').style.display = 'block';
   document.getElementById('practicaContenido').style.display = 'none';
   document.getElementById('selectJugador').value = '';
-  document.getElementById('pinWrap').style.display = 'none';
 }
 
 const LIMITE_TRIVIAS_DIA = 5;
