@@ -348,7 +348,7 @@
   <!-- INICIO -->
   <section class="app-screen active" id="screen-inicio">
     <div class="home-greeting">
-      <h2 data-i18n="homeSaludo">¡Hola de nuevo! 👋</h2>
+      <h2 id="homeSaludoTexto">¡Hola! 👋</h2>
       <p data-i18n="homeSub">Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.</p>
     </div>
     <div class="home-grid">
@@ -400,16 +400,8 @@
       <p data-i18n="practicaP">Trivia y desafíos para practicar en casa cuando tengan un rato libre.</p>
     </div>
 
-    <div class="jugador-selector" id="jugadorSelector">
-      <p style="color:var(--ink-soft);font-size:13.5px;margin-bottom:12px;" data-i18n="elegirJugador">Elegí quién sos para guardar tu progreso:</p>
-      <select id="selectJugador" class="full" style="max-width:320px;margin:0 auto;display:block;"></select>
-    </div>
-
-    <div id="practicaContenido" style="display:none;">
+    <div id="practicaContenido">
       <div class="progreso-box" id="progresoBox"></div>
-      <p style="text-align:center;margin-bottom:16px;">
-        <a href="#" onclick="cambiarJugador();return false;" style="color:var(--pitch);font-size:12px;text-decoration:underline;font-weight:600;" data-i18n="cambiarJugador">Cambiar jugador</a>
-      </p>
 
       <div class="practica-tabs">
         <button class="practica-tab active" data-ptab="trivia" onclick="cambiarPracticaTab('trivia')">🧠 <span data-i18n="tabTrivia">Trivia</span></button>
@@ -477,11 +469,11 @@
 <!-- MODAL LOGIN -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <div class="icon">🔒</div>
-    <h3 data-i18n="navPortal">Portal de Familias</h3>
-    <p data-i18n="modalP">Ingresá la contraseña que te compartió la academia para ver el calendario y las novedades.</p>
-    <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
-    <div class="err" id="passwordErr" data-i18n="modalErr">Contraseña incorrecta, probá de nuevo.</div>
+    <div class="icon">⚽</div>
+    <h3 data-i18n="navPortal">Entrar</h3>
+    <p data-i18n="modalP">Ingresá tu código personal de 4 dígitos.</p>
+    <input type="text" id="passwordInput" maxlength="4" inputmode="numeric" placeholder="0000" autocomplete="off" style="text-align:center;letter-spacing:6px;font-weight:700;font-size:20px;">
+    <div class="err" id="passwordErr" data-i18n="modalErr">Código incorrecto, probá de nuevo.</div>
     <div class="actions">
       <button class="btn ghost" onclick="cerrarModal()" data-i18n="modalCancelar">Cancelar</button>
       <button class="btn gold" onclick="verificarPassword()" data-i18n="modalEntrar">Entrar</button>
@@ -494,9 +486,6 @@
 </footer>
 
 <script>
-// Contraseña compartida del portal de familias — cambiala acá cuando quieras.
-const PORTAL_PASSWORD = 'cancha2026';
-
 // ── Traducciones ──
 let currentLang = 'en';
 const translations = {
@@ -507,7 +496,7 @@ const translations = {
     horarioEyebrow:'Horario y precios', horarioH2:'Cómo funciona la temporada', horarioP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
     portalEyebrow:'Portal de familias', calH2:'Fechas sin práctica por feriado',
     horarioBaseH:'Horario habitual', horarioBaseP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    homeSaludo:'¡Hola de nuevo! 👋', homeSub:'Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.',
+    homeSaludoPrefix:'¡Hola', homeSub:'Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.',
     homeCardPracticaH:'Zona de Práctica', homeCardPracticaP:'Trivia, retos y datos curiosos',
     homeCardCalendarioH:'Calendario', homeCardCalendarioP:'Fechas sin práctica',
     homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'Novedades para la familia',
@@ -515,8 +504,7 @@ const translations = {
     navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'News', navActividades:'Eventos',
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:',
     practicaEyebrow:'Para los jugadores', practicaH2:'⚽ Zona de Práctica', practicaP:'Trivia y desafíos para practicar en casa cuando tengan un rato libre.',
-    elegirJugador:'Elegí quién sos para guardar tu progreso:', elegirNombre:'Elegí tu nombre...',
-    cambiarJugador:'Cambiar jugador', tabTrivia:'Trivia', tabRetos:'Retos', tabCuriosidades:'Datos Curiosos',
+    tabTrivia:'Trivia', tabRetos:'Retos', tabCuriosidades:'Datos Curiosos',
     otroDato:'Otro dato →',
     puntosLbl:'Puntos de trivia', retosLbl:'Retos completados', hoyLbl:'Preguntas hoy',
     limiteTitulo:'¡Listo por hoy!', limiteTexto:'Ya respondiste todas las preguntas de hoy. Volvé mañana para seguir sumando puntos y subir de nivel.',
@@ -532,8 +520,8 @@ const translations = {
     actividadesP:'Eventos especiales aparte de las prácticas regulares — salidas, encuentros, torneos.',
     actividadesVacio:'Todavía no hay actividades especiales programadas. ¡Estén atentos! 📅',
     salirPortal:'Salir del portal',
-    modalP:'Ingresá la contraseña que te compartió la academia para ver el calendario y las novedades.',
-    modalErr:'Contraseña incorrecta, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
+    modalP:'Ingresá tu código personal de 4 dígitos.',
+    modalErr:'Código incorrecto, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
   },
   en: {
     navPortal:'Enter',
@@ -542,7 +530,7 @@ const translations = {
     horarioEyebrow:'Schedule & pricing', horarioH2:'How the season works', horarioP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
     portalEyebrow:'Family portal', calH2:'Dates with no practice due to holidays',
     horarioBaseH:'Regular schedule', horarioBaseP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    homeSaludo:'Welcome back! 👋', homeSub:'Choose where you want to go — the calendar, the news, or straight into the Practice Zone.',
+    homeSaludoPrefix:'Hi', homeSub:'Choose where you want to go — the calendar, the news, or straight into the Practice Zone.',
     homeCardPracticaH:'Practice Zone', homeCardPracticaP:'Trivia, challenges & fun facts',
     homeCardCalendarioH:'Calendar', homeCardCalendarioP:'Dates with no practice',
     homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'News for the family',
@@ -550,8 +538,7 @@ const translations = {
     navInicio:'Home', navCalendario:'Calendar', navPractica:'Practice', navNewsletter:'News', navActividades:'Events',
     calP:'Season August 3, 2026 to May 31, 2027 — Monday & Wednesday, except these dates:',
     practicaEyebrow:'For players', practicaH2:'⚽ Practice Zone', practicaP:'Trivia and challenges to practice at home in your free time.',
-    elegirJugador:'Choose who you are to save your progress:', elegirNombre:'Choose your name...',
-    cambiarJugador:'Switch player', tabTrivia:'Trivia', tabRetos:'Challenges', tabCuriosidades:'Fun Facts',
+    tabTrivia:'Trivia', tabRetos:'Challenges', tabCuriosidades:'Fun Facts',
     otroDato:'Another fact →',
     puntosLbl:'Trivia points', retosLbl:'Challenges completed', hoyLbl:'Questions today',
     limiteTitulo:'Done for today!', limiteTexto:"You've answered all of today's questions. Come back tomorrow to keep earning points and leveling up.",
@@ -567,8 +554,8 @@ const translations = {
     actividadesP:'Special events beyond regular practice — outings, meetups, tournaments.',
     actividadesVacio:'No special activities scheduled yet. Stay tuned! 📅',
     salirPortal:'Exit portal',
-    modalP:'Enter the password the academy shared with you to see the calendar and updates.',
-    modalErr:'Incorrect password, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
+    modalP:'Enter your personal 4-digit code.',
+    modalErr:'Incorrect code, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
   }
 };
 
@@ -582,12 +569,13 @@ function applyTranslations(lang){
   });
   document.getElementById('langBtnText').textContent = lang === 'es' ? 'EN' : 'ES';
   document.getElementById('langBtnTextApp').textContent = lang === 'es' ? 'EN' : 'ES';
-  document.getElementById('passwordInput').placeholder = lang === 'es' ? 'Contraseña' : 'Password';
+  document.getElementById('passwordInput').placeholder = '0000';
   document.documentElement.lang = lang;
   renderFeriadosPortal();
   renderNewsletter();
   renderActividades();
-  if(document.getElementById('practicaContenido').style.display !== 'none'){
+  if(document.getElementById('portal').classList.contains('open')){
+    actualizarSaludo();
     renderProgreso();
     renderTrivia();
     renderRetos();
@@ -610,8 +598,10 @@ function cerrarModal(){
   document.getElementById('modalOverlay').classList.remove('open');
 }
 function verificarPassword(){
-  const val = document.getElementById('passwordInput').value;
-  if(val === PORTAL_PASSWORD){
+  const val = document.getElementById('passwordInput').value.trim();
+  const j = jugadoresList.find(x => x.id.slice(-4) === val);
+  if(j){
+    jugadorActual = j;
     cerrarModal();
     abrirPortal();
   } else {
@@ -629,9 +619,22 @@ function abrirPortal(){
   document.getElementById('appTop').classList.add('show');
   document.getElementById('bottomNav').classList.add('show');
   cambiarAppScreen('inicio');
+  actualizarSaludo();
+  renderProgreso();
+  triviaOrden = [];
+  triviaIdx = 0;
+  renderTrivia();
+  renderRetos();
   window.scrollTo({top:0, behavior:'smooth'});
 }
+
+function actualizarSaludo(){
+  const t = translations[currentLang];
+  const nombre = jugadorActual ? jugadorActual.nombre : '';
+  document.getElementById('homeSaludoTexto').textContent = t.homeSaludoPrefix + ' ' + nombre + '! 👋';
+}
 function cerrarPortal(){
+  jugadorActual = null;
   document.getElementById('portal').classList.remove('open');
   document.getElementById('preLoginNav').style.display = '';
   document.getElementById('preLoginHero').style.display = '';
@@ -796,45 +799,13 @@ function parseProgresoSite(rows){
 async function cargarDatosPractica(){
   try{
     // Endpoint separado y minimalista — nunca trae teléfonos, emails,
-    // direcciones ni datos médicos, solo lo necesario para este selector.
+    // direcciones ni datos médicos, solo lo necesario para identificar al jugador.
     const data = await jsonpRequest({ action: 'getDatosPracticaPublico' });
     jugadoresList = data.jugadores || [];
     progresoData = parseProgresoSite(data.progreso);
-    poblarSelectorJugador();
   }catch(err){
-    document.getElementById('jugadorSelector').innerHTML = '<p style="color:var(--ink-soft);font-size:13px;">No se pudo conectar para cargar la lista de jugadores. Probá recargar la página.</p>';
-    console.error(err);
+    console.error('No se pudo cargar la lista de jugadores:', err);
   }
-}
-
-function poblarSelectorJugador(){
-  const sel = document.getElementById('selectJugador');
-  const ordenados = [...jugadoresList].sort((a,b)=>a.nombre.localeCompare(b.nombre));
-  sel.innerHTML = '<option value="">' + translations[currentLang].elegirNombre + '</option>' +
-    ordenados.map(j => `<option value="${j.id}">${j.nombre}</option>`).join('');
-  sel.addEventListener('change', ()=>{
-    if(!sel.value) return;
-    const j = jugadoresList.find(x=>x.id===sel.value);
-    if(j) seleccionarJugador(j);
-  });
-}
-
-function seleccionarJugador(j){
-  jugadorActual = j;
-  document.getElementById('jugadorSelector').style.display = 'none';
-  document.getElementById('practicaContenido').style.display = 'block';
-  renderProgreso();
-  triviaOrden = [];
-  triviaIdx = 0;
-  renderTrivia();
-  renderRetos();
-}
-
-function cambiarJugador(){
-  jugadorActual = null;
-  document.getElementById('jugadorSelector').style.display = 'block';
-  document.getElementById('practicaContenido').style.display = 'none';
-  document.getElementById('selectJugador').value = '';
 }
 
 const LIMITE_TRIVIAS_DIA = 5;
