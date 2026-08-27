@@ -443,7 +443,7 @@
 
   <!-- INICIO -->
   <section class="app-screen active" id="screen-inicio">
-    <h1 class="display" id="homeSaludoTexto" style="font-size:1.6rem;font-weight:700;margin-bottom:4px;">Hi! 👋</h1>
+    <h1 class="display" id="homeSaludoTexto" style="font-size:2.1rem;font-weight:700;margin-bottom:4px;line-height:1.15;">Welcome! ⚽</h1>
     <p style="color:var(--text-soft);font-size:13.5px;margin-bottom:20px;" data-i18n="homeSub">Welcome back.</p>
 
     <div class="next-training-card" id="nextTrainingCard"></div>
@@ -591,13 +591,13 @@
 let currentLang = 'en';
 const translations = {
   es: {
-    navPortal:'Entrar',
-    heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidos, familias',
+    navPortal:'Zona de Jugador', welcomePrefix:'BIENVENIDO',
+    heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidas, familias',
     heroSub:'Este es el club digital de las familias de Homeschool Soccer.',
     portalEyebrow:'Calendario', calH2:'Horario de entrenamiento', calH2b:'Fechas sin práctica',
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027',
     homeSub:'Bienvenido de nuevo a tu club.',
-    navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'News', navActividades:'Eventos',
+    navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'Novedades', navActividades:'Eventos',
     dayMonday:'Lunes', dayWednesday:'Miércoles',
     nextTrainingLbl:'Próximo entrenamiento', viewCalendar:'Ver calendario',
     thisWeekTitle:'Esta semana', trainingLbl:'Entrenamiento',
@@ -614,19 +614,19 @@ const translations = {
     diaNoHabilitadoTitulo:'Disponible Lunes a Miércoles', diaNoHabilitadoTexto:'Para que las preguntas duren toda la temporada, la Zona de Práctica se juega de Lunes a Miércoles. ¡Te esperamos el próximo lunes!',
     retoHecho:'Completado', retoTocar:'Tocar para marcar',
     siguienteTrivia:'Siguiente',
-    newsletterEyebrow:'Newsletter', newsletterH2:'Novedades para familias homeschool',
+    newsletterEyebrow:'Novedades', newsletterH2:'Novedades de la academia',
     newsletterVacio:'Cuando publiquemos algo, va a aparecer acá.',
     newsletterVacioTitulo:'Todavía no hay novedades',
     actividadesEyebrow:'Eventos', actividadesH2:'Próximos eventos',
     actividadesVacio:'Cuando organicemos algo especial, va a aparecer acá.',
     actividadesVacioTitulo:'Sin eventos por ahora',
     salirPortal:'Salir',
-    modalP:'Ingresá tu código personal de 4 dígitos.',
+    modalP:'Tu Zona de Práctica privada. Ingresá tu código de jugador de 4 dígitos.',
     modalErr:'Código incorrecto, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
     readMore:'Leer más', moreInfo:'Más info',
   },
   en: {
-    navPortal:'Enter',
+    navPortal:'Player Zone', welcomePrefix:'WELCOME',
     heroBadge:'Season 2026–2027', heroTitulo:'Welcome, families',
     heroSub:'This is the digital clubhouse for Homeschool Soccer families.',
     portalEyebrow:'Calendar', calH2:'Training Schedule', calH2b:'Dates With No Practice',
@@ -649,14 +649,14 @@ const translations = {
     diaNoHabilitadoTitulo:'Open Monday–Wednesday', diaNoHabilitadoTexto:"So the questions last all season, the Practice Zone runs Monday through Wednesday. See you next Monday!",
     retoHecho:'Completed', retoTocar:'Tap to mark',
     siguienteTrivia:'Next',
-    newsletterEyebrow:'Newsletter', newsletterH2:'News for Homeschool Families',
+    newsletterEyebrow:'News', newsletterH2:'Academy News',
     newsletterVacio:"When we post something, it'll show up here.",
     newsletterVacioTitulo:'No news yet',
     actividadesEyebrow:'Events', actividadesH2:'Upcoming Events',
     actividadesVacio:"When we plan something special, it'll show up here.",
     actividadesVacioTitulo:'No events yet',
     salirPortal:'Log Out',
-    modalP:'Enter your personal 4-digit code.',
+    modalP:'Your private Practice Zone. Enter your 4-digit Player Code.',
     modalErr:'Incorrect code, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
     readMore:'Read more', moreInfo:'More info',
   }
@@ -809,7 +809,8 @@ function abrirPortal(){
 
 function actualizarSaludo(){
   const nombre = jugadorActual ? jugadorActual.nombre : '';
-  document.getElementById('homeSaludoTexto').textContent = (currentLang==='es' ? '¡Hola, ' : 'Hi, ') + nombre + '! ⚽';
+  const t = translations[currentLang];
+  document.getElementById('homeSaludoTexto').textContent = t.welcomePrefix + ', ' + nombre + ' ⚽';
 }
 function cerrarPortal(){
   jugadorActual = null;
