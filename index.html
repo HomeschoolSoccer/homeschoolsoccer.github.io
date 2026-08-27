@@ -5,302 +5,381 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homeschool Soccer LLC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pitch:#2E6DA0;
-    --pitch-dark:#1F4E78;
-    --pitch-soft:#EAF2F9;
-    --grass:#6D9952;
-    --grass-light:#A9C79A;
-    --gold:#5E9E44;
-    --gold-soft:#E3EEDD;
-    --warm:#F4A300;
-    --warm-soft:#FDF0D8;
-    --cream:#FBF8F3;
-    --paper:#FFFFFF;
-    --ink:#1D231C;
-    --ink-soft:#5C6B5D;
-    --line:#E9E4D8;
-    --red:#C1440E;
-    --r-lg:22px;
-    --r-md:16px;
-    --r-sm:11px;
-    --shadow-soft:0 4px 18px rgba(31,78,120,0.08);
-    --shadow-card:0 2px 10px rgba(31,78,120,0.06);
+    --bg:#071A24;
+    --bg-2:#0D2933;
+    --card:#0D2933;
+    --card-border:rgba(255,255,255,0.07);
+    --green:#32C766;
+    --green-light:#72E29A;
+    --green-dark:#26A254;
+    --text:#F5F8F6;
+    --text-soft:#A8B8B2;
+    --yellow:#F5C84B;
+    --red:#EF6262;
+    --r-lg:16px;
+    --r-md:12px;
+    --r-sm:9px;
+    --shadow-soft:0 8px 24px rgba(0,0,0,0.28);
+    --shadow-card:0 2px 12px rgba(0,0,0,0.22);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
-    font-family:'Inter',sans-serif;color:var(--ink);
+    font-family:'Inter',sans-serif;color:var(--text);
     -webkit-font-smoothing:antialiased;
-    background-color:var(--cream);
+    background-color:var(--bg);
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232E6DA0' stroke-width='1.6' opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='16'/%3E%3Cpath d='M30 14 L38 20 L35 30 L25 30 L22 20 Z'/%3E%3Cpath d='M14 30 L22 20 M46 30 L38 20 M25 30 L20 44 M35 30 L40 44 M20 44 L40 44'/%3E%3Ccircle cx='90' cy='90' r='16'/%3E%3Cpath d='M90 74 L98 80 L95 90 L85 90 L82 80 Z'/%3E%3Cpath d='M74 90 L82 80 M106 90 L98 80 M85 90 L80 104 M95 90 L100 104 M80 104 L100 104'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:120px 120px;
+      radial-gradient(circle at 15% 8%, rgba(50,199,102,0.05) 0%, transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(50,199,102,0.04) 0%, transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%2332C766' stroke-width='1' opacity='0.05'%3E%3Ccircle cx='130' cy='130' r='60'/%3E%3Cline x1='130' y1='0' x2='130' y2='260'/%3E%3Cline x1='0' y1='130' x2='260' y2='130'/%3E%3Ccircle cx='130' cy='130' r='2'/%3E%3Cpath d='M0 0 L60 60 M260 0 L200 60 M0 260 L60 200 M260 260 L200 200'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:auto, auto, 260px 260px;
     background-attachment:fixed;
+    min-height:100vh;
   }
-  h1,h2,h3{font-family:'Fraunces',serif;}
+  h1,h2,h3{font-family:'Inter',sans-serif;letter-spacing:-0.01em;}
+  .display{font-family:'Space Grotesk',sans-serif;}
   a{color:inherit;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+  svg.icon{flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 
-  /* ── NAV ── */
+  /* ── NAV (pre-login) ── */
   nav.topnav{
-    position:sticky;top:0;z-index:50;background:var(--pitch);
-    box-shadow:0 2px 12px rgba(0,0,0,0.15);
+    position:sticky;top:0;z-index:50;background:rgba(7,26,36,0.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--card-border);
   }
-  nav.topnav .wrap{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:16px;}
+  nav.topnav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:16px;}
   .nav-brand{display:flex;align-items:center;gap:10px;}
-  .nav-brand img{height:34px;width:34px;object-fit:contain;background:var(--cream);border-radius:8px;padding:2px;}
-  .nav-brand span{color:var(--cream);font-weight:700;font-family:'Fraunces',serif;font-size:16px;}
-  .nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
-  .nav-links a{
-    color:rgba(251,248,243,0.85);text-decoration:none;font-size:13.5px;font-weight:600;
-    padding:8px 12px;border-radius:8px;transition:background .15s;
-  }
-  .nav-links a:hover{background:rgba(255,255,255,0.1);color:var(--cream);}
-  .nav-links button.portal-btn{
-    background:var(--gold);color:var(--pitch-dark);border:none;padding:9px 16px;
-    border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;
-  }
-  .nav-links button.portal-btn:hover{background:#4C8038;}
+  .nav-brand img{height:32px;width:32px;object-fit:contain;border-radius:8px;}
+  .nav-brand span{color:var(--text);font-weight:700;font-size:15px;letter-spacing:0.02em;}
+  .nav-links{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
   .nav-links button.lang-toggle{
-    background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.35);color:var(--cream);
-    padding:8px 12px;border-radius:8px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;
+    background:var(--bg-2);border:1px solid var(--card-border);color:var(--text);
+    padding:8px 14px;border-radius:99px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;
+    display:flex;align-items:center;gap:6px;transition:all .15s;
   }
-  .nav-links button.lang-toggle:hover{background:rgba(255,255,255,0.24);}
+  .nav-links button.lang-toggle:hover{border-color:var(--green);}
 
-  /* ── HERO ── */
+  /* ── HERO (pre-login) ── */
   header.hero{
-    background:linear-gradient(160deg,var(--pitch) 0%, var(--pitch-dark) 100%);
-    color:var(--cream);padding:64px 20px 72px;position:relative;overflow:hidden;
+    padding:80px 20px 90px;position:relative;overflow:hidden;text-align:center;
   }
-  header.hero::before{
-    content:'';position:absolute;inset:0;
-    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 44px);
-  }
-  .hero-inner{max-width:720px;margin:0 auto;text-align:center;position:relative;}
+  .hero-inner{max-width:520px;margin:0 auto;position:relative;}
   .hero-badge{
-    display:inline-block;background:var(--grass);color:var(--cream);font-family:'JetBrains Mono',monospace;
-    font-size:11.5px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:99px;
-    text-transform:uppercase;margin-bottom:20px;
+    display:inline-block;background:rgba(50,199,102,0.12);color:var(--green-light);
+    font-size:11.5px;font-weight:700;letter-spacing:1.2px;padding:6px 16px;border-radius:99px;
+    text-transform:uppercase;margin-bottom:24px;border:1px solid rgba(50,199,102,0.25);
   }
-  header.hero h1{font-size:2.6rem;font-weight:900;line-height:1.1;letter-spacing:-0.01em;}
-  header.hero p.sub{margin-top:16px;font-size:16px;color:rgba(251,248,243,0.82);line-height:1.6;max-width:540px;margin-left:auto;margin-right:auto;}
-  .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px;}
+  header.hero h1{font-size:2.4rem;font-weight:800;line-height:1.15;font-family:'Space Grotesk',sans-serif;}
+  header.hero p.sub{margin-top:16px;font-size:15.5px;color:var(--text-soft);line-height:1.6;max-width:440px;margin-left:auto;margin-right:auto;}
+  .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px;}
+
   .btn{
-    display:inline-flex;align-items:center;gap:8px;border:none;border-radius:10px;
-    padding:14px 26px;font-weight:700;font-size:14.5px;cursor:pointer;text-decoration:none;
-    font-family:'Inter',sans-serif;transition:all .15s;
+    display:inline-flex;align-items:center;gap:8px;border:none;border-radius:8px;
+    padding:14px 24px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;
+    font-family:'Inter',sans-serif;transition:all .15s ease;letter-spacing:0.02em;
   }
-  .btn.gold{background:var(--gold);color:var(--pitch-dark);}
-  .btn.gold:hover{background:#4C8038;transform:translateY(-1px);}
-  .btn.outline{background:transparent;border:1.5px solid rgba(251,248,243,0.4);color:var(--cream);}
-  .btn.outline:hover{background:rgba(255,255,255,0.08);}
+  .btn.gold{background:var(--green);color:#04170C;}
+  .btn.gold:hover{background:var(--green-dark);transform:translateY(-1px);}
+  .btn.gold:active{transform:translateY(0);}
+  .btn.outline{background:transparent;border:1.5px solid var(--card-border);color:var(--text);}
+  .btn.outline:hover{border-color:var(--green);}
+  .btn.ghost{background:var(--bg-2);color:var(--text-soft);border:1px solid var(--card-border);}
+  .btn.ghost:hover{color:var(--text);}
 
   /* ── SECTIONS ── */
-  section{padding:56px 20px;}
-  section.alt{background:var(--paper);}
-  .section-head{text-align:center;max-width:560px;margin:0 auto 36px;}
+  section{padding:40px 20px;}
+  .section-head{margin-bottom:20px;}
   .section-head .eyebrow{
-    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grass);font-weight:700;
-    text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;
+    font-size:11px;color:var(--green-light);font-weight:700;
+    text-transform:uppercase;letter-spacing:1.4px;margin-bottom:6px;
   }
-  .section-head h2{font-size:1.8rem;font-weight:700;color:var(--pitch);}
-  .section-head p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
+  .section-head h2{font-size:1.35rem;font-weight:700;color:var(--text);font-family:'Space Grotesk',sans-serif;}
+  .section-head p{margin-top:8px;color:var(--text-soft);font-size:13.5px;line-height:1.6;}
 
-  footer{background:var(--pitch-dark);color:rgba(251,248,243,0.65);text-align:center;padding:28px 20px;font-size:12.5px;}
-  footer strong{color:var(--cream);}
+  footer{color:var(--text-soft);text-align:center;padding:28px 20px;font-size:12px;opacity:0.7;}
+  footer strong{color:var(--text);}
 
   @media (max-width:720px){
-    header.hero h1{font-size:2rem;}
-    .nav-links a{display:none;}
-    .nav-links{gap:6px;}
-    .nav-links button.portal-btn{padding:8px 10px;font-size:11.5px;}
-    .nav-links button.lang-toggle{padding:8px 10px;font-size:11.5px;}
+    header.hero h1{font-size:1.9rem;}
   }
 
-  /* ── PORTAL MODAL (login) ── */
+  /* ── MODAL (login) ── */
   .modal-overlay{
-    display:none;position:fixed;inset:0;background:rgba(18,46,34,0.72);
+    display:none;position:fixed;inset:0;background:rgba(7,26,36,0.85);backdrop-filter:blur(4px);
     z-index:100;align-items:center;justify-content:center;padding:20px;
   }
   .modal-overlay.open{display:flex;}
   .modal-box{
-    background:var(--paper);border-radius:18px;padding:32px;max-width:380px;width:100%;text-align:center;
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);
+    padding:32px;max-width:360px;width:100%;text-align:center;box-shadow:var(--shadow-soft);
   }
-  .modal-box .icon{font-size:34px;margin-bottom:10px;}
-  .modal-box h3{font-size:18px;color:var(--pitch);margin-bottom:8px;}
-  .modal-box p{font-size:13px;color:var(--ink-soft);margin-bottom:18px;line-height:1.5;}
+  .modal-box .modal-icon{
+    width:52px;height:52px;border-radius:14px;background:rgba(50,199,102,0.12);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--green);
+  }
+  .modal-box h3{font-size:17px;color:var(--text);margin-bottom:8px;font-weight:700;}
+  .modal-box p{font-size:13px;color:var(--text-soft);margin-bottom:18px;line-height:1.5;}
   .modal-box input{
-    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;
-    text-align:center;letter-spacing:1px;
+    width:100%;padding:13px 14px;border:1.5px solid var(--card-border);border-radius:var(--r-sm);font-size:16px;
+    text-align:center;letter-spacing:1px;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
   }
-  .modal-box input:focus{outline:none;border-color:var(--grass);}
-  .modal-box .err{color:var(--red);font-size:12.5px;margin-top:8px;display:none;}
+  .modal-box input:focus{outline:none;border-color:var(--green);}
+  .modal-box .err{color:var(--red);font-size:12.5px;margin-top:8px;display:none;font-weight:600;}
   .modal-box .actions{display:flex;gap:10px;margin-top:18px;}
-  .modal-box .actions button{flex:1;}
-  .btn.ghost{background:var(--cream);color:var(--ink-soft);border:1px solid var(--line);}
+  .modal-box .actions button{flex:1;justify-content:center;}
 
   /* ── PORTAL (contenido protegido) ── */
   #portal{display:none;}
   #portal.open{display:block;}
-  section.portal-section .section-head .eyebrow{color:var(--grass);}
 
-  .cal-list{max-width:640px;margin:0 auto;background:var(--paper);border-radius:var(--r-md);padding:8px 20px;box-shadow:var(--shadow-card);}
+  .cal-list{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-md);padding:6px 18px;box-shadow:var(--shadow-card);}
   .cal-item{
-    display:flex;justify-content:space-between;gap:10px;padding:11px 4px;
-    border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 4px;
+    border-bottom:1px solid var(--card-border);font-size:13.5px;color:var(--text);
   }
   .cal-item:last-child{border-bottom:none;}
-  .cal-item .fecha{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);white-space:nowrap;}
-  .cal-item .nombre{color:var(--ink-soft);text-align:right;}
+  .cal-item .fecha{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--yellow);white-space:nowrap;font-size:13px;}
+  .cal-item .nombre{color:var(--text-soft);text-align:right;}
+
+  .schedule-card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-md);
+    padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-card);display:flex;align-items:center;gap:14px;
+  }
+  .schedule-card .sc-icon{
+    width:42px;height:42px;border-radius:10px;background:rgba(50,199,102,0.12);color:var(--green);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .schedule-card .sc-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green-light);}
+  .schedule-card h3{font-size:15.5px;font-weight:700;color:var(--text);margin:2px 0;}
+  .schedule-card p{font-size:12.5px;color:var(--text-soft);display:flex;align-items:center;gap:5px;}
+  .schedule-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+  @media (max-width:520px){.schedule-grid{grid-template-columns:1fr;}}
 
   .newsletter-list, .actividades-list{
-    max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px;
+    display:flex;flex-direction:column;gap:12px;
   }
   .newsletter-item, .actividad-item{
-    background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-md);padding:18px 20px;
+    box-shadow:var(--shadow-card);transition:transform .15s ease, border-color .15s ease;
   }
+  .newsletter-item:hover, .actividad-item:hover{transform:translateY(-2px);border-color:rgba(50,199,102,0.3);}
   .newsletter-item .fecha, .actividad-item .fecha{
-    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--grass);
-    text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--green-light);
+    text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;
   }
-  .newsletter-item h3, .actividad-item h3{font-size:15.5px;font-weight:700;color:var(--pitch);margin-bottom:6px;}
-  .newsletter-item p, .actividad-item p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .newsletter-item h3, .actividad-item h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
+  .newsletter-item p, .actividad-item p{font-size:13px;color:var(--text-soft);line-height:1.6;}
   .empty-list{
-    text-align:center;padding:30px 20px;color:var(--ink-soft);font-size:13.5px;
-    background:rgba(255,255,255,0.5);border-radius:14px;border:1px dashed var(--line);
+    text-align:center;padding:34px 20px;color:var(--text-soft);font-size:13.5px;
+    background:var(--card);border-radius:var(--r-md);border:1px dashed var(--card-border);
   }
 
   /* ── ZONA DE PRÁCTICA ── */
-  .jugador-selector{max-width:360px;margin:0 auto 24px;text-align:center;}
   .full{
-    width:100%;padding:11px 14px;border-radius:var(--r-sm);border:1.5px solid var(--line);
-    background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;
+    width:100%;padding:12px 14px;border-radius:var(--r-sm);border:1.5px solid var(--card-border);
+    background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;
   }
-  .full:focus{outline:none;border-color:var(--grass);}
-  .progreso-box{
-    max-width:480px;margin:0 auto 24px;display:flex;justify-content:center;gap:28px;
-    background:var(--paper);border-radius:var(--r-md);padding:16px 20px;box-shadow:var(--shadow-card);
-  }
-  .progreso-item{text-align:center;}
-  .progreso-item .num{font-family:'Fraunces',serif;font-weight:800;font-size:1.6rem;color:var(--gold);}
-  .progreso-item .lbl{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+  .full:focus{outline:none;border-color:var(--green);}
 
-  .practica-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:22px;}
+  .progress-card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-md);
+    padding:20px;margin-bottom:20px;box-shadow:var(--shadow-card);
+  }
+  .progress-card .pc-label{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-soft);margin-bottom:12px;
+  }
+  .progress-bar-track{width:100%;height:8px;border-radius:99px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:16px;}
+  .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:99px;transition:width .5s ease;}
+  .progress-stats{display:flex;justify-content:space-between;gap:12px;}
+  .progress-stat{text-align:center;flex:1;}
+  .progress-stat .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;color:var(--text);}
+  .progress-stat .lbl{font-size:10.5px;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+
+  .practica-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .practica-tab{
+    background:var(--card);border:1.5px solid var(--card-border);color:var(--text-soft);
+    padding:10px 16px;border-radius:99px;font-weight:600;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;
+    display:flex;align-items:center;gap:7px;transition:all .15s;
+  }
+  .practica-tab.active{background:rgba(50,199,102,0.14);border-color:var(--green);color:var(--green-light);}
 
   .nivel-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
   .nivel-tab{
-    background:var(--cream);border:1.5px solid var(--line);color:var(--ink-soft);
-    padding:7px 14px;border-radius:99px;font-weight:600;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;
+    background:var(--bg);border:1.5px solid var(--card-border);color:var(--text-soft);
+    padding:8px 14px;border-radius:99px;font-weight:600;font-size:11.5px;cursor:pointer;font-family:'Inter',sans-serif;
   }
-  .nivel-tab.active{background:var(--gold);border-color:var(--gold);color:var(--pitch-dark);}
-  .nivel-tab.locked{opacity:0.55;cursor:not-allowed;}
-  .practica-tab{
-    background:var(--cream);border:1.5px solid var(--line);color:var(--ink-soft);
-    padding:9px 18px;border-radius:99px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;
-  }
-  .practica-tab.active{background:var(--gold);border-color:var(--gold);color:var(--pitch-dark);}
+  .nivel-tab.active{background:var(--green);border-color:var(--green);color:#04170C;}
+  .nivel-tab.locked{opacity:0.5;cursor:not-allowed;}
 
-  .practica-panel{display:none;max-width:560px;margin:0 auto;}
-  .practica-panel.active{display:block;}
+  .practica-panel{display:none;}
+  .practica-panel.active{display:block;animation:fadeIn .2s ease;}
 
-  .trivia-card{background:var(--paper);border-radius:18px;padding:28px;color:var(--ink);}
+  .trivia-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow-card);}
   .trivia-card .cat-tag{
     display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;
-    background:var(--gold-soft);color:#8A5A00;padding:4px 10px;border-radius:99px;margin-bottom:12px;
+    background:rgba(245,200,75,0.14);color:var(--yellow);padding:4px 12px;border-radius:99px;margin-bottom:14px;
   }
-  .trivia-card h3{font-size:16.5px;font-weight:600;line-height:1.4;margin-bottom:18px;}
+  .trivia-card h3{font-size:16px;font-weight:600;line-height:1.4;margin-bottom:18px;color:var(--text);}
   .trivia-opciones{display:flex;flex-direction:column;gap:9px;}
   .trivia-opcion{
-    text-align:left;border:1.5px solid var(--line);background:var(--cream);border-radius:10px;
-    padding:12px 14px;font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink);
+    text-align:left;border:1.5px solid var(--card-border);background:var(--bg);border-radius:var(--r-sm);
+    padding:13px 15px;font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;color:var(--text);
     transition:all .12s;
   }
-  .trivia-opcion:hover{border-color:var(--grass);}
-  .trivia-opcion.correcta{background:#DFF3E8;border-color:#1B7A43;color:#1B7A43;font-weight:700;}
-  .trivia-opcion.incorrecta{background:var(--red-soft,#F7DCD3);border-color:var(--red,#C1440E);color:var(--red,#C1440E);}
+  .trivia-opcion:hover{border-color:var(--green);}
+  .trivia-opcion.correcta{background:rgba(50,199,102,0.14);border-color:var(--green);color:var(--green-light);font-weight:700;}
+  .trivia-opcion.incorrecta{background:rgba(239,98,98,0.12);border-color:var(--red);color:var(--red);}
   .trivia-opcion:disabled{cursor:default;}
-  .trivia-feedback{margin-top:14px;font-size:13px;color:var(--ink-soft);line-height:1.5;padding:12px;background:var(--cream);border-radius:10px;display:none;}
-  .aliento-msg{margin-top:8px;font-weight:700;color:var(--grass);font-size:14px;}
+  .trivia-feedback{margin-top:16px;font-size:13px;color:var(--text-soft);line-height:1.5;padding:14px;background:var(--bg);border-radius:var(--r-sm);display:none;}
+  .trivia-feedback.show{display:block;animation:fadeIn .2s ease;}
+  .aliento-msg{margin-top:8px;font-weight:700;color:var(--green-light);font-size:13.5px;}
   .toast-aliento{
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:var(--pitch-dark);color:var(--cream);padding:12px 22px;border-radius:99px;
-    font-weight:700;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--green);color:#04170C;padding:12px 22px;border-radius:99px;
+    font-weight:700;font-size:13.5px;box-shadow:var(--shadow-soft);
     opacity:0;pointer-events:none;transition:all .25s ease;z-index:200;
   }
   .toast-aliento.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  .trivia-feedback.show{display:block;}
-  .trivia-nav{display:flex;justify-content:flex-end;margin-top:16px;}
+  .trivia-nav{display:flex;justify-content:flex-end;margin-top:18px;}
 
-  .retos-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .retos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .reto-card{
-    background:var(--paper);border-radius:14px;padding:18px;color:var(--ink);cursor:pointer;
-    border:2px solid transparent;transition:all .15s;
+    background:var(--card);border-radius:var(--r-md);padding:18px;color:var(--text);cursor:pointer;
+    border:1.5px solid var(--card-border);transition:all .15s;
   }
-  .reto-card.done{border-color:var(--grass);background:#F0F9F0;}
+  .reto-card:hover{transform:translateY(-2px);border-color:rgba(50,199,102,0.3);}
+  .reto-card.done{border-color:var(--green);background:rgba(50,199,102,0.08);}
   .reto-card .reto-icon{font-size:22px;}
-  .reto-card h4{font-size:13.5px;font-weight:700;margin:8px 0 4px;}
-  .reto-card p{font-size:12px;color:var(--ink-soft);line-height:1.45;}
-  .reto-card .reto-check{margin-top:10px;font-size:12px;font-weight:700;color:var(--grass);}
+  .reto-card h4{font-size:13px;font-weight:700;margin:8px 0 4px;color:var(--text);}
+  .reto-card p{font-size:11.5px;color:var(--text-soft);line-height:1.45;}
+  .reto-card .reto-check{margin-top:10px;font-size:11.5px;font-weight:700;color:var(--green-light);display:flex;align-items:center;gap:4px;}
   @media (max-width:560px){.retos-grid{grid-template-columns:1fr;}}
 
-  /* ── APP SCREENS (después de entrar con contraseña) ── */
+  /* ── APP SHELL: SIDEBAR (desktop) + TOP BAR + BOTTOM NAV (mobile) ── */
   #appTop{
-    display:none;position:sticky;top:0;z-index:55;background:var(--paper);
-    border-bottom:1px solid var(--line);padding:14px 20px;align-items:center;justify-content:space-between;
+    display:none;position:sticky;top:0;z-index:55;background:rgba(7,26,36,0.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--card-border);padding:14px 20px;align-items:center;justify-content:space-between;
   }
   #appTop.show{display:flex;}
   #appTop .app-brand{display:flex;align-items:center;gap:10px;}
-  #appTop .app-brand img{height:32px;width:32px;object-fit:contain;border-radius:8px;}
-  #appTop .app-brand span{font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:var(--pitch);}
+  #appTop .app-brand img{height:30px;width:30px;object-fit:contain;border-radius:7px;}
+  #appTop .app-brand span{font-weight:700;font-size:14.5px;color:var(--text);}
   #appTop .app-actions{display:flex;align-items:center;gap:8px;}
   #appTop button{
-    background:var(--cream);border:1px solid var(--line);border-radius:99px;
-    padding:7px 12px;font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:'Inter',sans-serif;
+    background:var(--bg-2);border:1px solid var(--card-border);border-radius:99px;
+    padding:8px 12px;font-size:12px;font-weight:700;color:var(--text-soft);cursor:pointer;font-family:'Inter',sans-serif;
+    display:flex;align-items:center;gap:5px;transition:all .15s;
   }
+  #appTop button:hover{border-color:var(--green);color:var(--text);}
 
-  .app-screen{display:none;padding:22px 20px 100px;max-width:640px;margin:0 auto;animation:fadeIn .25s ease;}
-  .app-screen.active{display:block;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-
-  .home-greeting{
-    background:linear-gradient(160deg,var(--pitch) 0%, var(--pitch-dark) 100%);
-    color:var(--cream);border-radius:var(--r-lg);padding:26px 24px;margin-bottom:20px;box-shadow:var(--shadow-soft);
+  #sidebar{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:240px;background:var(--bg-2);
+    border-right:1px solid var(--card-border);z-index:56;padding:26px 16px;flex-direction:column;
   }
-  .home-greeting h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;}
-  .home-greeting p{font-size:13.5px;color:rgba(251,248,243,0.85);line-height:1.5;}
-
-  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .home-card{
-    background:var(--paper);border-radius:var(--r-md);padding:22px 18px;box-shadow:var(--shadow-card);
-    cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;border:1px solid var(--line);
-    min-height:96px;
+  #sidebar.show{display:flex;}
+  #sidebar .side-brand{padding:0 10px 26px;}
+  #sidebar .side-brand .sb-line1{font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--text);text-transform:uppercase;}
+  #sidebar .side-brand .sb-line2{font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;}
+  #sidebar nav{display:flex;flex-direction:column;gap:4px;flex:1;}
+  .side-link{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-sm);
+    color:var(--text-soft);text-decoration:none;font-size:14px;font-weight:600;cursor:pointer;
+    border:none;background:none;width:100%;text-align:left;font-family:'Inter',sans-serif;position:relative;
+    transition:all .15s;
   }
-  .home-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);}
-  .home-card:active{transform:translateY(0) scale(0.98);}
-  .home-card .hc-icon{font-size:34px;margin-bottom:10px;}
-  .home-card h3{font-size:14.5px;font-weight:700;color:var(--pitch);margin-bottom:4px;}
-  .home-card p{font-size:12px;color:var(--ink-soft);line-height:1.4;}
-  .home-card.wide{grid-column:1 / -1;display:flex;align-items:center;gap:16px;}
-  .home-card.wide .hc-icon{font-size:38px;margin-bottom:0;}
+  .side-link:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+  .side-link.active{background:rgba(50,199,102,0.12);color:var(--text);}
+  .side-link.active svg{color:var(--green);}
+  .side-link.active::before{
+    content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);
+    width:3px;height:18px;background:var(--green);border-radius:0 3px 3px 0;
+  }
+  #sidebar .side-footer{padding-top:16px;border-top:1px solid var(--card-border);display:flex;flex-direction:column;gap:8px;}
+  #sidebar .side-footer button{
+    display:flex;align-items:center;gap:10px;background:none;border:none;color:var(--text-soft);
+    font-size:13px;font-weight:600;cursor:pointer;padding:10px 14px;border-radius:var(--r-sm);font-family:'Inter',sans-serif;
+    width:100%;text-align:left;transition:all .15s;
+  }
+  #sidebar .side-footer button:hover{background:rgba(255,255,255,0.04);color:var(--text);}
 
   #bottomNav{
-    display:none;position:fixed;bottom:0;left:0;right:0;z-index:70;background:var(--paper);
-    border-top:1px solid var(--line);padding:10px 6px calc(10px + env(safe-area-inset-bottom));
-    box-shadow:0 -4px 16px rgba(31,78,120,0.08);
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:70;background:rgba(13,41,51,0.96);backdrop-filter:blur(10px);
+    border-top:1px solid var(--card-border);padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+    box-shadow:0 -4px 20px rgba(0,0,0,0.3);
   }
   #bottomNav.show{display:flex;justify-content:space-around;}
   .bnav-btn{
-    background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:4px;
-    padding:9px 6px;cursor:pointer;color:var(--ink-soft);font-family:'Inter',sans-serif;flex:1;min-width:0;
-    border-radius:14px;transition:background .15s ease;
+    background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:8px 4px;cursor:pointer;color:var(--text-soft);font-family:'Inter',sans-serif;flex:1;min-width:0;
+    border-radius:12px;transition:color .15s ease;
   }
-  .bnav-btn:active{background:var(--cream);}
-  .bnav-btn .bicon{font-size:27px;line-height:1;}
-  .bnav-btn .blabel{font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .bnav-btn.active{color:var(--pitch);}
-  .bnav-btn.active .bicon{transform:scale(1.15);}
+  .bnav-btn .blabel{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .bnav-btn.active{color:var(--green-light);}
+
+  #mainArea{transition:margin .15s ease;}
+  @media (min-width:900px){
+    #sidebar.show{display:flex;}
+    #mainArea.with-sidebar{margin-left:240px;}
+    #bottomNav{display:none !important;}
+    #appTop{display:none !important;}
+  }
+  @media (max-width:899px){
+    #sidebar{display:none !important;}
+  }
+
+  .app-screen{display:none;padding:22px 20px 96px;max-width:720px;margin:0 auto;animation:fadeIn .3s ease;}
+  .app-screen.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .next-training-card{
+    background:linear-gradient(135deg, rgba(50,199,102,0.16) 0%, rgba(13,41,51,1) 60%);
+    border:1px solid rgba(50,199,102,0.28);border-radius:var(--r-lg);padding:26px 24px;
+    margin-bottom:20px;box-shadow:var(--shadow-soft);
+  }
+  .next-training-card .nt-label{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--green-light);
+    margin-bottom:10px;display:flex;align-items:center;gap:6px;
+  }
+  .next-training-card .nt-day{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;font-weight:700;color:var(--text);}
+  .next-training-card .nt-time{font-size:14px;color:var(--text-soft);margin-top:4px;display:flex;align-items:center;gap:6px;}
+  .next-training-card .nt-place{font-size:13px;color:var(--text-soft);margin-top:4px;display:flex;align-items:center;gap:6px;}
+  .next-training-card .nt-link{
+    margin-top:16px;display:inline-flex;align-items:center;gap:6px;color:var(--green-light);
+    font-size:13px;font-weight:700;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;
+  }
+
+  .this-week-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+  @media (max-width:480px){.this-week-grid{grid-template-columns:1fr;}}
+  .week-card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-md);padding:16px;
+    box-shadow:var(--shadow-card);
+  }
+  .week-card .wc-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green-light);margin-bottom:6px;}
+  .week-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+  .week-card p{font-size:12px;color:var(--text-soft);display:flex;align-items:center;gap:5px;}
+
+  .practice-teaser{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-lg);padding:24px;
+    margin-bottom:20px;box-shadow:var(--shadow-card);cursor:pointer;transition:all .15s;
+  }
+  .practice-teaser:hover{border-color:rgba(50,199,102,0.3);transform:translateY(-2px);}
+  .practice-teaser h3{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:4px;font-family:'Space Grotesk',sans-serif;}
+  .practice-teaser p.pt-sub{font-size:13px;color:var(--text-soft);margin-bottom:16px;}
+  .practice-teaser .pt-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .pt-pill{
+    display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--card-border);
+    border-radius:99px;padding:7px 13px;font-size:12px;font-weight:600;color:var(--text-soft);
+  }
+  .practice-teaser .nt-link{color:var(--green-light);font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px;}
+
+  .home-section-title{
+    display:flex;align-items:center;justify-content:space-between;margin:28px 0 12px;
+  }
+  .home-section-title h2{font-size:1rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.6px;font-family:'Inter',sans-serif;}
+  .home-section-title .see-all{font-size:12px;font-weight:700;color:var(--green-light);cursor:pointer;display:flex;align-items:center;gap:4px;background:none;border:none;font-family:'Inter',sans-serif;}
+  .preview-list{display:flex;flex-direction:column;gap:10px;}
 </style>
 </head>
 <body>
@@ -313,7 +392,7 @@
       <span>Homeschool Soccer</span>
     </div>
     <div class="nav-links">
-      <button class="lang-toggle" onclick="toggleLang()">🌐 <span id="langBtnText">ES</span></button>
+      <button class="lang-toggle" onclick="toggleLang()" id="langToggleBtn"></button>
     </div>
   </div>
 </nav>
@@ -323,71 +402,102 @@
   <div class="hero-inner">
     <span class="hero-badge" data-i18n="heroBadge">Temporada 2026–2027</span>
     <h1 data-i18n="heroTitulo">Bienvenidos, familias</h1>
-    <p class="sub" data-i18n="heroSub">Este es el espacio de las familias de Homeschool Soccer — calendario, novedades, y la Zona de Práctica para que los chicos sigan aprendiendo de fútbol en casa.</p>
+    <p class="sub" data-i18n="heroSub">Este es el espacio de las familias de Homeschool Soccer.</p>
     <div class="hero-ctas">
-      <button class="btn gold" onclick="abrirModal()">🔒 <span data-i18n="navPortal">Entrar</span></button>
+      <button class="btn gold" onclick="abrirModal()" id="heroEnterBtn"></button>
     </div>
   </div>
 </header>
 
-<!-- BARRA SUPERIOR (después de entrar) -->
+<!-- SIDEBAR (desktop, después de entrar) -->
+<div id="sidebar">
+  <div class="side-brand">
+    <div class="sb-line1">HOMESCHOOL</div>
+    <div class="sb-line2">SOCCER</div>
+  </div>
+  <nav id="sidebarNav"></nav>
+  <div class="side-footer">
+    <button onclick="toggleLang()" id="sideLangBtn"></button>
+    <button onclick="cerrarPortal()" id="sideLogoutBtn"></button>
+  </div>
+</div>
+
+<!-- BARRA SUPERIOR MOBILE (después de entrar) -->
 <div id="appTop">
   <div class="app-brand">
     <img src="LOGO_Homeschool2026.jpeg" alt="" onerror="this.style.display='none'">
     <span>Homeschool Soccer</span>
   </div>
-  <div class="app-actions">
-    <button onclick="toggleLang()">🌐 <span id="langBtnTextApp">ES</span></button>
-    <button onclick="cerrarPortal()">🚪 <span data-i18n="salirPortal">Salir</span></button>
-  </div>
+  <div class="app-actions" id="appTopActions"></div>
 </div>
 
 <!-- APP (después de entrar) -->
+<div id="mainArea">
 <div id="portal">
 
   <!-- INICIO -->
   <section class="app-screen active" id="screen-inicio">
-    <div class="home-greeting">
-      <h2 id="homeSaludoTexto">¡Hola! 👋</h2>
-      <p data-i18n="homeSub">Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.</p>
+    <h1 class="display" id="homeSaludoTexto" style="font-size:1.6rem;font-weight:700;margin-bottom:4px;">Hi! 👋</h1>
+    <p style="color:var(--text-soft);font-size:13.5px;margin-bottom:20px;" data-i18n="homeSub">Welcome back.</p>
+
+    <div class="next-training-card" id="nextTrainingCard"></div>
+
+    <div class="home-section-title"><h2 data-i18n="thisWeekTitle">This Week</h2></div>
+    <div class="this-week-grid" id="thisWeekGrid"></div>
+
+    <div class="practice-teaser" onclick="cambiarAppScreen('practica')">
+      <h3 data-i18n="practiceTeaserH">Practice Zone</h3>
+      <p class="pt-sub" data-i18n="practiceTeaserP">Train your body. Train your mind.</p>
+      <div class="pt-pills">
+        <span class="pt-pill" id="pillIQ"></span>
+        <span class="pt-pill" id="pillChallenges"></span>
+        <span class="pt-pill" id="pillFacts"></span>
+      </div>
+      <span class="nt-link" id="startPracticeLink"></span>
     </div>
-    <div class="home-grid">
-      <div class="home-card" onclick="cambiarAppScreen('practica')">
-        <div class="hc-icon">⚽</div>
-        <h3 data-i18n="homeCardPracticaH">Zona de Práctica</h3>
-        <p data-i18n="homeCardPracticaP">Trivia, retos y datos curiosos</p>
-      </div>
-      <div class="home-card" onclick="cambiarAppScreen('calendario')">
-        <div class="hc-icon">📅</div>
-        <h3 data-i18n="homeCardCalendarioH">Calendario</h3>
-        <p data-i18n="homeCardCalendarioP">Fechas sin práctica</p>
-      </div>
-      <div class="home-card" onclick="cambiarAppScreen('newsletter')">
-        <div class="hc-icon">📰</div>
-        <h3 data-i18n="homeCardNewsletterH">Newsletter</h3>
-        <p data-i18n="homeCardNewsletterP">Novedades para la familia</p>
-      </div>
-      <div class="home-card" onclick="cambiarAppScreen('actividades')">
-        <div class="hc-icon">🎉</div>
-        <h3 data-i18n="homeCardActividadesH">Actividades</h3>
-        <p data-i18n="homeCardActividadesP">Eventos especiales</p>
-      </div>
+
+    <div class="home-section-title">
+      <h2 data-i18n="latestNewsTitle">Latest News</h2>
+      <button class="see-all" onclick="cambiarAppScreen('newsletter')" id="seeAllNews"></button>
     </div>
+    <div class="preview-list" id="newsPreview"></div>
+
+    <div class="home-section-title">
+      <h2 data-i18n="upcomingEventsTitle">Upcoming Events</h2>
+      <button class="see-all" onclick="cambiarAppScreen('actividades')" id="seeAllEvents"></button>
+    </div>
+    <div class="preview-list" id="eventsPreview"></div>
   </section>
 
   <!-- CALENDARIO -->
   <section class="app-screen" id="screen-calendario">
     <div class="section-head">
-      <div class="eyebrow" data-i18n="portalEyebrow">Portal de familias</div>
-      <h2 data-i18n="calH2">Fechas sin práctica por feriado</h2>
-      <p data-i18n="calP">Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:</p>
+      <div class="eyebrow" data-i18n="portalEyebrow">Calendar</div>
+      <h2 data-i18n="calH2">Training Schedule</h2>
     </div>
-    <div class="home-card wide" style="max-width:640px;margin:0 auto 16px;cursor:default;">
-      <div class="hc-icon">📍</div>
-      <div>
-        <h3 data-i18n="horarioBaseH">Horario habitual</h3>
-        <p data-i18n="horarioBaseP">Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park</p>
+
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <div class="sc-icon" id="calMonIcon"></div>
+        <div>
+          <div class="sc-day" data-i18n="dayMonday">Monday</div>
+          <h3>9:30 – 10:30 AM</h3>
+          <p><span id="calMonPin"></span> Miramar Regional Park</p>
+        </div>
       </div>
+      <div class="schedule-card">
+        <div class="sc-icon" id="calWedIcon"></div>
+        <div>
+          <div class="sc-day" data-i18n="dayWednesday">Wednesday</div>
+          <h3>9:30 – 10:30 AM</h3>
+          <p><span id="calWedPin"></span> Miramar Regional Park</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2 data-i18n="calH2b">Dates With No Practice</h2>
+      <p data-i18n="calP">Season Aug 3, 2026 – May 31, 2027</p>
     </div>
     <div class="cal-list" id="feriadosPortal"></div>
   </section>
@@ -395,19 +505,18 @@
   <!-- PRÁCTICA -->
   <section class="app-screen" id="screen-practica">
     <div class="section-head">
-      <div class="eyebrow" data-i18n="practicaEyebrow">Para los jugadores</div>
-      <h2 data-i18n="practicaH2">⚽ Zona de Práctica</h2>
-      <p data-i18n="practicaP">Trivia y desafíos para practicar en casa cuando tengan un rato libre.</p>
+      <div class="eyebrow" data-i18n="practicaEyebrow">For Players</div>
+      <h2 data-i18n="practicaH2">Practice Zone</h2>
     </div>
 
     <div id="practicaContenido">
-      <div class="progreso-box" id="progresoBox"></div>
-
-      <div class="practica-tabs">
-        <button class="practica-tab active" data-ptab="trivia" onclick="cambiarPracticaTab('trivia')">🧠 <span data-i18n="tabTrivia">Trivia</span></button>
-        <button class="practica-tab" data-ptab="retos" onclick="cambiarPracticaTab('retos')">🏆 <span data-i18n="tabRetos">Retos</span></button>
-        <button class="practica-tab" data-ptab="curiosidades" onclick="cambiarPracticaTab('curiosidades')">🎉 <span data-i18n="tabCuriosidades">Datos Curiosos</span></button>
+      <div class="progress-card">
+        <div class="pc-label" data-i18n="yourProgress">Your Progress</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="progressBarFill" style="width:0%;"></div></div>
+        <div class="progress-stats" id="progresoBox"></div>
       </div>
+
+      <div class="practica-tabs" id="practicaTabsWrap"></div>
 
       <div class="practica-panel active" id="ppanel-trivia">
         <div class="nivel-tabs" id="nivelTabs"></div>
@@ -428,8 +537,7 @@
   <section class="app-screen" id="screen-newsletter">
     <div class="section-head">
       <div class="eyebrow" data-i18n="newsletterEyebrow">Newsletter</div>
-      <h2 data-i18n="newsletterH2">📰 Novedades para familias homeschool</h2>
-      <p data-i18n="newsletterP">Tips, recursos y novedades — no solo de fútbol, también de la vida homeschool en general.</p>
+      <h2 data-i18n="newsletterH2">News for Homeschool Families</h2>
     </div>
     <div class="newsletter-list" id="newsletterList"></div>
   </section>
@@ -437,52 +545,35 @@
   <!-- ACTIVIDADES -->
   <section class="app-screen" id="screen-actividades">
     <div class="section-head">
-      <div class="eyebrow" data-i18n="actividadesEyebrow">Actividades</div>
-      <h2 data-i18n="actividadesH2">📅 Próximas actividades</h2>
-      <p data-i18n="actividadesP">Eventos especiales aparte de las prácticas regulares — salidas, encuentros, torneos.</p>
+      <div class="eyebrow" data-i18n="actividadesEyebrow">Events</div>
+      <h2 data-i18n="actividadesH2">Upcoming Events</h2>
     </div>
     <div class="actividades-list" id="actividadesList"></div>
   </section>
 
 </div>
-
-<!-- BARRA DE NAVEGACIÓN INFERIOR (después de entrar) -->
-<div id="bottomNav">
-  <button class="bnav-btn active" data-screen="inicio" onclick="cambiarAppScreen('inicio')">
-    <span class="bicon">🏠</span><span class="blabel" data-i18n="navInicio">Inicio</span>
-  </button>
-  <button class="bnav-btn" data-screen="calendario" onclick="cambiarAppScreen('calendario')">
-    <span class="bicon">📅</span><span class="blabel" data-i18n="navCalendario">Calendario</span>
-  </button>
-  <button class="bnav-btn" data-screen="practica" onclick="cambiarAppScreen('practica')">
-    <span class="bicon">⚽</span><span class="blabel" data-i18n="navPractica">Práctica</span>
-  </button>
-  <button class="bnav-btn" data-screen="newsletter" onclick="cambiarAppScreen('newsletter')">
-    <span class="bicon">📰</span><span class="blabel" data-i18n="navNewsletter">News</span>
-  </button>
-  <button class="bnav-btn" data-screen="actividades" onclick="cambiarAppScreen('actividades')">
-    <span class="bicon">🎉</span><span class="blabel" data-i18n="navActividades">Eventos</span>
-  </button>
 </div>
 
+<!-- BARRA DE NAVEGACIÓN INFERIOR (mobile, después de entrar) -->
+<div id="bottomNav"></div>
 
 <!-- MODAL LOGIN -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <div class="icon">⚽</div>
-    <h3 data-i18n="navPortal">Entrar</h3>
-    <p data-i18n="modalP">Ingresá tu código personal de 4 dígitos.</p>
-    <input type="text" id="passwordInput" maxlength="4" inputmode="numeric" placeholder="0000" autocomplete="off" style="text-align:center;letter-spacing:6px;font-weight:700;font-size:20px;">
-    <div class="err" id="passwordErr" data-i18n="modalErr">Código incorrecto, probá de nuevo.</div>
+    <div class="modal-icon" id="modalIconWrap"></div>
+    <h3 data-i18n="navPortal">Enter</h3>
+    <p data-i18n="modalP">Enter your personal 4-digit code.</p>
+    <input type="text" id="passwordInput" maxlength="4" inputmode="numeric" placeholder="0000" autocomplete="off">
+    <div class="err" id="passwordErr" data-i18n="modalErr">Incorrect code, try again.</div>
     <div class="actions">
-      <button class="btn ghost" onclick="cerrarModal()" data-i18n="modalCancelar">Cancelar</button>
-      <button class="btn gold" onclick="verificarPassword()" data-i18n="modalEntrar">Entrar</button>
+      <button class="btn ghost" onclick="cerrarModal()" data-i18n="modalCancelar">Cancel</button>
+      <button class="btn gold" onclick="verificarPassword()" data-i18n="modalEntrar">Enter</button>
     </div>
   </div>
 </div>
 
 <footer>
-  <strong>Homeschool Soccer LLC</strong> · Miramar, FL · homeschoolsoccerfl@gmail.com
+  <strong>Homeschool Soccer LLC</strong> · Miramar, FL
 </footer>
 
 <script>
@@ -492,94 +583,165 @@ const translations = {
   es: {
     navPortal:'Entrar',
     heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidos, familias',
-    heroSub:'Este es el espacio de las familias de Homeschool Soccer — calendario, novedades, y la Zona de Práctica para que los chicos sigan aprendiendo de fútbol en casa.',
-    horarioEyebrow:'Horario y precios', horarioH2:'Cómo funciona la temporada', horarioP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    portalEyebrow:'Portal de familias', calH2:'Fechas sin práctica por feriado',
-    horarioBaseH:'Horario habitual', horarioBaseP:'Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    homeSaludoPrefix:'¡Hola', homeSub:'Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.',
-    homeCardPracticaH:'Zona de Práctica', homeCardPracticaP:'Trivia, retos y datos curiosos',
-    homeCardCalendarioH:'Calendario', homeCardCalendarioP:'Fechas sin práctica',
-    homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'Novedades para la familia',
-    homeCardActividadesH:'Actividades', homeCardActividadesP:'Eventos especiales',
+    heroSub:'Este es el club digital de las familias de Homeschool Soccer.',
+    portalEyebrow:'Calendario', calH2:'Horario de entrenamiento', calH2b:'Fechas sin práctica',
+    calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027',
+    homeSub:'Bienvenido de nuevo a tu club.',
     navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'News', navActividades:'Eventos',
-    calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:',
-    practicaEyebrow:'Para los jugadores', practicaH2:'⚽ Zona de Práctica', practicaP:'Trivia y desafíos para practicar en casa cuando tengan un rato libre.',
-    tabTrivia:'Trivia', tabRetos:'Retos', tabCuriosidades:'Datos Curiosos',
-    otroDato:'Otro dato →',
-    puntosLbl:'Puntos de trivia', retosLbl:'Retos completados', hoyLbl:'Preguntas hoy',
+    dayMonday:'Lunes', dayWednesday:'Miércoles',
+    nextTrainingLbl:'Próximo entrenamiento', viewCalendar:'Ver calendario',
+    thisWeekTitle:'Esta semana', trainingLbl:'Entrenamiento',
+    practiceTeaserH:'Zona de Práctica', practiceTeaserP:'Entrená el cuerpo. Entrená la mente.',
+    pillIQ:'Fútbol IQ', pillChallenges:'Desafíos', pillFacts:'Datos Curiosos',
+    startPractice:'Empezar a practicar',
+    latestNewsTitle:'Últimas Novedades', upcomingEventsTitle:'Próximos Eventos', seeAll:'Ver todo',
+    practicaEyebrow:'Para los jugadores', practicaH2:'Zona de Práctica',
+    tabTrivia:'Fútbol IQ', tabRetos:'Desafíos', tabCuriosidades:'Datos Curiosos',
+    otroDato:'Otro dato',
+    yourProgress:'Tu Progreso',
+    puntosLbl:'Puntos', retosLbl:'Desafíos', hoyLbl:'Hoy',
     limiteTitulo:'¡Listo por hoy!', limiteTexto:'Ya respondiste todas las preguntas de hoy. Volvé mañana para seguir sumando puntos y subir de nivel.',
-    diaNoHabilitadoTitulo:'La trivia abre Lunes a Miércoles', diaNoHabilitadoTexto:'Para que las preguntas duren toda la temporada, la Zona de Práctica se juega de Lunes a Miércoles. ¡Te esperamos el próximo lunes! ⚽',
-    retoHecho:'✔ Completado', retoTocar:'Tocar para marcar',
-    siguienteTrivia:'Siguiente →',
-    novedadesEyebrow:'Novedades', novedadesH2:'Reportes de la academia',
-    reportesTexto:'Próximamente vamos a compartir acá novedades de la temporada, fotos y logros del equipo. ⚽',
-    newsletterEyebrow:'Newsletter', newsletterH2:'📰 Novedades para familias homeschool',
-    newsletterP:'Tips, recursos y novedades — no solo de fútbol, también de la vida homeschool en general.',
-    newsletterVacio:'Todavía no hay novedades cargadas. ¡Pronto vamos a compartir acá tips y novedades! ⚽',
-    actividadesEyebrow:'Actividades', actividadesH2:'📅 Próximas actividades',
-    actividadesP:'Eventos especiales aparte de las prácticas regulares — salidas, encuentros, torneos.',
-    actividadesVacio:'Todavía no hay actividades especiales programadas. ¡Estén atentos! 📅',
-    salirPortal:'Salir del portal',
+    diaNoHabilitadoTitulo:'Disponible Lunes a Miércoles', diaNoHabilitadoTexto:'Para que las preguntas duren toda la temporada, la Zona de Práctica se juega de Lunes a Miércoles. ¡Te esperamos el próximo lunes!',
+    retoHecho:'Completado', retoTocar:'Tocar para marcar',
+    siguienteTrivia:'Siguiente',
+    newsletterEyebrow:'Newsletter', newsletterH2:'Novedades para familias homeschool',
+    newsletterVacio:'Todavía no hay novedades cargadas.',
+    actividadesEyebrow:'Eventos', actividadesH2:'Próximos eventos',
+    actividadesVacio:'Todavía no hay eventos programados.',
+    salirPortal:'Salir',
     modalP:'Ingresá tu código personal de 4 dígitos.',
     modalErr:'Código incorrecto, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
+    readMore:'Leer más', moreInfo:'Más info',
   },
   en: {
     navPortal:'Enter',
     heroBadge:'Season 2026–2027', heroTitulo:'Welcome, families',
-    heroSub:"This is the space for Homeschool Soccer families — calendar, updates, and the Practice Zone so kids can keep learning about soccer at home.",
-    horarioEyebrow:'Schedule & pricing', horarioH2:'How the season works', horarioP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    portalEyebrow:'Family portal', calH2:'Dates with no practice due to holidays',
-    horarioBaseH:'Regular schedule', horarioBaseP:'Monday & Wednesday, 9:30 AM – 10:30 AM · Miramar Regional Park',
-    homeSaludoPrefix:'Hi', homeSub:'Choose where you want to go — the calendar, the news, or straight into the Practice Zone.',
-    homeCardPracticaH:'Practice Zone', homeCardPracticaP:'Trivia, challenges & fun facts',
-    homeCardCalendarioH:'Calendar', homeCardCalendarioP:'Dates with no practice',
-    homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'News for the family',
-    homeCardActividadesH:'Activities', homeCardActividadesP:'Special events',
+    heroSub:'This is the digital clubhouse for Homeschool Soccer families.',
+    portalEyebrow:'Calendar', calH2:'Training Schedule', calH2b:'Dates With No Practice',
+    calP:'Season Aug 3, 2026 – May 31, 2027',
+    homeSub:'Welcome back to your club.',
     navInicio:'Home', navCalendario:'Calendar', navPractica:'Practice', navNewsletter:'News', navActividades:'Events',
-    calP:'Season August 3, 2026 to May 31, 2027 — Monday & Wednesday, except these dates:',
-    practicaEyebrow:'For players', practicaH2:'⚽ Practice Zone', practicaP:'Trivia and challenges to practice at home in your free time.',
-    tabTrivia:'Trivia', tabRetos:'Challenges', tabCuriosidades:'Fun Facts',
-    otroDato:'Another fact →',
-    puntosLbl:'Trivia points', retosLbl:'Challenges completed', hoyLbl:'Questions today',
+    dayMonday:'Monday', dayWednesday:'Wednesday',
+    nextTrainingLbl:'Next Training', viewCalendar:'View Calendar',
+    thisWeekTitle:'This Week', trainingLbl:'Training',
+    practiceTeaserH:'Practice Zone', practiceTeaserP:'Train your body. Train your mind.',
+    pillIQ:'Soccer IQ', pillChallenges:'Challenges', pillFacts:'Soccer Facts',
+    startPractice:'Start Practice',
+    latestNewsTitle:'Latest News', upcomingEventsTitle:'Upcoming Events', seeAll:'See all',
+    practicaEyebrow:'For Players', practicaH2:'Practice Zone',
+    tabTrivia:'Soccer IQ', tabRetos:'Challenges', tabCuriosidades:'Soccer Facts',
+    otroDato:'Another fact',
+    yourProgress:'Your Progress',
+    puntosLbl:'Points', retosLbl:'Challenges', hoyLbl:'Today',
     limiteTitulo:'Done for today!', limiteTexto:"You've answered all of today's questions. Come back tomorrow to keep earning points and leveling up.",
-    diaNoHabilitadoTitulo:'Trivia is open Monday–Wednesday', diaNoHabilitadoTexto:"So the questions last all season, the Practice Zone runs Monday through Wednesday. See you next Monday! ⚽",
-    retoHecho:'✔ Completed', retoTocar:'Tap to mark',
-    siguienteTrivia:'Next →',
-    novedadesEyebrow:'News', novedadesH2:'Academy reports',
-    reportesTexto:'Coming soon: season updates, photos, and team highlights. ⚽',
-    newsletterEyebrow:'Newsletter', newsletterH2:'📰 News for homeschool families',
-    newsletterP:'Tips, resources, and updates — not just about soccer, about homeschool life in general too.',
-    newsletterVacio:'No updates posted yet. Soon we\'ll be sharing tips and news here! ⚽',
-    actividadesEyebrow:'Activities', actividadesH2:'📅 Upcoming activities',
-    actividadesP:'Special events beyond regular practice — outings, meetups, tournaments.',
-    actividadesVacio:'No special activities scheduled yet. Stay tuned! 📅',
-    salirPortal:'Exit portal',
+    diaNoHabilitadoTitulo:'Open Monday–Wednesday', diaNoHabilitadoTexto:"So the questions last all season, the Practice Zone runs Monday through Wednesday. See you next Monday!",
+    retoHecho:'Completed', retoTocar:'Tap to mark',
+    siguienteTrivia:'Next',
+    newsletterEyebrow:'Newsletter', newsletterH2:'News for Homeschool Families',
+    newsletterVacio:'No updates posted yet.',
+    actividadesEyebrow:'Events', actividadesH2:'Upcoming Events',
+    actividadesVacio:'No events scheduled yet.',
+    salirPortal:'Log Out',
     modalP:'Enter your personal 4-digit code.',
     modalErr:'Incorrect code, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
+    readMore:'Read more', moreInfo:'More info',
   }
 };
+
+// ── Íconos (estilo Lucide, SVG en línea) ──
+const ICON_PATHS = {
+  home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6.9a1 1 0 0 1 1.582 0l7 6.9A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+  practice: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/>',
+  news: '<path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/>',
+  events: '<path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-2.24-.75a2.9 2.9 0 0 1-1.96-3.12c.1-.86-.57-1.63-1.45-1.63h-.38c-.86 0-1.6-.6-1.76-1.44L14 3"/>',
+  lock: '<circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/>',
+  mapPin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  chevronRight: '<path d="m9 18 6-6-6-6"/>',
+  circleCheck: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  brain: '<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>',
+  trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>',
+  sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
+  globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+};
+function icon(name, size){
+  size = size || 18;
+  return '<svg class="icon" width="'+size+'" height="'+size+'" viewBox="0 0 24 24">'+ICON_PATHS[name]+'</svg>';
+}
+
+const NAV_ITEMS = [
+  { id:'inicio', icon:'home', key:'navInicio' },
+  { id:'calendario', icon:'calendar', key:'navCalendario' },
+  { id:'practica', icon:'practice', key:'navPractica' },
+  { id:'newsletter', icon:'news', key:'navNewsletter' },
+  { id:'actividades', icon:'events', key:'navActividades' },
+];
+const PRACTICE_TABS = [
+  { id:'trivia', icon:'brain', key:'tabTrivia' },
+  { id:'retos', icon:'trophy', key:'tabRetos' },
+  { id:'curiosidades', icon:'sparkles', key:'tabCuriosidades' },
+];
+
+function renderShell(){
+  const t = translations[currentLang];
+
+  document.getElementById('sidebarNav').innerHTML = NAV_ITEMS.map(n =>
+    '<button class="side-link" data-screen="'+n.id+'" onclick="cambiarAppScreen(\''+n.id+'\')">'+icon(n.icon,19)+'<span>'+t[n.key]+'</span></button>'
+  ).join('');
+
+  document.getElementById('bottomNav').innerHTML = NAV_ITEMS.map(n =>
+    '<button class="bnav-btn" data-screen="'+n.id+'" onclick="cambiarAppScreen(\''+n.id+'\')">'+icon(n.icon,22)+'<span class="blabel">'+t[n.key]+'</span></button>'
+  ).join('');
+
+  document.getElementById('appTopActions').innerHTML =
+    '<button onclick="toggleLang()">'+icon('globe',15)+'<span id="langBtnTextApp">'+(currentLang==='es'?'EN':'ES')+'</span></button>'+
+    '<button onclick="cerrarPortal()">'+icon('logout',15)+'<span>'+t.salirPortal+'</span></button>';
+
+  document.getElementById('sideLangBtn').innerHTML = icon('globe',16)+'<span id="langBtnTextSide">'+(currentLang==='es'?'EN':'ES')+'</span>';
+  document.getElementById('sideLogoutBtn').innerHTML = icon('logout',16)+'<span>'+t.salirPortal+'</span>';
+  document.getElementById('langToggleBtn').innerHTML = icon('globe',15)+'<span id="langBtnText">'+(currentLang==='es'?'EN':'ES')+'</span>';
+  document.getElementById('heroEnterBtn').innerHTML = icon('lock',16)+'<span>'+t.navPortal+'</span>';
+  document.getElementById('modalIconWrap').innerHTML = icon('lock',24);
+
+  document.getElementById('practicaTabsWrap').innerHTML = PRACTICE_TABS.map((p,i) =>
+    '<button class="practica-tab'+(i===0?' active':'')+'" data-ptab="'+p.id+'" onclick="cambiarPracticaTab(\''+p.id+'\')">'+icon(p.icon,15)+'<span>'+t[p.key]+'</span></button>'
+  ).join('');
+
+  document.getElementById('calMonIcon').innerHTML = icon('mapPin',20);
+  document.getElementById('calWedIcon').innerHTML = icon('mapPin',20);
+  document.getElementById('calMonPin').innerHTML = icon('mapPin',12);
+  document.getElementById('calWedPin').innerHTML = icon('mapPin',12);
+
+  document.getElementById('pillIQ').innerHTML = icon('brain',13)+'<span>'+t.pillIQ+'</span>';
+  document.getElementById('pillChallenges').innerHTML = icon('trophy',13)+'<span>'+t.pillChallenges+'</span>';
+  document.getElementById('pillFacts').innerHTML = icon('sparkles',13)+'<span>'+t.pillFacts+'</span>';
+  document.getElementById('startPracticeLink').innerHTML = '<span>'+t.startPractice+'</span>'+icon('chevronRight',15);
+  document.getElementById('seeAllNews').innerHTML = '<span>'+t.seeAll+'</span>'+icon('chevronRight',13);
+  document.getElementById('seeAllEvents').innerHTML = '<span>'+t.seeAll+'</span>'+icon('chevronRight',13);
+}
 
 function applyTranslations(lang){
   const t = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key = el.dataset.i18n;
     if(t[key] === undefined) return;
-    if(key === 'precio1') el.innerHTML = t[key];
-    else el.textContent = t[key];
+    el.textContent = t[key];
   });
-  document.getElementById('langBtnText').textContent = lang === 'es' ? 'EN' : 'ES';
-  document.getElementById('langBtnTextApp').textContent = lang === 'es' ? 'EN' : 'ES';
-  document.getElementById('passwordInput').placeholder = '0000';
   document.documentElement.lang = lang;
+  renderShell();
   renderFeriadosPortal();
   renderNewsletter();
   renderActividades();
+  renderHomeDynamic();
   if(document.getElementById('portal').classList.contains('open')){
     actualizarSaludo();
     renderProgreso();
     renderTrivia();
     renderRetos();
     if(document.getElementById('curiosidadCard').innerHTML) renderCuriosidad();
+    cambiarAppScreen(document.querySelector('.app-screen.active').id.replace('screen-',''));
   }
 }
 
@@ -618,8 +780,11 @@ function abrirPortal(){
   document.getElementById('preLoginHero').style.display = 'none';
   document.getElementById('appTop').classList.add('show');
   document.getElementById('bottomNav').classList.add('show');
+  document.getElementById('sidebar').classList.add('show');
+  document.getElementById('mainArea').classList.add('with-sidebar');
   cambiarAppScreen('inicio');
   actualizarSaludo();
+  renderHomeDynamic();
   renderProgreso();
   triviaOrden = [];
   triviaIdx = 0;
@@ -629,9 +794,8 @@ function abrirPortal(){
 }
 
 function actualizarSaludo(){
-  const t = translations[currentLang];
   const nombre = jugadorActual ? jugadorActual.nombre : '';
-  document.getElementById('homeSaludoTexto').textContent = t.homeSaludoPrefix + ' ' + nombre + '! 👋';
+  document.getElementById('homeSaludoTexto').textContent = (currentLang==='es' ? '¡Hola, ' : 'Hi, ') + nombre + '! ⚽';
 }
 function cerrarPortal(){
   jugadorActual = null;
@@ -640,6 +804,8 @@ function cerrarPortal(){
   document.getElementById('preLoginHero').style.display = '';
   document.getElementById('appTop').classList.remove('show');
   document.getElementById('bottomNav').classList.remove('show');
+  document.getElementById('sidebar').classList.remove('show');
+  document.getElementById('mainArea').classList.remove('with-sidebar');
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -647,7 +813,71 @@ function cambiarAppScreen(screen){
   document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-'+screen).classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b => b.classList.toggle('active', b.dataset.screen === screen));
+  document.querySelectorAll('.side-link').forEach(b => b.classList.toggle('active', b.dataset.screen === screen));
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── Próximo entrenamiento / Esta semana / Vistas previas (Inicio) ──
+function proximoEntrenamiento(){
+  let cursor = new Date();
+  cursor.setHours(0,0,0,0);
+  for(let i=0; i<21; i++){
+    if(esPractica(cursor) && !feriadoEnFecha(cursor)) return new Date(cursor);
+    cursor.setDate(cursor.getDate()+1);
+  }
+  return null;
+}
+
+function renderHomeDynamic(){
+  const t = translations[currentLang];
+  const prox = proximoEntrenamiento();
+  const diaTexto = prox ? (prox.getDay()===1 ? t.dayMonday : t.dayWednesday) : '—';
+  document.getElementById('nextTrainingCard').innerHTML = `
+    <div class="nt-label">${icon('clock',14)} ${t.nextTrainingLbl}</div>
+    <div class="nt-day">${diaTexto}</div>
+    <div class="nt-time">${icon('clock',14)} 9:30 – 10:30 AM</div>
+    <div class="nt-place">${icon('mapPin',14)} Miramar Regional Park</div>
+    <button class="nt-link" onclick="cambiarAppScreen('calendario')">${t.viewCalendar} ${icon('chevronRight',14)}</button>
+  `;
+
+  document.getElementById('thisWeekGrid').innerHTML = `
+    <div class="week-card">
+      <div class="wc-day">${t.dayMonday}</div>
+      <h4>${t.trainingLbl}</h4>
+      <p>${icon('clock',12)} 9:30 – 10:30 AM</p>
+    </div>
+    <div class="week-card">
+      <div class="wc-day">${t.dayWednesday}</div>
+      <h4>${t.trainingLbl}</h4>
+      <p>${icon('clock',12)} 9:30 – 10:30 AM</p>
+    </div>
+  `;
+
+  const newsPrev = document.getElementById('newsPreview');
+  if(NEWSLETTER.length === 0){
+    newsPrev.innerHTML = `<div class="empty-list">${t.newsletterVacio}</div>`;
+  } else {
+    const top2 = [...NEWSLETTER].sort((a,b)=>new Date(b.fecha)-new Date(a.fecha)).slice(0,2);
+    newsPrev.innerHTML = top2.map(n => `
+      <div class="newsletter-item" onclick="cambiarAppScreen('newsletter')" style="cursor:pointer;">
+        <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
+        <h3>${n.titulo}</h3>
+        <p>${n.cuerpo}</p>
+      </div>`).join('');
+  }
+
+  const evPrev = document.getElementById('eventsPreview');
+  if(ACTIVIDADES.length === 0){
+    evPrev.innerHTML = `<div class="empty-list">${t.actividadesVacio}</div>`;
+  } else {
+    const top2 = [...ACTIVIDADES].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,2);
+    evPrev.innerHTML = top2.map(a => `
+      <div class="actividad-item" onclick="cambiarAppScreen('actividades')" style="cursor:pointer;">
+        <div class="fecha">${fmtFechaSimple(a.fecha)}</div>
+        <h3>${a.titulo}</h3>
+        <p>${a.cuerpo}</p>
+      </div>`).join('');
+  }
 }
 
 // ── Feriados de la temporada (mismo calendario que la app de Asistencia) ──
@@ -856,10 +1086,12 @@ function renderProgreso(){
   const p = getMiProgreso();
   const t = translations[currentLang];
   const restantes = preguntasRestantesHoy();
+  const pct = Math.max(0, Math.min(100, Math.round((p.puntos/200)*100)));
+  document.getElementById('progressBarFill').style.width = pct + '%';
   document.getElementById('progresoBox').innerHTML = `
-    <div class="progreso-item"><div class="num">${p.puntos}</div><div class="lbl">${t.puntosLbl}</div></div>
-    <div class="progreso-item"><div class="num">${p.retos.length}</div><div class="lbl">${t.retosLbl}</div></div>
-    <div class="progreso-item"><div class="num">${restantes}/${LIMITE_TRIVIAS_DIA}</div><div class="lbl">${t.hoyLbl}</div></div>
+    <div class="progress-stat"><div class="num">${p.puntos}</div><div class="lbl">${t.puntosLbl}</div></div>
+    <div class="progress-stat"><div class="num">${p.retos.length}</div><div class="lbl">${t.retosLbl}</div></div>
+    <div class="progress-stat"><div class="num">${restantes}/${LIMITE_TRIVIAS_DIA}</div><div class="lbl">${t.hoyLbl}</div></div>
   `;
 }
 
@@ -1031,8 +1263,9 @@ function renderNivelTabs(){
     const activo = n.id === nivelActual;
     return `<button class="nivel-tab ${activo?'active':''} ${!desbloqueado?'locked':''}"
       onclick="${desbloqueado ? `cambiarNivel(${n.id})` : ''}"
-      title="${desbloqueado ? '' : (currentLang==='es' ? 'Necesitás '+n.minPuntos+' puntos para desbloquear' : 'You need '+n.minPuntos+' points to unlock')}">
-      ${desbloqueado ? '' : '🔒 '}${nombre}
+      title="${desbloqueado ? '' : (currentLang==='es' ? 'Necesitás '+n.minPuntos+' puntos para desbloquear' : 'You need '+n.minPuntos+' points to unlock')}"
+      style="display:inline-flex;align-items:center;gap:5px;">
+      ${desbloqueado ? '' : icon('lock',12)}${nombre}
     </button>`;
   }).join('');
 }
@@ -1059,18 +1292,18 @@ function renderTrivia(){
 
   if(!esDiaHabilitadoTrivia()){
     card.innerHTML = `<div style="text-align:center;padding:20px 10px;">
-      <div style="font-size:34px;margin-bottom:10px;">📅</div>
-      <h3 style="margin-bottom:8px;">${t.diaNoHabilitadoTitulo}</h3>
-      <p style="color:var(--ink-soft);font-size:13.5px;">${t.diaNoHabilitadoTexto}</p>
+      <div style="margin-bottom:12px;color:var(--green-light);">${icon('calendar',34)}</div>
+      <h3 style="margin-bottom:8px;color:var(--text);">${t.diaNoHabilitadoTitulo}</h3>
+      <p style="color:var(--text-soft);font-size:13.5px;">${t.diaNoHabilitadoTexto}</p>
     </div>`;
     return;
   }
 
   if(preguntasRestantesHoy() <= 0){
     card.innerHTML = `<div style="text-align:center;padding:20px 10px;">
-      <div style="font-size:34px;margin-bottom:10px;">🎉</div>
-      <h3 style="margin-bottom:8px;">${t.limiteTitulo}</h3>
-      <p style="color:var(--ink-soft);font-size:13.5px;">${t.limiteTexto}</p>
+      <div style="margin-bottom:12px;color:var(--yellow);">${icon('sparkles',34)}</div>
+      <h3 style="margin-bottom:8px;color:var(--text);">${t.limiteTitulo}</h3>
+      <p style="color:var(--text-soft);font-size:13.5px;">${t.limiteTexto}</p>
     </div>`;
     return;
   }
@@ -1087,7 +1320,7 @@ function renderTrivia(){
       ${(esES ? q.opciones : q.opcionesEn).map((op,i)=>`<button class="trivia-opcion" onclick="responderTrivia(${i})">${op}</button>`).join('')}
     </div>
     <div class="trivia-feedback" id="triviaFeedback"></div>
-    <div class="trivia-nav"><button class="btn gold" id="btnSiguienteTrivia" style="display:none;" onclick="siguienteTrivia()">${t.siguienteTrivia}</button></div>
+    <div class="trivia-nav"><button class="btn gold" id="btnSiguienteTrivia" style="display:none;" onclick="siguienteTrivia()"><span>${t.siguienteTrivia}</span>${icon('chevronRight',16)}</button></div>
   `;
 }
 
@@ -1159,7 +1392,7 @@ function renderRetos(){
       <div class="reto-icon">${r.icon}</div>
       <h4>${titulo}</h4>
       <p>${desc}</p>
-      <div class="reto-check">${done ? t.retoHecho : t.retoTocar}</div>
+      <div class="reto-check">${done ? icon('circleCheck',13)+t.retoHecho : t.retoTocar}</div>
     </div>`;
   }).join('');
 }
@@ -1233,8 +1466,8 @@ function renderCuriosidad(){
   card.innerHTML = `
     <div style="text-align:center;">
       <div style="font-size:40px;margin-bottom:14px;">${d.icon}</div>
-      <p style="font-size:15px;line-height:1.6;color:var(--ink);">${texto}</p>
-      <button class="btn gold" style="margin-top:20px;" onclick="siguienteCuriosidad()">${t.otroDato}</button>
+      <p style="font-size:15px;line-height:1.6;color:var(--text);">${texto}</p>
+      <button class="btn gold" style="margin-top:20px;" onclick="siguienteCuriosidad()"><span>${t.otroDato}</span>${icon('chevronRight',16)}</button>
     </div>`;
 }
 
