@@ -10,16 +10,24 @@
   :root{
     --pitch:#2E6DA0;
     --pitch-dark:#1F4E78;
+    --pitch-soft:#EAF2F9;
     --grass:#6D9952;
     --grass-light:#A9C79A;
     --gold:#5E9E44;
     --gold-soft:#E3EEDD;
+    --warm:#F4A300;
+    --warm-soft:#FDF0D8;
     --cream:#FBF8F3;
     --paper:#FFFFFF;
     --ink:#1D231C;
     --ink-soft:#5C6B5D;
-    --line:#E4E0D6;
+    --line:#E9E4D8;
     --red:#C1440E;
+    --r-lg:22px;
+    --r-md:16px;
+    --r-sm:11px;
+    --shadow-soft:0 4px 18px rgba(31,78,120,0.08);
+    --shadow-card:0 2px 10px rgba(31,78,120,0.06);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -165,12 +173,9 @@
   /* ── PORTAL (contenido protegido) ── */
   #portal{display:none;}
   #portal.open{display:block;}
-  section.portal-section{background:var(--pitch);color:var(--cream);}
-  section.portal-section .section-head h2{color:var(--cream);}
-  section.portal-section .section-head p{color:rgba(251,248,243,0.75);}
-  section.portal-section .section-head .eyebrow{color:var(--grass-light);}
+  section.portal-section .section-head .eyebrow{color:var(--grass);}
 
-  .cal-list{max-width:640px;margin:0 auto;background:var(--paper);border-radius:16px;padding:8px 20px;}
+  .cal-list{max-width:640px;margin:0 auto;background:var(--paper);border-radius:var(--r-md);padding:8px 20px;box-shadow:var(--shadow-card);}
   .cal-item{
     display:flex;justify-content:space-between;gap:10px;padding:11px 4px;
     border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink);
@@ -179,36 +184,49 @@
   .cal-item .fecha{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);white-space:nowrap;}
   .cal-item .nombre{color:var(--ink-soft);text-align:right;}
 
-  .reportes-box{
-    max-width:640px;margin:0 auto;background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.25);
-    border-radius:16px;padding:30px;text-align:center;color:rgba(251,248,243,0.75);font-size:13.5px;line-height:1.6;
+  .newsletter-list, .actividades-list{
+    max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px;
+  }
+  .newsletter-item, .actividad-item{
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+  }
+  .newsletter-item .fecha, .actividad-item .fecha{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--grass);
+    text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;
+  }
+  .newsletter-item h3, .actividad-item h3{font-size:15.5px;font-weight:700;color:var(--pitch);margin-bottom:6px;}
+  .newsletter-item p, .actividad-item p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .empty-list{
+    text-align:center;padding:30px 20px;color:var(--ink-soft);font-size:13.5px;
+    background:rgba(255,255,255,0.5);border-radius:14px;border:1px dashed var(--line);
   }
 
   /* ── ZONA DE PRÁCTICA ── */
   .jugador-selector{max-width:360px;margin:0 auto 24px;text-align:center;}
-  .jugador-selector select{
-    width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.25);
+  .full{
+    width:100%;padding:11px 14px;border-radius:var(--r-sm);border:1.5px solid var(--line);
     background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;
   }
+  .full:focus{outline:none;border-color:var(--grass);}
   .progreso-box{
     max-width:480px;margin:0 auto 24px;display:flex;justify-content:center;gap:28px;
-    background:rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;
+    background:var(--paper);border-radius:var(--r-md);padding:16px 20px;box-shadow:var(--shadow-card);
   }
   .progreso-item{text-align:center;}
   .progreso-item .num{font-family:'Fraunces',serif;font-weight:800;font-size:1.6rem;color:var(--gold);}
-  .progreso-item .lbl{font-size:11px;color:rgba(251,248,243,0.7);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+  .progreso-item .lbl{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
 
   .practica-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:22px;}
 
   .nivel-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
   .nivel-tab{
-    background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);color:rgba(251,248,243,0.75);
+    background:var(--cream);border:1.5px solid var(--line);color:var(--ink-soft);
     padding:7px 14px;border-radius:99px;font-weight:600;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;
   }
   .nivel-tab.active{background:var(--gold);border-color:var(--gold);color:var(--pitch-dark);}
   .nivel-tab.locked{opacity:0.55;cursor:not-allowed;}
   .practica-tab{
-    background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);color:rgba(251,248,243,0.8);
+    background:var(--cream);border:1.5px solid var(--line);color:var(--ink-soft);
     padding:9px 18px;border-radius:99px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;
   }
   .practica-tab.active{background:var(--gold);border-color:var(--gold);color:var(--pitch-dark);}
@@ -256,199 +274,230 @@
   .reto-card .reto-check{margin-top:10px;font-size:12px;font-weight:700;color:var(--grass);}
   @media (max-width:560px){.retos-grid{grid-template-columns:1fr;}}
 
-  #logoutBtn{
-    position:fixed;bottom:20px;right:20px;z-index:60;background:var(--paper);color:var(--ink-soft);
-    border:1px solid var(--line);border-radius:99px;padding:10px 18px;font-size:12.5px;font-weight:600;
-    cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.15);display:none;
+  /* ── APP SCREENS (después de entrar con contraseña) ── */
+  #appTop{
+    display:none;position:sticky;top:0;z-index:55;background:var(--paper);
+    border-bottom:1px solid var(--line);padding:14px 20px;align-items:center;justify-content:space-between;
   }
-  #logoutBtn.show{display:block;}
+  #appTop.show{display:flex;}
+  #appTop .app-brand{display:flex;align-items:center;gap:10px;}
+  #appTop .app-brand img{height:32px;width:32px;object-fit:contain;border-radius:8px;}
+  #appTop .app-brand span{font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:var(--pitch);}
+  #appTop .app-actions{display:flex;align-items:center;gap:8px;}
+  #appTop button{
+    background:var(--cream);border:1px solid var(--line);border-radius:99px;
+    padding:7px 12px;font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:'Inter',sans-serif;
+  }
+
+  .app-screen{display:none;padding:22px 20px 100px;max-width:640px;margin:0 auto;animation:fadeIn .25s ease;}
+  .app-screen.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .home-greeting{
+    background:linear-gradient(160deg,var(--pitch) 0%, var(--pitch-dark) 100%);
+    color:var(--cream);border-radius:var(--r-lg);padding:26px 24px;margin-bottom:20px;box-shadow:var(--shadow-soft);
+  }
+  .home-greeting h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;}
+  .home-greeting p{font-size:13.5px;color:rgba(251,248,243,0.85);line-height:1.5;}
+
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .home-card{
+    background:var(--paper);border-radius:var(--r-md);padding:18px 16px;box-shadow:var(--shadow-card);
+    cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;border:1px solid var(--line);
+  }
+  .home-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);}
+  .home-card .hc-icon{font-size:26px;margin-bottom:8px;}
+  .home-card h3{font-size:13.5px;font-weight:700;color:var(--pitch);margin-bottom:4px;}
+  .home-card p{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
+  .home-card.wide{grid-column:1 / -1;display:flex;align-items:center;gap:16px;}
+  .home-card.wide .hc-icon{font-size:32px;margin-bottom:0;}
+
+  #bottomNav{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:70;background:var(--paper);
+    border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    box-shadow:0 -4px 16px rgba(31,78,120,0.08);
+  }
+  #bottomNav.show{display:flex;justify-content:space-around;}
+  .bnav-btn{
+    background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:6px 4px;cursor:pointer;color:var(--ink-soft);font-family:'Inter',sans-serif;flex:1;min-width:0;
+  }
+  .bnav-btn .bicon{font-size:20px;line-height:1;}
+  .bnav-btn .blabel{font-size:9.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .bnav-btn.active{color:var(--pitch);}
+  .bnav-btn.active .bicon{transform:scale(1.12);}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="topnav">
+<!-- NAV (antes de entrar) -->
+<nav class="topnav" id="preLoginNav">
   <div class="wrap">
     <div class="nav-brand">
       <img src="LOGO_Homeschool2026.jpeg" alt="Homeschool Soccer" onerror="this.style.display='none'">
       <span>Homeschool Soccer</span>
     </div>
     <div class="nav-links">
-      <a href="#sobre" data-i18n="navSobre">Sobre Nosotros</a>
-      <a href="#horario" data-i18n="navHorario">Horario y Precios</a>
-      <a href="#contacto" data-i18n="navContacto">Contacto</a>
-      <button class="portal-btn" onclick="abrirModal()">🔒 <span data-i18n="navPortal">Portal de Familias</span></button>
       <button class="lang-toggle" onclick="toggleLang()">🌐 <span id="langBtnText">ES</span></button>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero">
+<!-- HERO (antes de entrar) -->
+<header class="hero" id="preLoginHero">
   <div class="hero-inner">
     <span class="hero-badge" data-i18n="heroBadge">Temporada 2026–2027</span>
-    <h1>Homeschool Soccer</h1>
-    <p class="sub" data-i18n="heroSub">Fútbol para chicos de familias homeschool en Miramar, Florida. Un espacio para aprender, jugar y crecer en equipo — lunes y miércoles, en Miramar Regional Park.</p>
+    <h1 data-i18n="heroTitulo">Bienvenidos, familias</h1>
+    <p class="sub" data-i18n="heroSub">Este es el espacio de las familias de Homeschool Soccer — calendario, novedades, y la Zona de Práctica para que los chicos sigan aprendiendo de fútbol en casa.</p>
     <div class="hero-ctas">
-      <a class="btn gold" href="https://enzoortizsoccer.github.io/homeschool-soccer-academy/" target="_blank">⚽ <span data-i18n="heroCta1">Inscribite ahora</span></a>
-      <button class="btn outline" onclick="abrirModal()">🔒 <span data-i18n="navPortal">Portal de Familias</span></button>
+      <button class="btn gold" onclick="abrirModal()">🔒 <span data-i18n="navPortal">Entrar</span></button>
     </div>
   </div>
 </header>
 
-<!-- SOBRE NOSOTROS -->
-<section id="sobre">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow" data-i18n="sobreEyebrow">Sobre nosotros</div>
-      <h2 data-i18n="sobreH2">Fútbol pensado para familias homeschool</h2>
-      <p data-i18n="sobreP">Homeschool Soccer LLC ofrece un espacio de entrenamiento y comunidad para chicos de 4 a 14 años cuyas familias educan en casa — con horarios pensados para encajar en el día de una familia homeschool.</p>
-    </div>
-    <div class="grid-3">
-      <div class="info-card">
-        <div class="icon">⚽</div>
-        <h3 data-i18n="card1H">Todas las edades</h3>
-        <p data-i18n="card1P">Categorías desde Sub-6 hasta Sub-14, agrupadas por edad para un desarrollo acorde a cada etapa.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">👨‍👩‍👧‍👦</div>
-        <h3 data-i18n="card2H">Comunidad homeschool</h3>
-        <p data-i18n="card2P">Un espacio pensado por y para familias que educan en casa, con horarios matutinos que no compiten con la rutina escolar tradicional.</p>
-      </div>
-      <div class="info-card">
-        <div class="icon">📍</div>
-        <h3 data-i18n="card3H">Miramar, FL</h3>
-        <p data-i18n="card3P">Entrenamos en Miramar Regional Park — fácil acceso para familias de Miramar y ciudades cercanas de Broward County.</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Miramar+Regional+Park+Miramar+FL" target="_blank" rel="noopener" class="map-link" data-i18n="verMapa">📍 Ver en Google Maps</a>
-      </div>
-    </div>
+<!-- BARRA SUPERIOR (después de entrar) -->
+<div id="appTop">
+  <div class="app-brand">
+    <img src="LOGO_Homeschool2026.jpeg" alt="" onerror="this.style.display='none'">
+    <span>Homeschool Soccer</span>
   </div>
-</section>
-
-<!-- HORARIO Y PRECIOS -->
-<section class="alt" id="horario">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow" data-i18n="horarioEyebrow">Horario y precios</div>
-      <h2 data-i18n="horarioH2">Cómo funciona la temporada</h2>
-      <p data-i18n="horarioP">Lunes y Miércoles, 9:30 AM – 10:30 AM · Miramar Regional Park</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="price-card featured">
-        <div class="amount">$160</div>
-        <div class="label" data-i18n="precio1">Inscripción anual<br>(incluye uniforme, pago único)</div>
-      </div>
-      <div class="price-card">
-        <div class="amount">$160</div>
-        <div class="label" data-i18n="precio2">Mensualidad</div>
-      </div>
-    </div>
+  <div class="app-actions">
+    <button onclick="toggleLang()">🌐 <span id="langBtnTextApp">ES</span></button>
+    <button onclick="cerrarPortal()">🚪 <span data-i18n="salirPortal">Salir</span></button>
   </div>
-</section>
-
-<!-- CONTACTO -->
-<section id="contacto">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow" data-i18n="contactoEyebrow">Contacto</div>
-      <h2 data-i18n="contactoH2">¿Tenés preguntas?</h2>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-item">
-        <div class="icon">📱</div>
-        <div class="label" data-i18n="contactoLabel1">WhatsApp / Teléfono</div>
-        <div class="value">954-918-0916</div>
-      </div>
-      <div class="contact-item">
-        <div class="icon">📧</div>
-        <div class="label" data-i18n="contactoLabel2">Email</div>
-        <div class="value">homeschoolsoccerfl@gmail.com</div>
-      </div>
-      <div class="contact-item">
-        <div class="icon">📍</div>
-        <div class="label" data-i18n="contactoLabel3">Ubicación</div>
-        <div class="value">Miramar Regional Park, FL</div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Miramar+Regional+Park+Miramar+FL" target="_blank" rel="noopener" class="map-link" data-i18n="verMapa">📍 Ver en Google Maps</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTAL DE FAMILIAS (protegido) -->
-<div id="portal">
-  <section class="portal-section" id="calendario-familias">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow" data-i18n="portalEyebrow">Portal de familias</div>
-        <h2 data-i18n="calH2">Fechas sin práctica por feriado</h2>
-        <p data-i18n="calP">Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:</p>
-      </div>
-      <div class="cal-list" id="feriadosPortal"></div>
-    </div>
-  </section>
-
-  <section class="portal-section" id="practica-familias">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow" data-i18n="practicaEyebrow">Para los jugadores</div>
-        <h2 data-i18n="practicaH2">⚽ Zona de Práctica</h2>
-        <p data-i18n="practicaP">Trivia y desafíos para practicar en casa cuando tengan un rato libre.</p>
-      </div>
-
-      <div class="jugador-selector" id="jugadorSelector">
-        <p style="color:rgba(251,248,243,0.85);font-size:13.5px;margin-bottom:12px;" data-i18n="elegirJugador">Elegí quién sos para guardar tu progreso:</p>
-        <select id="selectJugador" class="full" style="max-width:320px;margin:0 auto;display:block;"></select>
-
-        <div id="pinWrap" style="display:none;max-width:320px;margin:14px auto 0;">
-          <p style="color:rgba(251,248,243,0.85);font-size:12.5px;margin-bottom:8px;" data-i18n="pedirCodigo">Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):</p>
-          <input type="text" id="pinInput" class="full" maxlength="4" inputmode="numeric" style="text-align:center;letter-spacing:4px;font-weight:700;">
-          <div id="pinErr" style="color:#F7C9C9;font-size:12px;margin-top:6px;display:none;" data-i18n="codigoIncorrecto">Código incorrecto, probá de nuevo.</div>
-          <button class="btn gold" style="margin-top:10px;width:100%;justify-content:center;" onclick="confirmarPin()" data-i18n="confirmarCodigo">Confirmar</button>
-        </div>
-      </div>
-
-      <div id="practicaContenido" style="display:none;">
-        <div class="progreso-box" id="progresoBox"></div>
-        <p style="text-align:center;margin-bottom:16px;">
-          <a href="#" onclick="cambiarJugador();return false;" style="color:var(--gold-soft);font-size:12px;text-decoration:underline;" data-i18n="cambiarJugador">Cambiar jugador</a>
-        </p>
-
-        <div class="practica-tabs">
-          <button class="practica-tab active" data-ptab="trivia" onclick="cambiarPracticaTab('trivia')">🧠 <span data-i18n="tabTrivia">Trivia</span></button>
-          <button class="practica-tab" data-ptab="retos" onclick="cambiarPracticaTab('retos')">🏆 <span data-i18n="tabRetos">Retos</span></button>
-          <button class="practica-tab" data-ptab="curiosidades" onclick="cambiarPracticaTab('curiosidades')">🎉 <span data-i18n="tabCuriosidades">Datos Curiosos</span></button>
-        </div>
-
-        <div class="practica-panel active" id="ppanel-trivia">
-          <div class="nivel-tabs" id="nivelTabs"></div>
-          <div class="trivia-card" id="triviaCard"></div>
-        </div>
-
-        <div class="practica-panel" id="ppanel-retos">
-          <div class="retos-grid" id="retosGrid"></div>
-        </div>
-
-        <div class="practica-panel" id="ppanel-curiosidades">
-          <div class="trivia-card" id="curiosidadCard"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="reportes-familias">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow" data-i18n="novedadesEyebrow">Novedades</div>
-        <h2 data-i18n="novedadesH2">Reportes de la academia</h2>
-      </div>
-      <div class="reportes-box" data-i18n="reportesTexto">
-        Próximamente vamos a compartir acá novedades de la temporada, fotos y logros del equipo. ⚽
-      </div>
-    </div>
-  </section>
 </div>
 
-<button id="logoutBtn" onclick="cerrarPortal()">🔒 <span data-i18n="salirPortal">Salir del portal</span></button>
+<!-- APP (después de entrar) -->
+<div id="portal">
+
+  <!-- INICIO -->
+  <section class="app-screen active" id="screen-inicio">
+    <div class="home-greeting">
+      <h2 data-i18n="homeSaludo">¡Hola de nuevo! 👋</h2>
+      <p data-i18n="homeSub">Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.</p>
+    </div>
+    <div class="home-grid">
+      <div class="home-card" onclick="cambiarAppScreen('practica')">
+        <div class="hc-icon">⚽</div>
+        <h3 data-i18n="homeCardPracticaH">Zona de Práctica</h3>
+        <p data-i18n="homeCardPracticaP">Trivia, retos y datos curiosos</p>
+      </div>
+      <div class="home-card" onclick="cambiarAppScreen('calendario')">
+        <div class="hc-icon">📅</div>
+        <h3 data-i18n="homeCardCalendarioH">Calendario</h3>
+        <p data-i18n="homeCardCalendarioP">Fechas sin práctica</p>
+      </div>
+      <div class="home-card" onclick="cambiarAppScreen('newsletter')">
+        <div class="hc-icon">📰</div>
+        <h3 data-i18n="homeCardNewsletterH">Newsletter</h3>
+        <p data-i18n="homeCardNewsletterP">Novedades para la familia</p>
+      </div>
+      <div class="home-card" onclick="cambiarAppScreen('actividades')">
+        <div class="hc-icon">🎉</div>
+        <h3 data-i18n="homeCardActividadesH">Actividades</h3>
+        <p data-i18n="homeCardActividadesP">Eventos especiales</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDARIO -->
+  <section class="app-screen" id="screen-calendario">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="portalEyebrow">Portal de familias</div>
+      <h2 data-i18n="calH2">Fechas sin práctica por feriado</h2>
+      <p data-i18n="calP">Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:</p>
+    </div>
+    <div class="cal-list" id="feriadosPortal"></div>
+  </section>
+
+  <!-- PRÁCTICA -->
+  <section class="app-screen" id="screen-practica">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="practicaEyebrow">Para los jugadores</div>
+      <h2 data-i18n="practicaH2">⚽ Zona de Práctica</h2>
+      <p data-i18n="practicaP">Trivia y desafíos para practicar en casa cuando tengan un rato libre.</p>
+    </div>
+
+    <div class="jugador-selector" id="jugadorSelector">
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-bottom:12px;" data-i18n="elegirJugador">Elegí quién sos para guardar tu progreso:</p>
+      <select id="selectJugador" class="full" style="max-width:320px;margin:0 auto;display:block;"></select>
+
+      <div id="pinWrap" style="display:none;max-width:320px;margin:14px auto 0;">
+        <p style="color:var(--ink-soft);font-size:12.5px;margin-bottom:8px;" data-i18n="pedirCodigo">Ingresá el código de 4 dígitos de este jugador (lo mandamos por mail al inscribirse):</p>
+        <input type="text" id="pinInput" class="full" maxlength="4" inputmode="numeric" style="text-align:center;letter-spacing:4px;font-weight:700;">
+        <div id="pinErr" style="color:var(--red);font-size:12px;margin-top:6px;display:none;font-weight:600;" data-i18n="codigoIncorrecto">Código incorrecto, probá de nuevo.</div>
+        <button class="btn gold" style="margin-top:10px;width:100%;justify-content:center;" onclick="confirmarPin()" data-i18n="confirmarCodigo">Confirmar</button>
+      </div>
+    </div>
+
+    <div id="practicaContenido" style="display:none;">
+      <div class="progreso-box" id="progresoBox"></div>
+      <p style="text-align:center;margin-bottom:16px;">
+        <a href="#" onclick="cambiarJugador();return false;" style="color:var(--pitch);font-size:12px;text-decoration:underline;font-weight:600;" data-i18n="cambiarJugador">Cambiar jugador</a>
+      </p>
+
+      <div class="practica-tabs">
+        <button class="practica-tab active" data-ptab="trivia" onclick="cambiarPracticaTab('trivia')">🧠 <span data-i18n="tabTrivia">Trivia</span></button>
+        <button class="practica-tab" data-ptab="retos" onclick="cambiarPracticaTab('retos')">🏆 <span data-i18n="tabRetos">Retos</span></button>
+        <button class="practica-tab" data-ptab="curiosidades" onclick="cambiarPracticaTab('curiosidades')">🎉 <span data-i18n="tabCuriosidades">Datos Curiosos</span></button>
+      </div>
+
+      <div class="practica-panel active" id="ppanel-trivia">
+        <div class="nivel-tabs" id="nivelTabs"></div>
+        <div class="trivia-card" id="triviaCard"></div>
+      </div>
+
+      <div class="practica-panel" id="ppanel-retos">
+        <div class="retos-grid" id="retosGrid"></div>
+      </div>
+
+      <div class="practica-panel" id="ppanel-curiosidades">
+        <div class="trivia-card" id="curiosidadCard"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="app-screen" id="screen-newsletter">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="newsletterEyebrow">Newsletter</div>
+      <h2 data-i18n="newsletterH2">📰 Novedades para familias homeschool</h2>
+      <p data-i18n="newsletterP">Tips, recursos y novedades — no solo de fútbol, también de la vida homeschool en general.</p>
+    </div>
+    <div class="newsletter-list" id="newsletterList"></div>
+  </section>
+
+  <!-- ACTIVIDADES -->
+  <section class="app-screen" id="screen-actividades">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="actividadesEyebrow">Actividades</div>
+      <h2 data-i18n="actividadesH2">📅 Próximas actividades</h2>
+      <p data-i18n="actividadesP">Eventos especiales aparte de las prácticas regulares — salidas, encuentros, torneos.</p>
+    </div>
+    <div class="actividades-list" id="actividadesList"></div>
+  </section>
+
+</div>
+
+<!-- BARRA DE NAVEGACIÓN INFERIOR (después de entrar) -->
+<div id="bottomNav">
+  <button class="bnav-btn active" data-screen="inicio" onclick="cambiarAppScreen('inicio')">
+    <span class="bicon">🏠</span><span class="blabel" data-i18n="navInicio">Inicio</span>
+  </button>
+  <button class="bnav-btn" data-screen="calendario" onclick="cambiarAppScreen('calendario')">
+    <span class="bicon">📅</span><span class="blabel" data-i18n="navCalendario">Calendario</span>
+  </button>
+  <button class="bnav-btn" data-screen="practica" onclick="cambiarAppScreen('practica')">
+    <span class="bicon">⚽</span><span class="blabel" data-i18n="navPractica">Práctica</span>
+  </button>
+  <button class="bnav-btn" data-screen="newsletter" onclick="cambiarAppScreen('newsletter')">
+    <span class="bicon">📰</span><span class="blabel" data-i18n="navNewsletter">News</span>
+  </button>
+  <button class="bnav-btn" data-screen="actividades" onclick="cambiarAppScreen('actividades')">
+    <span class="bicon">🎉</span><span class="blabel" data-i18n="navActividades">Eventos</span>
+  </button>
+</div>
+
 
 <!-- MODAL LOGIN -->
 <div class="modal-overlay" id="modalOverlay">
@@ -470,16 +519,16 @@
 </footer>
 
 <script>
-
-
+// Contraseña compartida del portal de familias — cambiala acá cuando quieras.
+const PORTAL_PASSWORD = 'cancha2026';
 
 // ── Traducciones ──
 let currentLang = 'en';
 const translations = {
   es: {
-    navSobre:'Sobre Nosotros', navHorario:'Horario y Precios', navContacto:'Contacto', navPortal:'Portal de Familias',
-    heroBadge:'Temporada 2026–2027',
-    heroSub:'Fútbol para chicos de familias homeschool en Miramar, Florida. Un espacio para aprender, jugar y crecer en equipo — lunes y miércoles, en Miramar Regional Park.',
+    navSobre:'Sobre Nosotros', navHorario:'Horario y Precios', navContacto:'Contacto', navPortal:'Entrar',
+    heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidos, familias',
+    heroSub:'Este es el espacio de las familias de Homeschool Soccer — calendario, novedades, y la Zona de Práctica para que los chicos sigan aprendiendo de fútbol en casa.',
     heroCta1:'Inscribite ahora',
     sobreEyebrow:'Sobre nosotros', sobreH2:'Fútbol pensado para familias homeschool',
     sobreP:'Homeschool Soccer LLC ofrece un espacio de entrenamiento y comunidad para chicos de 4 a 14 años cuyas familias educan en casa — con horarios pensados para encajar en el día de una familia homeschool.',
@@ -492,6 +541,12 @@ const translations = {
     contactoLabel1:'WhatsApp / Teléfono', contactoLabel2:'Email', contactoLabel3:'Ubicación',
     verMapa:'📍 Ver en Google Maps',
     portalEyebrow:'Portal de familias', calH2:'Fechas sin práctica por feriado',
+    homeSaludo:'¡Hola de nuevo! 👋', homeSub:'Elegí a dónde querés ir — el calendario, las novedades, o directo a jugar en la Zona de Práctica.',
+    homeCardPracticaH:'Zona de Práctica', homeCardPracticaP:'Trivia, retos y datos curiosos',
+    homeCardCalendarioH:'Calendario', homeCardCalendarioP:'Fechas sin práctica',
+    homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'Novedades para la familia',
+    homeCardActividadesH:'Actividades', homeCardActividadesP:'Eventos especiales',
+    navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'News', navActividades:'Eventos',
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027 — Lunes y Miércoles, salvo estas fechas:',
     practicaEyebrow:'Para los jugadores', practicaH2:'⚽ Zona de Práctica', practicaP:'Trivia y desafíos para practicar en casa cuando tengan un rato libre.',
     elegirJugador:'Elegí quién sos para guardar tu progreso:', elegirNombre:'Elegí tu nombre...',
@@ -506,14 +561,20 @@ const translations = {
     siguienteTrivia:'Siguiente →',
     novedadesEyebrow:'Novedades', novedadesH2:'Reportes de la academia',
     reportesTexto:'Próximamente vamos a compartir acá novedades de la temporada, fotos y logros del equipo. ⚽',
+    newsletterEyebrow:'Newsletter', newsletterH2:'📰 Novedades para familias homeschool',
+    newsletterP:'Tips, recursos y novedades — no solo de fútbol, también de la vida homeschool en general.',
+    newsletterVacio:'Todavía no hay novedades cargadas. ¡Pronto vamos a compartir acá tips y novedades! ⚽',
+    actividadesEyebrow:'Actividades', actividadesH2:'📅 Próximas actividades',
+    actividadesP:'Eventos especiales aparte de las prácticas regulares — salidas, encuentros, torneos.',
+    actividadesVacio:'Todavía no hay actividades especiales programadas. ¡Estén atentos! 📅',
     salirPortal:'Salir del portal',
     modalP:'Ingresá la contraseña que te compartió la academia para ver el calendario y las novedades.',
     modalErr:'Contraseña incorrecta, probá de nuevo.', modalCancelar:'Cancelar', modalEntrar:'Entrar',
   },
   en: {
-    navSobre:'About Us', navHorario:'Schedule & Pricing', navContacto:'Contact', navPortal:'Family Portal',
-    heroBadge:'Season 2026–2027',
-    heroSub:'Soccer for homeschool kids in Miramar, Florida. A place to learn, play, and grow as a team — Mondays and Wednesdays, at Miramar Regional Park.',
+    navSobre:'About Us', navHorario:'Schedule & Pricing', navContacto:'Contact', navPortal:'Enter',
+    heroBadge:'Season 2026–2027', heroTitulo:'Welcome, families',
+    heroSub:"This is the space for Homeschool Soccer families — calendar, updates, and the Practice Zone so kids can keep learning about soccer at home.",
     heroCta1:'Register now',
     sobreEyebrow:'About us', sobreH2:'Soccer built for homeschool families',
     sobreP:'Homeschool Soccer LLC offers a training and community space for kids ages 4 to 14 whose families homeschool — with schedules designed to fit a homeschool family\'s day.',
@@ -526,6 +587,12 @@ const translations = {
     contactoLabel1:'WhatsApp / Phone', contactoLabel2:'Email', contactoLabel3:'Location',
     verMapa:'📍 View on Google Maps',
     portalEyebrow:'Family portal', calH2:'Dates with no practice due to holidays',
+    homeSaludo:'Welcome back! 👋', homeSub:'Choose where you want to go — the calendar, the news, or straight into the Practice Zone.',
+    homeCardPracticaH:'Practice Zone', homeCardPracticaP:'Trivia, challenges & fun facts',
+    homeCardCalendarioH:'Calendar', homeCardCalendarioP:'Dates with no practice',
+    homeCardNewsletterH:'Newsletter', homeCardNewsletterP:'News for the family',
+    homeCardActividadesH:'Activities', homeCardActividadesP:'Special events',
+    navInicio:'Home', navCalendario:'Calendar', navPractica:'Practice', navNewsletter:'News', navActividades:'Events',
     calP:'Season August 3, 2026 to May 31, 2027 — Monday & Wednesday, except these dates:',
     practicaEyebrow:'For players', practicaH2:'⚽ Practice Zone', practicaP:'Trivia and challenges to practice at home in your free time.',
     elegirJugador:'Choose who you are to save your progress:', elegirNombre:'Choose your name...',
@@ -540,6 +607,12 @@ const translations = {
     siguienteTrivia:'Next →',
     novedadesEyebrow:'News', novedadesH2:'Academy reports',
     reportesTexto:'Coming soon: season updates, photos, and team highlights. ⚽',
+    newsletterEyebrow:'Newsletter', newsletterH2:'📰 News for homeschool families',
+    newsletterP:'Tips, resources, and updates — not just about soccer, about homeschool life in general too.',
+    newsletterVacio:'No updates posted yet. Soon we\'ll be sharing tips and news here! ⚽',
+    actividadesEyebrow:'Activities', actividadesH2:'📅 Upcoming activities',
+    actividadesP:'Special events beyond regular practice — outings, meetups, tournaments.',
+    actividadesVacio:'No special activities scheduled yet. Stay tuned! 📅',
     salirPortal:'Exit portal',
     modalP:'Enter the password the academy shared with you to see the calendar and updates.',
     modalErr:'Incorrect password, try again.', modalCancelar:'Cancel', modalEntrar:'Enter',
@@ -551,13 +624,16 @@ function applyTranslations(lang){
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key = el.dataset.i18n;
     if(t[key] === undefined) return;
-    if(key === 'precio1' || key === 'reportesTexto') el.innerHTML = t[key];
+    if(key === 'precio1') el.innerHTML = t[key];
     else el.textContent = t[key];
   });
   document.getElementById('langBtnText').textContent = lang === 'es' ? 'EN' : 'ES';
+  document.getElementById('langBtnTextApp').textContent = lang === 'es' ? 'EN' : 'ES';
   document.getElementById('passwordInput').placeholder = lang === 'es' ? 'Contraseña' : 'Password';
   document.documentElement.lang = lang;
   renderFeriadosPortal();
+  renderNewsletter();
+  renderActividades();
   if(document.getElementById('practicaContenido').style.display !== 'none'){
     renderProgreso();
     renderTrivia();
@@ -580,9 +656,9 @@ function abrirModal(){
 function cerrarModal(){
   document.getElementById('modalOverlay').classList.remove('open');
 }
-async function verificarPassword(){
+function verificarPassword(){
   const val = document.getElementById('passwordInput').value;
-  const resp = await jsonpRequest({ action:'checkPortalPassword', password: val }); if(resp && resp.ok){
+  if(val === PORTAL_PASSWORD){
     cerrarModal();
     abrirPortal();
   } else {
@@ -595,12 +671,26 @@ document.getElementById('passwordInput').addEventListener('keydown', (e)=>{
 
 function abrirPortal(){
   document.getElementById('portal').classList.add('open');
-  document.getElementById('logoutBtn').classList.add('show');
-  document.getElementById('calendario-familias').scrollIntoView({behavior:'smooth'});
+  document.getElementById('preLoginNav').style.display = 'none';
+  document.getElementById('preLoginHero').style.display = 'none';
+  document.getElementById('appTop').classList.add('show');
+  document.getElementById('bottomNav').classList.add('show');
+  cambiarAppScreen('inicio');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 function cerrarPortal(){
   document.getElementById('portal').classList.remove('open');
-  document.getElementById('logoutBtn').classList.remove('show');
+  document.getElementById('preLoginNav').style.display = '';
+  document.getElementById('preLoginHero').style.display = '';
+  document.getElementById('appTop').classList.remove('show');
+  document.getElementById('bottomNav').classList.remove('show');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function cambiarAppScreen(screen){
+  document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+screen).classList.add('active');
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.toggle('active', b.dataset.screen === screen));
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -643,6 +733,60 @@ function renderFeriadosPortal(){
     </div>`).join('');
 }
 renderFeriadosPortal();
+
+// ── NEWSLETTER — editá este array para agregar posts nuevos ──
+// Cada entrada: { fecha: 'YYYY-MM-DD', titulo, cuerpo }. Se muestran del más
+// nuevo al más viejo automáticamente (no hace falta ordenarlos a mano).
+const NEWSLETTER = [
+  // Ejemplo — borrá este y agregá los tuyos con el mismo formato:
+  // { fecha: '2026-08-15', titulo: '¡Arrancamos la temporada!', cuerpo: 'Estamos felices de arrancar otro año juntos. Nos vemos los lunes y miércoles en la cancha.' },
+];
+
+function renderNewsletter(){
+  const wrap = document.getElementById('newsletterList');
+  if(NEWSLETTER.length === 0){
+    wrap.innerHTML = `<div class="empty-list">${translations[currentLang].newsletterVacio}</div>`;
+    return;
+  }
+  const ordenado = [...NEWSLETTER].sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+  wrap.innerHTML = ordenado.map(n => `
+    <div class="newsletter-item">
+      <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
+      <h3>${n.titulo}</h3>
+      <p>${n.cuerpo}</p>
+    </div>`).join('');
+}
+
+// ── ACTIVIDADES — editá este array para agregar eventos especiales ──
+// Cada entrada: { fecha: 'YYYY-MM-DD', titulo, cuerpo }.
+const ACTIVIDADES = [
+  // Ejemplo — borrá este y agregá los tuyos con el mismo formato:
+  // { fecha: '2026-09-20', titulo: 'Torneo interno', cuerpo: 'Un sábado de partidos entre todas las categorías. Más info por WhatsApp.' },
+];
+
+function renderActividades(){
+  const wrap = document.getElementById('actividadesList');
+  if(ACTIVIDADES.length === 0){
+    wrap.innerHTML = `<div class="empty-list">${translations[currentLang].actividadesVacio}</div>`;
+    return;
+  }
+  const ordenado = [...ACTIVIDADES].sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
+  wrap.innerHTML = ordenado.map(a => `
+    <div class="actividad-item">
+      <div class="fecha">${fmtFechaSimple(a.fecha)}</div>
+      <h3>${a.titulo}</h3>
+      <p>${a.cuerpo}</p>
+    </div>`).join('');
+}
+
+function fmtFechaSimple(fechaStr){
+  const d = new Date(fechaStr + 'T00:00:00');
+  const locale = currentLang === 'es' ? 'es-AR' : 'en-US';
+  return d.toLocaleDateString(locale, {day:'2-digit', month:'long', year:'numeric'});
+}
+
+renderNewsletter();
+renderActividades();
 
 // ── CONEXIÓN AL MISMO APPS SCRIPT (para el progreso de jugadores) ──
 const CONFIG = {
@@ -705,7 +849,7 @@ async function cargarDatosPractica(){
     progresoData = parseProgresoSite(data.progreso);
     poblarSelectorJugador();
   }catch(err){
-    document.getElementById('jugadorSelector').innerHTML = '<p style="color:rgba(251,248,243,0.8);font-size:13px;">No se pudo conectar para cargar la lista de jugadores. Probá recargar la página.</p>';
+    document.getElementById('jugadorSelector').innerHTML = '<p style="color:var(--ink-soft);font-size:13px;">No se pudo conectar para cargar la lista de jugadores. Probá recargar la página.</p>';
     console.error(err);
   }
 }
@@ -798,7 +942,7 @@ async function guardarMiProgreso(){
   progresoData[jugadorActual.id] = p; // asegurar que el reset de fecha quede reflejado localmente
   try{
     await jsonpRequest({
-      action:'saveProgreso', key: 'bUc1nm8UunOSp7eU1VTD6P5u',
+      action:'saveProgreso',
       id: jugadorActual.id,
       nombre: jugadorActual.nombre,
       puntos: p.puntos,
