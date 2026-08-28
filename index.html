@@ -135,14 +135,17 @@
   #portal{display:none;}
   #portal.open{display:block;}
 
-  .cal-list{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);border-radius:var(--r-md);padding:6px 18px;box-shadow:var(--shadow-card);}
+  .cal-list{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);border-radius:var(--r-md);padding:8px;box-shadow:var(--shadow-card);}
   .cal-item{
-    display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 4px;
-    border-bottom:1px solid var(--card-border);font-size:13.5px;color:var(--text);
+    display:flex;align-items:center;gap:12px;padding:10px 8px;
+    border-bottom:1px solid var(--card-border);font-size:13px;color:var(--text);
   }
   .cal-item:last-child{border-bottom:none;}
-  .cal-item .fecha{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--yellow);white-space:nowrap;font-size:13px;}
-  .cal-item .nombre{color:var(--text-soft);text-align:right;}
+  .cal-item .fecha{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--bg);white-space:nowrap;font-size:11.5px;
+    background:var(--yellow);border-radius:7px;padding:5px 9px;flex-shrink:0;min-width:64px;text-align:center;
+  }
+  .cal-item .nombre{color:var(--text-soft);font-weight:500;}
 
   .schedule-card{
     background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);border-radius:var(--r-md);
@@ -155,8 +158,16 @@
   .schedule-card .sc-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green-light);}
   .schedule-card h3{font-size:15.5px;font-weight:700;color:var(--text);margin:2px 0;}
   .schedule-card p{font-size:12.5px;color:var(--text-soft);display:flex;align-items:center;gap:5px;}
-  .schedule-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-  @media (max-width:520px){.schedule-grid{grid-template-columns:1fr;}}
+  #screen-calendario{max-width:900px;}
+  .calendar-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  @media (max-width:760px){.calendar-columns{grid-template-columns:1fr;}}
+  .cal-col-title{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
+    color:var(--green-light);margin-bottom:12px;
+  }
+  .cal-season{font-size:12.5px;color:var(--text-soft);margin-bottom:14px;}
+
+  .schedule-grid{display:grid;grid-template-columns:1fr;gap:12px;}
 
   .newsletter-list, .actividades-list{
     display:flex;flex-direction:column;gap:12px;
@@ -504,33 +515,38 @@
   <section class="app-screen" id="screen-calendario">
     <div class="section-head">
       <div class="eyebrow" data-i18n="portalEyebrow">Calendar</div>
-      <h2 data-i18n="calH2">Training Schedule</h2>
+      <h2 data-i18n="calH2b2">Weekly Training &amp; Season Dates</h2>
     </div>
 
-    <div class="schedule-grid">
-      <div class="schedule-card">
-        <div class="sc-icon" id="calMonIcon"></div>
-        <div>
-          <div class="sc-day" data-i18n="dayMonday">Monday</div>
-          <h3>9:30 – 10:30 AM</h3>
-          <p><span id="calMonPin"></span> Miramar Regional Park</p>
+    <div class="calendar-columns">
+      <div class="cal-col">
+        <div class="cal-col-title" data-i18n="calH2">Weekly Training</div>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <div class="sc-icon" id="calMonIcon"></div>
+            <div>
+              <div class="sc-day" data-i18n="dayMonday">Monday</div>
+              <h3>9:30 – 10:30 AM</h3>
+              <p><span id="calMonPin"></span> Miramar Regional Park</p>
+            </div>
+          </div>
+          <div class="schedule-card">
+            <div class="sc-icon" id="calWedIcon"></div>
+            <div>
+              <div class="sc-day" data-i18n="dayWednesday">Wednesday</div>
+              <h3>9:30 – 10:30 AM</h3>
+              <p><span id="calWedPin"></span> Miramar Regional Park</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="schedule-card">
-        <div class="sc-icon" id="calWedIcon"></div>
-        <div>
-          <div class="sc-day" data-i18n="dayWednesday">Wednesday</div>
-          <h3>9:30 – 10:30 AM</h3>
-          <p><span id="calWedPin"></span> Miramar Regional Park</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="section-head">
-      <h2 data-i18n="calH2b">Dates With No Practice</h2>
-      <p data-i18n="calP">Season Aug 3, 2026 – May 31, 2027</p>
+      <div class="cal-col">
+        <div class="cal-col-title" data-i18n="calH2b">Dates With No Practice</div>
+        <p class="cal-season" data-i18n="calP">Season Aug 3, 2026 – May 31, 2027</p>
+        <div class="cal-list" id="feriadosPortal"></div>
+      </div>
     </div>
-    <div class="cal-list" id="feriadosPortal"></div>
   </section>
 
   <!-- PRÁCTICA -->
@@ -615,7 +631,7 @@ const translations = {
     navPortal:'Zona de Jugador', welcomePrefix:'BIENVENIDO',
     heroBadge:'Temporada 2026–2027', heroTitulo:'Bienvenidas, familias',
     heroSub:'Este es el club digital de las familias de Homeschool Soccer.',
-    portalEyebrow:'Calendario', calH2:'Horario de entrenamiento', calH2b:'Fechas sin práctica',
+    portalEyebrow:'Calendario', calH2:'Entrenamiento Semanal', calH2b:'Fechas sin práctica', calH2b2:'Entrenamiento y Fechas de la Temporada',
     calP:'Temporada 3 de agosto de 2026 al 31 de mayo de 2027',
     homeSub:'Bienvenido de nuevo a tu club.',
     navInicio:'Inicio', navCalendario:'Calendario', navPractica:'Práctica', navNewsletter:'Novedades', navActividades:'Eventos',
@@ -650,7 +666,7 @@ const translations = {
     navPortal:'Player Zone', welcomePrefix:'WELCOME',
     heroBadge:'Season 2026–2027', heroTitulo:'Welcome, families',
     heroSub:'This is the digital clubhouse for Homeschool Soccer families.',
-    portalEyebrow:'Calendar', calH2:'Training Schedule', calH2b:'Dates With No Practice',
+    portalEyebrow:'Calendar', calH2:'Weekly Training', calH2b:'Dates With No Practice', calH2b2:'Weekly Training & Season Dates',
     calP:'Season Aug 3, 2026 – May 31, 2027',
     homeSub:'Welcome back to your club.',
     navInicio:'Home', navCalendario:'Calendar', navPractica:'Practice', navNewsletter:'News', navActividades:'Events',
