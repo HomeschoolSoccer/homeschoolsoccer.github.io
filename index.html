@@ -983,13 +983,10 @@ function renderFeriadosPortal(){
 }
 renderFeriadosPortal();
 
-// ── NEWSLETTER — editá este array para agregar posts nuevos ──
-// Cada entrada: { fecha: 'YYYY-MM-DD', titulo, cuerpo }. Se muestran del más
-// nuevo al más viejo automáticamente (no hace falta ordenarlos a mano).
-const NEWSLETTER = [
-  // Ejemplo — borrá este y agregá los tuyos con el mismo formato:
-  // { fecha: '2026-08-15', titulo: '¡Arrancamos la temporada!', cuerpo: 'Estamos felices de arrancar otro año juntos. Nos vemos los lunes y miércoles en la cancha.' },
-];
+// ── NEWSLETTER — se llena solo desde la hoja "Noticias" del Sheet ──
+// Enzo edita esa hoja directo en Google Sheets — no hace falta tocar código
+// ni volver a publicar nada. Estructura: {fecha, titulo, cuerpo, tituloEn, cuerpoEn}
+let NEWSLETTER = [];
 
 function renderNewsletter(){
   const wrap = document.getElementById('newsletterList');
@@ -1002,21 +999,18 @@ function renderNewsletter(){
     </div>`;
     return;
   }
+  const esES = currentLang === 'es';
   const ordenado = [...NEWSLETTER].sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
   wrap.innerHTML = ordenado.map(n => `
     <div class="newsletter-item">
       <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
-      <h3>${n.titulo}</h3>
-      <p>${n.cuerpo}</p>
+      <h3>${esES ? n.titulo : n.tituloEn}</h3>
+      <p>${esES ? n.cuerpo : n.cuerpoEn}</p>
     </div>`).join('');
 }
 
-// ── ACTIVIDADES — editá este array para agregar eventos especiales ──
-// Cada entrada: { fecha: 'YYYY-MM-DD', titulo, cuerpo }.
-const ACTIVIDADES = [
-  // Ejemplo — borrá este y agregá los tuyos con el mismo formato:
-  // { fecha: '2026-09-20', titulo: 'Torneo interno', cuerpo: 'Un sábado de partidos entre todas las categorías. Más info por WhatsApp.' },
-];
+// ── ACTIVIDADES — se llena solo desde la hoja "Eventos" del Sheet ──
+let ACTIVIDADES = [];
 
 function renderActividades(){
   const wrap = document.getElementById('actividadesList');
@@ -1029,12 +1023,13 @@ function renderActividades(){
     </div>`;
     return;
   }
+  const esES = currentLang === 'es';
   const ordenado = [...ACTIVIDADES].sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
   wrap.innerHTML = ordenado.map(a => `
     <div class="actividad-item">
       <div class="fecha">${fmtFechaSimple(a.fecha)}</div>
-      <h3>${a.titulo}</h3>
-      <p>${a.cuerpo}</p>
+      <h3>${esES ? a.titulo : a.tituloEn}</h3>
+      <p>${esES ? a.cuerpo : a.cuerpoEn}</p>
     </div>`).join('');
 }
 
@@ -1106,6 +1101,11 @@ async function cargarDatosPractica(){
     const data = await jsonpRequest({ action: 'getDatosPracticaPublico' });
     jugadoresList = data.jugadores || [];
     progresoData = parseProgresoSite(data.progreso);
+    NEWSLETTER = data.noticias || [];
+    ACTIVIDADES = data.eventos || [];
+    renderNewsletter();
+    renderActividades();
+    renderHomeDynamic();
   }catch(err){
     console.error('No se pudo cargar la lista de jugadores:', err);
   }
