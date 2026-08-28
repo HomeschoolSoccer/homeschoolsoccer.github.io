@@ -1006,6 +1006,7 @@ function renderNewsletter(){
       <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
       <h3>${esES ? n.titulo : n.tituloEn}</h3>
       <p>${esES ? n.cuerpo : n.cuerpoEn}</p>
+      ${n.link ? `<a href="${n.link}" target="_blank" rel="noopener" class="nt-link" style="margin-top:10px;">${t.readMore} ${icon('chevronRight',13)}</a>` : ''}
     </div>`).join('');
 }
 
