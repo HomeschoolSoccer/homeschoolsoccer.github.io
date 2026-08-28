@@ -912,6 +912,7 @@ function renderHomeDynamic(){
     </div>
   `;
 
+  const esESHome = currentLang === 'es';
   const newsWrap = document.getElementById('newsPreviewWrap');
   const newsPrev = document.getElementById('newsPreview');
   if(NEWSLETTER.length === 0){
@@ -922,23 +923,25 @@ function renderHomeDynamic(){
     newsPrev.innerHTML = top2.map(n => `
       <div class="newsletter-item" onclick="cambiarAppScreen('newsletter')" style="cursor:pointer;">
         <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
-        <h3>${n.titulo}</h3>
-        <p>${n.cuerpo}</p>
+        <h3>${esESHome ? n.titulo : n.tituloEn}</h3>
+        <p>${esESHome ? n.cuerpo : n.cuerpoEn}</p>
       </div>`).join('');
   }
 
+  const hoyHome = new Date(); hoyHome.setHours(0,0,0,0);
+  const eventosVigentesHome = ACTIVIDADES.filter(a => new Date(a.fecha + 'T00:00:00') >= hoyHome);
   const eventsWrap = document.getElementById('eventsPreviewWrap');
   const evPrev = document.getElementById('eventsPreview');
-  if(ACTIVIDADES.length === 0){
+  if(eventosVigentesHome.length === 0){
     eventsWrap.style.display = 'none';
   } else {
     eventsWrap.style.display = '';
-    const top2 = [...ACTIVIDADES].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,2);
+    const top2 = [...eventosVigentesHome].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,2);
     evPrev.innerHTML = top2.map(a => `
       <div class="actividad-item" onclick="cambiarAppScreen('actividades')" style="cursor:pointer;">
         <div class="fecha">${fmtFechaSimple(a.fecha)}</div>
-        <h3>${a.titulo}</h3>
-        <p>${a.cuerpo}</p>
+        <h3>${esESHome ? a.titulo : a.tituloEn}</h3>
+        <p>${esESHome ? a.cuerpo : a.cuerpoEn}</p>
       </div>`).join('');
   }
 }
@@ -1016,7 +1019,12 @@ let ACTIVIDADES = [];
 function renderActividades(){
   const wrap = document.getElementById('actividadesList');
   const t = translations[currentLang];
-  if(ACTIVIDADES.length === 0){
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  // Los eventos vencidos se ocultan solos de "Próximos Eventos" — no hace
+  // falta borrarlos del Sheet a mano, aunque seguís teniendo el historial
+  // guardado ahí por si lo querés consultar más adelante.
+  const vigentes = ACTIVIDADES.filter(a => new Date(a.fecha + 'T00:00:00') >= hoy);
+  if(vigentes.length === 0){
     wrap.innerHTML = `<div class="empty-list">
       <div class="el-icon">${icon('events',22)}</div>
       <div class="el-title">${t.actividadesVacioTitulo}</div>
@@ -1025,7 +1033,7 @@ function renderActividades(){
     return;
   }
   const esES = currentLang === 'es';
-  const ordenado = [...ACTIVIDADES].sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
+  const ordenado = [...vigentes].sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
   wrap.innerHTML = ordenado.map(a => `
     <div class="actividad-item">
       <div class="fecha">${fmtFechaSimple(a.fecha)}</div>
