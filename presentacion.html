@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homeschool Soccer LLC</title>
+
+<link rel="icon" type="image/png" href="LOGO_Homeschool2026_transparente.png">
+<link rel="apple-touch-icon" href="LOGO_Homeschool2026_transparente.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#EAF3F9">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFCFD; --ink:#1E3345; --ink-soft:#4A6376; --ink-mute:#7E93A3;
+    --blue:#3E86B5; --blue-dark:#2C6790; --blue-soft:#EAF3F9; --blue-line:#D7E7F1;
+    --green:#74AC68; --green-dark:#5C7F53; --green-soft:#EFF6EC; --green-text:#3F6A38;
+    --line:#E4EDF3; --navy:#1E3345; --navy-soft:#B8CBD9;
+    --r-lg:18px; --r-md:14px; --r-sm:10px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{color:var(--blue-dark);}
+  .display{font-family:'Bricolage Grotesque',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  img{max-width:100%;display:block;}
+
+  .ph{border-radius:var(--r-lg);display:flex;align-items:flex-end;padding:18px;}
+  .ph span{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg);padding:8px 12px;border-radius:8px;}
+  .ph.blue{background-color:#DCEAF3;background-image:repeating-linear-gradient(135deg,rgba(62,134,181,.16) 0 10px,transparent 10px 20px);}
+  .ph.blue span{color:var(--blue);}
+  .ph.green{background-color:#DCE9D6;background-image:repeating-linear-gradient(135deg,rgba(116,172,104,.22) 0 10px,transparent 10px 20px);}
+  .ph.green span{color:var(--green-text);}
+
+  header.topnav{
+    display:flex;align-items:center;justify-content:space-between;padding:18px 44px;
+    border-bottom:1px solid var(--line);position:sticky;top:0;background:#FBFCFDF2;
+    backdrop-filter:blur(8px);z-index:20;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand img{width:44px;height:44px;object-fit:contain;}
+  .brand .b1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;letter-spacing:-0.2px;}
+  .brand .b2{font-size:11px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase;}
+  nav.links{display:flex;align-items:center;gap:22px;font-size:14px;font-weight:500;color:var(--ink-soft);}
+  nav.links a{color:var(--ink-soft);}
+  nav.links a:hover{color:var(--ink);}
+  .langtoggle{display:flex;align-items:center;gap:2px;background:#EDF3F7;border-radius:99px;padding:3px;}
+  .langtoggle button{border:none;background:none;padding:6px 13px;border-radius:99px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-mute);}
+  .langtoggle button.active{background:var(--blue);color:#fff;}
+  .navcta{background:var(--green);color:#fff;padding:11px 20px;border-radius:99px;font-weight:700;}
+  .navcta:hover{background:var(--green-dark);color:#fff;}
+
+  @media (max-width:860px){header.topnav{padding:16px 20px;}nav.links a{display:none;}}
+
+  section{padding:60px 44px;}
+  @media (max-width:720px){section{padding:44px 20px;}}
+  h2.stitle{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:32px;letter-spacing:-0.8px;margin:0;}
+
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:60px 44px 56px;background:linear-gradient(180deg,#EAF3F9 0%,#F4F9FB 100%);}
+  @media (max-width:860px){.hero{grid-template-columns:1fr;padding:40px 20px;}}
+  .hero-badge{align-self:flex-start;background:#D8E9D2;color:var(--green-text);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 14px;border-radius:99px;}
+  .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:52px;line-height:1.05;letter-spacing:-1.4px;margin:18px 0 0;}
+  @media (max-width:720px){.hero h1{font-size:2.1rem;}}
+  .hero p.body{font-size:18px;line-height:1.55;color:var(--ink-soft);max-width:46ch;margin:18px 0 0;}
+  .hero-ctas{display:flex;gap:12px;align-items:center;padding-top:22px;flex-wrap:wrap;}
+  .btn-primary{background:var(--blue);color:#fff;font-weight:700;font-size:15.5px;padding:15px 26px;border-radius:12px;}
+  .btn-primary:hover{background:var(--blue-dark);color:#fff;}
+  .btn-secondary{border:1.5px solid #C3DAE8;color:var(--blue-dark);font-weight:600;font-size:15.5px;padding:14px 22px;border-radius:12px;background:#fff;}
+  .stats{display:flex;gap:28px;padding-top:20px;margin-top:14px;border-top:1px solid var(--blue-line);flex-wrap:wrap;}
+  .stats .num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;}
+  .stats .lbl{font-size:12.5px;color:var(--ink-mute);}
+
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:860px){.grid-3{grid-template-columns:1fr;}}
+  .p-card{border-radius:16px;padding:26px;}
+  .p-card .dot{width:36px;height:36px;border-radius:10px;margin-bottom:16px;}
+  .p-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px;margin:0 0 8px;}
+  .p-card p{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink-soft);}
+
+  .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;padding:56px 44px;background:var(--green-soft);}
+  @media (max-width:860px){.about{grid-template-columns:1fr;padding:40px 20px;}}
+  .about ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#3A5265;}
+  .about ul li{display:flex;gap:10px;}
+  .about ul li span{color:var(--green);font-weight:700;}
+  .about p.body{margin:14px 0 0;font-size:17px;line-height:1.6;color:#3A5265;}
+
+  .portal-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
+  @media (max-width:860px){.portal-steps{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.portal-steps{grid-template-columns:1fr;}}
+  .ps-card{border-radius:16px;padding:22px;}
+  .ps-card .n{font-family:'JetBrains Mono',monospace;font-size:12px;margin-bottom:12px;}
+  .ps-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;margin:0 0 7px;}
+  .ps-card p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-soft);}
+  .portal-badge{background:#D8E9D2;color:var(--green-text);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:7px 14px;border-radius:99px;}
+
+  .trial-banner{margin:0 44px;padding:36px 40px;background:var(--navy);border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  @media (max-width:860px){.trial-banner{margin:0 20px;padding:30px;}}
+  .trial-banner h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:27px;letter-spacing:-0.5px;margin:0;color:#fff;}
+  .trial-banner p{margin:8px 0 0;font-size:15.5px;color:var(--navy-soft);max-width:52ch;}
+  .trial-banner .btn-primary{flex:none;background:var(--green);}
+  .trial-banner .btn-primary:hover{background:var(--green-dark);}
+
+  .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:720px;}
+  @media (max-width:640px){.pricing-grid{grid-template-columns:1fr;}}
+  .price-card{border:1.5px solid var(--line);border-radius:16px;padding:28px;background:var(--bg);position:relative;}
+  .price-card.featured{border:2px solid var(--green);background:var(--green-soft);}
+  .price-card .badge{position:absolute;top:-12px;left:26px;background:var(--green);color:#fff;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:99px;}
+  .price-card .tier{font-size:13px;font-weight:600;color:var(--ink-mute);letter-spacing:0.06em;text-transform:uppercase;}
+  .price-card .amount{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;margin:10px 0 6px;}
+  .price-card p{margin:0 0 18px;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+  .price-card a{display:block;text-align:center;font-weight:700;padding:12px;border-radius:10px;}
+  .price-card a.outline{border:1.5px solid #C3DAE8;color:var(--blue-dark);}
+  .price-card a.filled{background:var(--green);color:#fff;}
+
+  .faq-contact{display:grid;grid-template-columns:1fr 1fr;gap:44px;padding:56px 44px;background:var(--blue-soft);}
+  @media (max-width:860px){.faq-contact{grid-template-columns:1fr;padding:40px 20px;}}
+  .faq-item{background:var(--bg);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+  .faq-item .q{font-weight:700;font-size:15px;margin-bottom:6px;}
+  .faq-item .a{font-size:14px;color:var(--ink-soft);line-height:1.5;margin:0;}
+  .contact-card{background:var(--bg);border-radius:18px;padding:32px;}
+  .contact-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;margin:0 0 18px;}
+  .contact-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .contact-row:last-child{border-bottom:none;}
+  .contact-row .ic{font-size:20px;}
+  .contact-row .lbl{font-size:11.5px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.05em;}
+  .contact-row .val{font-weight:700;font-size:15px;}
+
+  footer{text-align:center;padding:30px 20px;color:var(--ink-mute);font-size:12.5px;border-top:1px solid var(--line);}
+  footer strong{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="brand">
+    <img src="LOGO_Homeschool2026_transparente.png" alt="Homeschool Soccer" onerror="this.style.display='none'">
+    <div>
+      <div class="b1">HOMESCHOOL SOCCER</div>
+      <div class="b2" data-i18n="tagline">Temporada 2026-2027</div>
+    </div>
+  </div>
+  <nav class="links">
+    <a href="#programas" data-i18n="navPrograms">Programas</a>
+    <a href="#nosotros" data-i18n="navAbout">Nosotros</a>
+    <a href="#precios" data-i18n="navPricing">Precios</a>
+    <a href="app.html" data-i18n="portalTitle">Zona de Jugador</a>
+    <div class="langtoggle">
+      <button id="btnEs" onclick="setLang('es')">ES</button>
+      <button id="btnEn" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="https://tinyurl.com/homeschoolsocceracademia" class="navcta" data-i18n="navCta">Inscribite</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div>
+    <span class="hero-badge" data-i18n="heroBadge">Futbol para familias homeschool</span>
+    <h1 data-i18n="heroTitle">Aprende, crece, y disfruta del juego</h1>
+    <p class="body" data-i18n="heroBody">Entrenamientos pensados para chicos de familias homeschool en Miramar, FL, dos veces por semana, en un ambiente familiar y profesional.</p>
+    <div class="hero-ctas">
+      <a href="https://tinyurl.com/homeschoolsocceracademia" class="btn-primary" data-i18n="ctaPrimary">Inscribite ahora</a>
+      <a href="#programas" class="btn-secondary" data-i18n="ctaSecondary">Ver programas</a>
+    </div>
+    <div class="stats">
+      <div><div class="num">2</div><div class="lbl" data-i18n="stat1">dias por semana</div></div>
+      <div><div class="num">5-13</div><div class="lbl" data-i18n="stat2">anos</div></div>
+      <div><div class="num">60</div><div class="lbl" data-i18n="stat3">min por sesion</div></div>
+    </div>
+  </div>
+  <div class="ph blue" style="height:380px;"><span data-i18n="phHero">foto: entrenamiento en cancha</span></div>
+</div>
+
+<section id="programas">
+  <h2 class="stitle" data-i18n="programsTitle" style="margin-bottom:26px;">Que hacemos</h2>
+  <div class="grid-3">
+    <div class="p-card" style="background:var(--blue-soft);">
+      <div class="dot" style="background:var(--blue);"></div>
+      <h3 data-i18n="p1Title">Entrenamientos</h3>
+      <p data-i18n="p1Body">Lunes y Miercoles, 9:30-10:30 AM en Miramar Regional Park, sesiones de habilidades y juego en equipo.</p>
+    </div>
+    <div class="p-card" style="background:var(--green-soft);">
+      <div class="dot" style="background:var(--green);"></div>
+      <h3 data-i18n="p2Title">Zona de Practica</h3>
+      <p data-i18n="p2Body">Un espacio digital propio, trivia, desafios, y datos curiosos para seguir aprendiendo en casa.</p>
+    </div>
+    <div class="p-card" style="background:var(--blue-soft);">
+      <div class="dot" style="background:var(--blue-dark);"></div>
+      <h3 data-i18n="p3Title">Comunidad</h3>
+      <p data-i18n="p3Body">Novedades, eventos especiales, y equipamiento oficial del equipo para las familias.</p>
+    </div>
+  </div>
+</section>
+
+<div id="nosotros" class="about">
+  <div class="ph green" style="height:300px;"><span data-i18n="phAbout">foto: familias en la cancha</span></div>
+  <div>
+    <h2 class="stitle" data-i18n="aboutTitle">Quienes somos</h2>
+    <p class="body" data-i18n="aboutBody">Homeschool Soccer nacio de una idea simple: las familias que educan en casa merecen un espacio deportivo pensado para su rutina, su comunidad, y su forma de criar a sus hijos.</p>
+    <ul>
+      <li><span>-</span><span data-i18n="about1">Somos parte de la misma comunidad homeschool que servimos.</span></li>
+      <li><span>-</span><span data-i18n="about2">Academia chica a proposito, conocemos a cada jugador y a cada familia.</span></li>
+      <li><span>-</span><span data-i18n="about3">El desarrollo de cada chico a su propio ritmo, no solo la competencia.</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="portal">
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;">
+    <h2 class="stitle" data-i18n="portalTitle">Zona de Jugador</h2>
+    <span class="portal-badge" data-i18n="portalBadge">Solo para inscriptos</span>
+  </div>
+  <p style="max-width:62ch;font-size:17px;color:var(--ink-soft);margin:0 0 26px;" data-i18n="portalIntro">Cada jugador tiene su propio espacio digital para seguir su progreso y aprender mas de futbol, en casa.</p>
+  <div class="portal-steps">
+    <div class="ps-card" style="background:var(--blue-soft);">
+      <div class="n" style="color:var(--blue);">01</div>
+      <h3 data-i18n="portal1Title">Entra con tu codigo</h3>
+      <p data-i18n="portal1Body">Cada jugador tiene un codigo personal de 4 digitos.</p>
+    </div>
+    <div class="ps-card" style="background:var(--green-soft);">
+      <div class="n" style="color:var(--green-dark);">02</div>
+      <h3 data-i18n="portal2Title">Juega y aprende</h3>
+      <p data-i18n="portal2Body">Trivia de futbol, desafios, y datos curiosos.</p>
+    </div>
+    <div class="ps-card" style="background:var(--blue-soft);">
+      <div class="n" style="color:var(--blue);">03</div>
+      <h3 data-i18n="portal3Title">Segui tu progreso</h3>
+      <p data-i18n="portal3Body">Puntos y desafios completados, a tu propio ritmo.</p>
+    </div>
+    <div class="ps-card" style="background:var(--green-soft);">
+      <div class="n" style="color:var(--green-dark);">04</div>
+      <h3 data-i18n="portal4Title">Enterate de todo</h3>
+      <p data-i18n="portal4Body">Calendario, novedades, y proximos eventos.</p>
+    </div>
+  </div>
+</section>
+
+<div class="trial-banner">
+  <div>
+    <h2 data-i18n="trialTitle">Listos para sumarse al equipo?</h2>
+    <p data-i18n="trialBody">La inscripcion incluye el uniforme oficial, empeza cuando quieras, las clases son todo el ano.</p>
+  </div>
+  <a href="https://tinyurl.com/homeschoolsocceracademia" class="btn-primary" data-i18n="trialCta">Inscribite ahora</a>
+</div>
+
+<section id="precios">
+  <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:26px;">
+    <h2 class="stitle" data-i18n="pricingTitle">Precios</h2>
+    <span class="mono" style="font-size:14px;color:var(--ink-mute);" data-i18n="pricingNote">sin sorpresas</span>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card featured">
+      <span class="badge" data-i18n="popular">Pago unico</span>
+      <div class="tier" data-i18n="tier1">Inscripcion anual</div>
+      <div class="amount">$160</div>
+      <p data-i18n="tier1Body">Incluye el uniforme oficial del equipo. Se paga una sola vez por temporada.</p>
+      <a href="https://tinyurl.com/homeschoolsocceracademia" class="filled" data-i18n="choose">Inscribirme</a>
+    </div>
+    <div class="price-card">
+      <div class="tier" data-i18n="tier2">Mensualidad</div>
+      <div class="amount">$160</div>
+      <p data-i18n="tier2Body">Se cobra todos los meses mientras el jugador este activo en la academia.</p>
+      <a href="https://tinyurl.com/homeschoolsocceracademia" class="outline" data-i18n="choose">Inscribirme</a>
+    </div>
+  </div>
+  <p class="mono" style="margin-top:18px;font-size:12px;color:#9AAAB6;" data-i18n="priceDisclaimer">Pago por Zelle, coordinamos los detalles al inscribirte.</p>
+</section>
+
+<div class="faq-contact" id="contacto">
+  <div>
+    <h2 class="stitle" data-i18n="faqTitle" style="font-size:28px;margin-bottom:20px;">Preguntas frecuentes</h2>
+    <div class="faq-item"><div class="q" data-i18n="q1">A que edad puede empezar mi hijo/a?</div><p class="a" data-i18n="a1">Aceptamos jugadores de 5 a 13 anos, agrupados por categoria segun su edad.</p></div>
+    <div class="faq-item"><div class="q" data-i18n="q2">Que dias y horario entrenan?</div><p class="a" data-i18n="a2">Lunes y Miercoles, de 9:30 a 10:30 AM, en Miramar Regional Park.</p></div>
+    <div class="faq-item"><div class="q" data-i18n="q3">Que incluye la inscripcion?</div><p class="a" data-i18n="a3">El uniforme oficial del equipo, y acceso a la Zona de Practica digital para tu hijo/a.</p></div>
+  </div>
+  <div class="contact-card">
+    <h3 data-i18n="formTitle">Contactanos</h3>
+    <div class="contact-row"><span class="ic">📱</span><div><div class="lbl" data-i18n="cWhatsapp">WhatsApp / Telefono</div><div class="val">954-918-0916</div></div></div>
+    <div class="contact-row"><span class="ic">📧</span><div><div class="lbl">Email</div><div class="val">homeschoolsoccerfl@gmail.com</div></div></div>
+    <div class="contact-row"><span class="ic">📍</span><div><div class="lbl" data-i18n="cUbicacion">Ubicacion</div><div class="val">Miramar Regional Park, FL</div></div></div>
+  </div>
+</div>
+
+<footer>
+  <strong>Homeschool Soccer LLC</strong> - Miramar, FL
+</footer>
+
+<script>
+let currentLang = 'es';
+const translations = {
+  es: {
+    tagline:'Temporada 2026-2027', navPrograms:'Programas', navAbout:'Nosotros', navPricing:'Precios', portalTitle:'Zona de Jugador', navCta:'Inscribite',
+    heroBadge:'Futbol para familias homeschool', heroTitle:'Aprende, crece, y disfruta del juego',
+    heroBody:'Entrenamientos pensados para chicos de familias homeschool en Miramar, FL, dos veces por semana, en un ambiente familiar y profesional.',
+    ctaPrimary:'Inscribite ahora', ctaSecondary:'Ver programas',
+    stat1:'dias por semana', stat2:'anos', stat3:'min por sesion',
+    phHero:'foto: entrenamiento en cancha', phAbout:'foto: familias en la cancha',
+    programsTitle:'Que hacemos',
+    p1Title:'Entrenamientos', p1Body:'Lunes y Miercoles, 9:30-10:30 AM en Miramar Regional Park, sesiones de habilidades y juego en equipo.',
+    p2Title:'Zona de Practica', p2Body:'Un espacio digital propio, trivia, desafios, y datos curiosos para seguir aprendiendo en casa.',
+    p3Title:'Comunidad', p3Body:'Novedades, eventos especiales, y equipamiento oficial del equipo para las familias.',
+    aboutTitle:'Quienes somos',
+    aboutBody:'Homeschool Soccer nacio de una idea simple: las familias que educan en casa merecen un espacio deportivo pensado para su rutina, su comunidad, y su forma de criar a sus hijos.',
+    about1:'Somos parte de la misma comunidad homeschool que servimos.',
+    about2:'Academia chica a proposito, conocemos a cada jugador y a cada familia.',
+    about3:'El desarrollo de cada chico a su propio ritmo, no solo la competencia.',
+    portalBadge:'Solo para inscriptos', portalIntro:'Cada jugador tiene su propio espacio digital para seguir su progreso y aprender mas de futbol, en casa.',
+    portal1Title:'Entra con tu codigo', portal1Body:'Cada jugador tiene un codigo personal de 4 digitos.',
+    portal2Title:'Juega y aprende', portal2Body:'Trivia de futbol, desafios, y datos curiosos.',
+    portal3Title:'Segui tu progreso', portal3Body:'Puntos y desafios completados, a tu propio ritmo.',
+    portal4Title:'Enterate de todo', portal4Body:'Calendario, novedades, y proximos eventos.',
+    trialTitle:'Listos para sumarse al equipo?', trialBody:'La inscripcion incluye el uniforme oficial, empeza cuando quieras, las clases son todo el ano.', trialCta:'Inscribite ahora',
+    pricingTitle:'Precios', pricingNote:'sin sorpresas',
+    popular:'Pago unico', tier1:'Inscripcion anual', tier1Body:'Incluye el uniforme oficial del equipo. Se paga una sola vez por temporada.',
+    tier2:'Mensualidad', tier2Body:'Se cobra todos los meses mientras el jugador este activo en la academia.',
+    choose:'Inscribirme', priceDisclaimer:'Pago por Zelle, coordinamos los detalles al inscribirte.',
+    faqTitle:'Preguntas frecuentes',
+    q1:'A que edad puede empezar mi hijo/a?', a1:'Aceptamos jugadores de 5 a 13 anos, agrupados por categoria segun su edad.',
+    q2:'Que dias y horario entrenan?', a2:'Lunes y Miercoles, de 9:30 a 10:30 AM, en Miramar Regional Park.',
+    q3:'Que incluye la inscripcion?', a3:'El uniforme oficial del equipo, y acceso a la Zona de Practica digital para tu hijo/a.',
+    formTitle:'Contactanos', cWhatsapp:'WhatsApp / Telefono', cUbicacion:'Ubicacion',
+  },
+  en: {
+    tagline:'Season 2026-2027', navPrograms:'Programs', navAbout:'About Us', navPricing:'Pricing', portalTitle:'Player Zone', navCta:'Register',
+    heroBadge:'Soccer for homeschool families', heroTitle:'Learn, grow, and enjoy the game',
+    heroBody:'Training built for homeschool kids in Miramar, FL, twice a week, in a professional, family-first environment.',
+    ctaPrimary:'Register now', ctaSecondary:'See programs',
+    stat1:'days per week', stat2:'years old', stat3:'min per session',
+    phHero:'photo: training on the field', phAbout:'photo: families on the field',
+    programsTitle:'What we do',
+    p1Title:'Training', p1Body:'Monday and Wednesday, 9:30-10:30 AM at Miramar Regional Park, skills sessions and team play.',
+    p2Title:'Practice Zone', p2Body:'Our own digital space, trivia, challenges, and fun facts to keep learning at home.',
+    p3Title:'Community', p3Body:'News, special events, and official team gear for families.',
+    aboutTitle:'Who we are',
+    aboutBody:'Homeschool Soccer started with a simple idea: homeschool families deserve a sports space built around their routine, their community, and how they raise their kids.',
+    about1:'We are part of the same homeschool community we serve.',
+    about2:'Intentionally a small academy, we know every player and every family.',
+    about3:'Each kid development at their own pace, not just competition.',
+    portalBadge:'Members only', portalIntro:'Every player has their own digital space to track progress and keep learning about soccer, at home.',
+    portal1Title:'Log in with your code', portal1Body:'Every player has a personal 4-digit code.',
+    portal2Title:'Play and learn', portal2Body:'Soccer trivia, challenges, and fun facts.',
+    portal3Title:'Track your progress', portal3Body:'Points and completed challenges, at your own pace.',
+    portal4Title:'Stay in the loop', portal4Body:'Calendar, news, and upcoming events.',
+    trialTitle:'Ready to join the team?', trialBody:'Registration includes the official uniform, start anytime, classes run all year.', trialCta:'Register now',
+    pricingTitle:'Pricing', pricingNote:'no surprises',
+    popular:'One-time', tier1:'Annual Registration', tier1Body:'Includes the official team uniform. Paid once per season.',
+    tier2:'Monthly Fee', tier2Body:'Billed every month while the player is active in the academy.',
+    choose:'Register', priceDisclaimer:'Paid via Zelle, we coordinate details when you register.',
+    faqTitle:'Frequently Asked Questions',
+    q1:'What age can my child start?', a1:'We welcome players ages 5 to 13, grouped by category based on age.',
+    q2:'What days and time do you train?', a2:'Monday and Wednesday, 9:30 to 10:30 AM, at Miramar Regional Park.',
+    q3:'What does registration include?', a3:'The official team uniform, and access to your child digital Practice Zone.',
+    formTitle:'Contact Us', cWhatsapp:'WhatsApp / Phone', cUbicacion:'Location',
+  }
+};
+
+function setLang(lang){
+  currentLang = lang;
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    const key = el.dataset.i18n;
+    if(t[key] !== undefined) el.textContent = t[key];
+  });
+  document.getElementById('btnEs').classList.toggle('active', lang==='es');
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  document.documentElement.lang = lang;
+}
+setLang('es');
+</script>
+</body>
+</html>
