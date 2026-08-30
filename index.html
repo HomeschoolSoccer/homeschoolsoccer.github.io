@@ -279,7 +279,9 @@
       <label style="display:block;font-size:12px;font-weight:700;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Email</label>
       <input type="email" id="intEmail" style="width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:14px;">
       <label style="display:block;font-size:12px;font-weight:700;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;" data-i18n="interesZona">Zona o ciudad</label>
-      <input type="text" id="intZona" placeholder="Ej: Doral, Weston..." style="width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:18px;">
+      <input type="text" id="intZona" placeholder="Ej: Doral, Weston..." style="width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:14px;">
+      <label style="display:block;font-size:12px;font-weight:700;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;" data-i18n="interesEdad">Edad del hijo/a</label>
+      <input type="text" id="intEdad" placeholder="Ej: 7 anos" style="width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:18px;">
       <button onclick="enviarInteres()" id="intBtn" class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;" data-i18n="interesEnviar">Enviar</button>
       <div id="intOk" style="display:none;text-align:center;color:var(--green-dark);font-weight:700;font-size:13.5px;margin-top:14px;" data-i18n="interesOk">Gracias! Te vamos a avisar apenas tengamos novedades.</div>
     </div>
@@ -341,7 +343,7 @@ const translations = {
     formTitle:'Contactanos', cWhatsapp:'WhatsApp / Telefono', cUbicacion:'Ubicacion',
     interesTitle:'Te gustaria Homeschool Soccer en tu ciudad?',
     interesBody:'Estamos evaluando nuevas sedes. Dejanos tu contacto y la zona que te interesaria, no es una inscripcion.',
-    interesNombre:'Nombre', interesZona:'Zona o ciudad', interesEnviar:'Enviar',
+    interesNombre:'Nombre', interesZona:'Zona o ciudad', interesEdad:'Edad del hijo/a', interesEnviar:'Enviar',
     interesOk:'Gracias! Te vamos a avisar apenas tengamos novedades.',
   },
   en: {
@@ -377,7 +379,7 @@ const translations = {
     formTitle:'Contact Us', cWhatsapp:'WhatsApp / Phone', cUbicacion:'Location',
     interesTitle:'Want Homeschool Soccer in your city?',
     interesBody:"We're evaluating new locations. Leave your contact and the area you're interested in, this isn't a registration.",
-    interesNombre:'Name', interesZona:'Area or city', interesEnviar:'Submit',
+    interesNombre:'Name', interesZona:'Area or city', interesEdad:"Child's age", interesEnviar:'Submit',
     interesOk:"Thanks! We'll reach out as soon as we have news.",
   }
 };
@@ -419,7 +421,8 @@ async function enviarInteres(){
       action: 'interesExpansion',
       nombre: document.getElementById('intNombre').value,
       email: document.getElementById('intEmail').value,
-      zona: document.getElementById('intZona').value
+      zona: document.getElementById('intZona').value,
+      edad: document.getElementById('intEdad').value
     });
     document.getElementById('intOk').style.display = 'block';
     document.getElementById('intOk').textContent = t.interesOk;
