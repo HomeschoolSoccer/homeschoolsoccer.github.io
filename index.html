@@ -530,6 +530,12 @@
       <span class="nt-link" id="verTiendaLink"></span>
     </div>
 
+    <div class="practice-teaser" onclick="cambiarAppScreen('notas')" id="notasTeaserCard" style="display:none;">
+      <h3 data-i18n="notasTeaserH">Coach Notes</h3>
+      <p class="pt-sub" id="notasTeaserSub"></p>
+      <span class="nt-link" id="verNotasLink"></span>
+    </div>
+
     <div id="newsPreviewWrap">
       <div class="home-section-title">
         <h2 data-i18n="latestNewsTitle">Latest News</h2>
@@ -658,6 +664,15 @@
     </div>
   </section>
 
+  <!-- NOTAS INDIVIDUALES -->
+  <section class="app-screen" id="screen-notas">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="notasEyebrow">Coach Notes</div>
+      <h2 data-i18n="notasH2">Notes for you</h2>
+    </div>
+    <div class="newsletter-list" id="notasList"></div>
+  </section>
+
 </div>
 </div>
 
@@ -709,6 +724,8 @@ const translations = {
     pedidoFormTitulo:'Hacer un pedido', pedidoEnviar:'Enviar pedido',
     pedidoOk:'¡Listo! Te vamos a contactar para coordinar el pago y la entrega.',
     pedidoError:'No se pudo enviar el pedido. Probá de nuevo en un momento.',
+    notasEyebrow:'Notas del Entrenador', notasH2:'Notas para vos',
+    notasTeaserH:'Notas del Entrenador', notasTeaserP:'Comentarios sobre tu progreso en la cancha.', verNotas:'Ver Notas',
     latestNewsTitle:'Últimas Novedades', upcomingEventsTitle:'Próximos Eventos', seeAll:'Ver todo',
     practicaEyebrow:'Para los jugadores', practicaH2:'Zona de Práctica',
     tabTrivia:'Fútbol IQ', tabRetos:'Desafíos', tabCuriosidades:'Datos Curiosos',
@@ -752,6 +769,8 @@ const translations = {
     pedidoFormTitulo:'Place an order', pedidoEnviar:'Submit order',
     pedidoOk:"Done! We'll reach out to coordinate payment and pickup.",
     pedidoError:'Could not submit the order. Please try again in a moment.',
+    notasEyebrow:'Coach Notes', notasH2:'Notes for you',
+    notasTeaserH:'Coach Notes', notasTeaserP:'Feedback on your progress on the field.', verNotas:'View Notes',
     latestNewsTitle:'Latest News', upcomingEventsTitle:'Upcoming Events', seeAll:'See all',
     practicaEyebrow:'For Players', practicaH2:'Practice Zone',
     tabTrivia:'Soccer IQ', tabRetos:'Challenges', tabCuriosidades:'Soccer Facts',
@@ -866,6 +885,7 @@ function applyTranslations(lang){
   renderHomeDynamic();
   if(document.getElementById('portal').classList.contains('open')){
     actualizarSaludo();
+    renderNotas();
     renderProgreso();
     renderTrivia();
     renderRetos();
@@ -914,6 +934,7 @@ function abrirPortal(){
   cambiarAppScreen('inicio');
   actualizarSaludo();
   renderHomeDynamic();
+  renderNotas();
   renderProgreso();
   triviaOrden = [];
   triviaIdx = 0;
@@ -1168,6 +1189,34 @@ async function enviarPedidoMerch(){
   btn.disabled = false;
 }
 
+// ── NOTAS INDIVIDUALES — Enzo carga una por jugador en la hoja "Notas" ──
+// Cada familia ve solo las suyas (filtrado por ID una vez logueado).
+let NOTAS = [];
+
+function renderNotas(){
+  const teaser = document.getElementById('notasTeaserCard');
+  if(!jugadorActual){ teaser.style.display = 'none'; return; }
+
+  const t = translations[currentLang];
+  const esES = currentLang === 'es';
+  const misNotas = NOTAS.filter(n => n.id === jugadorActual.id)
+    .sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+
+  if(misNotas.length === 0){
+    teaser.style.display = 'none';
+    return;
+  }
+  teaser.style.display = 'block';
+  document.getElementById('notasTeaserSub').textContent = t.notasTeaserP;
+  document.getElementById('verNotasLink').innerHTML = '<span>'+t.verNotas+'</span>'+icon('chevronRight',15);
+
+  document.getElementById('notasList').innerHTML = misNotas.map(n => `
+    <div class="newsletter-item">
+      <div class="fecha">${fmtFechaSimple(n.fecha)}</div>
+      <p>${esES ? n.nota : n.notaEn}</p>
+    </div>`).join('');
+}
+
 function fmtFechaSimple(fechaStr){
   const d = new Date(fechaStr + 'T00:00:00');
   const locale = currentLang === 'es' ? 'es-AR' : 'en-US';
@@ -1239,9 +1288,11 @@ async function cargarDatosPractica(){
     NEWSLETTER = data.noticias || [];
     ACTIVIDADES = data.eventos || [];
     PRODUCTOS = data.productos || [];
+    NOTAS = data.notas || [];
     renderNewsletter();
     renderActividades();
     renderTienda();
+    renderNotas();
     renderHomeDynamic();
   }catch(err){
     console.error('No se pudo cargar la lista de jugadores:', err);
