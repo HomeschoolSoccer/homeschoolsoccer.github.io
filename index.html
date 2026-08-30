@@ -291,6 +291,19 @@
   .reto-card .reto-check{margin-top:10px;font-size:11.5px;font-weight:700;color:var(--green-light);display:flex;align-items:center;gap:4px;}
   @media (max-width:560px){.retos-grid{grid-template-columns:1fr;}}
 
+  .productos-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:560px){.productos-list{grid-template-columns:1fr;}}
+  .producto-card{
+    background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--card-border);border-radius:var(--r-md);padding:18px;box-shadow:var(--shadow-card);
+  }
+  .producto-card img{width:100%;height:140px;object-fit:cover;border-radius:var(--r-sm);margin-bottom:12px;background:var(--bg-2);}
+  .producto-card h4{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:4px;}
+  .producto-card p{font-size:12.5px;color:var(--text-soft);line-height:1.5;margin-bottom:8px;}
+  .producto-card .precio{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--green-light);font-size:16px;}
+  .producto-card .talles{font-size:11px;color:var(--text-soft);margin-top:4px;}
+  .pm-label{display:block;font-size:11.5px;font-weight:700;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+
   /* ── APP SHELL: SIDEBAR (desktop) + TOP BAR + BOTTOM NAV (mobile) ── */
   #appTop{
     display:none;position:sticky;top:0;z-index:55;background:rgba(7,26,36,0.92);backdrop-filter:blur(10px);
@@ -511,6 +524,12 @@
       <span class="nt-link" id="startPracticeLink"></span>
     </div>
 
+    <div class="practice-teaser" onclick="cambiarAppScreen('tienda')" id="tiendaTeaserCard" style="display:none;">
+      <h3 data-i18n="tiendaTeaserH">Team Shop</h3>
+      <p class="pt-sub" data-i18n="tiendaTeaserP">Jerseys and team gear.</p>
+      <span class="nt-link" id="verTiendaLink"></span>
+    </div>
+
     <div id="newsPreviewWrap">
       <div class="home-section-title">
         <h2 data-i18n="latestNewsTitle">Latest News</h2>
@@ -615,6 +634,30 @@
     <div class="actividades-list" id="actividadesList"></div>
   </section>
 
+  <!-- TIENDA (merch) -->
+  <section class="app-screen" id="screen-tienda">
+    <div class="section-head">
+      <div class="eyebrow" data-i18n="tiendaEyebrow">Team Shop</div>
+      <h2 data-i18n="tiendaH2">Jerseys &amp; Gear</h2>
+      <p data-i18n="tiendaP">Pick an item below and send your order — we'll follow up to coordinate payment and pickup at practice.</p>
+    </div>
+    <div class="productos-list" id="productosList"></div>
+
+    <div class="trivia-card" style="margin-top:20px;" id="pedidoFormCard">
+      <h3 style="margin-bottom:16px;" data-i18n="pedidoFormTitulo">Place an order</h3>
+      <label class="pm-label" data-i18n="pmProducto">Item</label>
+      <select id="pmProducto" class="full" style="margin-bottom:14px;"></select>
+      <label class="pm-label" data-i18n="pmTalle">Size</label>
+      <input type="text" id="pmTalle" class="full" style="margin-bottom:14px;" placeholder="YM, M, L...">
+      <label class="pm-label" data-i18n="pmCantidad">Quantity</label>
+      <input type="number" id="pmCantidad" class="full" style="margin-bottom:14px;" value="1" min="1">
+      <label class="pm-label" data-i18n="pmNotas">Notes (optional)</label>
+      <input type="text" id="pmNotas" class="full" style="margin-bottom:18px;">
+      <button class="btn gold" style="width:100%;justify-content:center;" onclick="enviarPedidoMerch()" id="pmSubmitBtn"></button>
+      <div id="pmOk" style="display:none;text-align:center;color:var(--green-light);font-weight:700;font-size:13.5px;margin-top:14px;"></div>
+    </div>
+  </section>
+
 </div>
 </div>
 
@@ -658,6 +701,14 @@ const translations = {
     practiceTeaserH:'Zona de Práctica', practiceTeaserP:'Entrená el cuerpo. Entrená la mente.',
     pillIQ:'Fútbol IQ', pillChallenges:'Desafíos', pillFacts:'Datos Curiosos',
     startPractice:'Empezar a practicar',
+    tiendaTeaserH:'Tienda del Equipo', tiendaTeaserP:'Remeras y equipamiento oficial.', verTienda:'Ver Tienda',
+    tiendaEyebrow:'Tienda', tiendaH2:'Remeras y Equipamiento',
+    tiendaP:'Elegí un producto y mandanos tu pedido — te contactamos para coordinar el pago y la entrega en la cancha.',
+    tiendaVacioTitulo:'Todavía no hay productos cargados', tiendaVacio:'Pronto vamos a sumar remeras y equipamiento acá.',
+    pmProducto:'Producto', pmTalle:'Talle', pmCantidad:'Cantidad', pmNotas:'Notas (opcional)',
+    pedidoFormTitulo:'Hacer un pedido', pedidoEnviar:'Enviar pedido',
+    pedidoOk:'¡Listo! Te vamos a contactar para coordinar el pago y la entrega.',
+    pedidoError:'No se pudo enviar el pedido. Probá de nuevo en un momento.',
     latestNewsTitle:'Últimas Novedades', upcomingEventsTitle:'Próximos Eventos', seeAll:'Ver todo',
     practicaEyebrow:'Para los jugadores', practicaH2:'Zona de Práctica',
     tabTrivia:'Fútbol IQ', tabRetos:'Desafíos', tabCuriosidades:'Datos Curiosos',
@@ -693,6 +744,14 @@ const translations = {
     practiceTeaserH:'Practice Zone', practiceTeaserP:'Train your body. Train your mind.',
     pillIQ:'Soccer IQ', pillChallenges:'Challenges', pillFacts:'Soccer Facts',
     startPractice:'Start Practice',
+    tiendaTeaserH:'Team Shop', tiendaTeaserP:'Jerseys and team gear.', verTienda:'View Shop',
+    tiendaEyebrow:'Team Shop', tiendaH2:'Jerseys & Gear',
+    tiendaP:"Pick an item below and send your order — we'll follow up to coordinate payment and pickup at practice.",
+    tiendaVacioTitulo:'No products yet', tiendaVacio:"We'll be adding jerseys and gear here soon.",
+    pmProducto:'Item', pmTalle:'Size', pmCantidad:'Quantity', pmNotas:'Notes (optional)',
+    pedidoFormTitulo:'Place an order', pedidoEnviar:'Submit order',
+    pedidoOk:"Done! We'll reach out to coordinate payment and pickup.",
+    pedidoError:'Could not submit the order. Please try again in a moment.',
     latestNewsTitle:'Latest News', upcomingEventsTitle:'Upcoming Events', seeAll:'See all',
     practicaEyebrow:'For Players', practicaH2:'Practice Zone',
     tabTrivia:'Soccer IQ', tabRetos:'Challenges', tabCuriosidades:'Soccer Facts',
@@ -786,6 +845,7 @@ function renderShell(){
   document.getElementById('pillChallenges').innerHTML = icon('trophy',13)+'<span>'+t.pillChallenges+'</span>';
   document.getElementById('pillFacts').innerHTML = icon('sparkles',13)+'<span>'+t.pillFacts+'</span>';
   document.getElementById('startPracticeLink').innerHTML = '<span>'+t.startPractice+'</span>'+icon('chevronRight',15);
+  document.getElementById('verTiendaLink').innerHTML = '<span>'+t.verTienda+'</span>'+icon('chevronRight',15);
   document.getElementById('seeAllNews').innerHTML = '<span>'+t.seeAll+'</span>'+icon('chevronRight',13);
   document.getElementById('seeAllEvents').innerHTML = '<span>'+t.seeAll+'</span>'+icon('chevronRight',13);
 }
@@ -802,6 +862,7 @@ function applyTranslations(lang){
   renderFeriadosPortal();
   renderNewsletter();
   renderActividades();
+  renderTienda();
   renderHomeDynamic();
   if(document.getElementById('portal').classList.contains('open')){
     actualizarSaludo();
@@ -1052,6 +1113,61 @@ function renderActividades(){
     </div>`).join('');
 }
 
+// ── TIENDA (merch) — productos vienen de la hoja "Productos" del Sheet ──
+let PRODUCTOS = [];
+
+function renderTienda(){
+  const wrap = document.getElementById('productosList');
+  const sel = document.getElementById('pmProducto');
+  const teaser = document.getElementById('tiendaTeaserCard');
+  const esES = currentLang === 'es';
+
+  if(PRODUCTOS.length === 0){
+    teaser.style.display = 'none';
+    wrap.innerHTML = `<div class="empty-list">${icon('events',22)}<div class="el-title" style="margin-top:10px;">${translations[currentLang].tiendaVacioTitulo}</div>${translations[currentLang].tiendaVacio}</div>`;
+    document.getElementById('pedidoFormCard').style.display = 'none';
+    return;
+  }
+  teaser.style.display = 'block';
+  document.getElementById('pedidoFormCard').style.display = 'block';
+
+  wrap.innerHTML = PRODUCTOS.map(p => `
+    <div class="producto-card">
+      ${p.foto ? `<img src="${p.foto}" alt="">` : ''}
+      <h4>${esES ? p.nombre : p.nombreEn}</h4>
+      <p>${esES ? p.desc : p.descEn}</p>
+      <div class="precio">${p.precio}</div>
+      ${p.talles ? `<div class="talles">${translations[currentLang].pmTalle}: ${p.talles}</div>` : ''}
+    </div>`).join('');
+
+  sel.innerHTML = PRODUCTOS.map(p => `<option value="${esES ? p.nombre : p.nombreEn}">${esES ? p.nombre : p.nombreEn} — ${p.precio}</option>`).join('');
+  document.getElementById('pmSubmitBtn').textContent = translations[currentLang].pedidoEnviar;
+}
+
+async function enviarPedidoMerch(){
+  const btn = document.getElementById('pmSubmitBtn');
+  const t = translations[currentLang];
+  btn.disabled = true;
+  try{
+    await jsonpRequest({
+      action: 'crearPedidoMerch',
+      jugador: jugadorActual ? jugadorActual.nombre : '',
+      producto: document.getElementById('pmProducto').value,
+      talle: document.getElementById('pmTalle').value,
+      cantidad: document.getElementById('pmCantidad').value,
+      notas: document.getElementById('pmNotas').value
+    });
+    document.getElementById('pmOk').style.display = 'block';
+    document.getElementById('pmOk').textContent = t.pedidoOk;
+    document.getElementById('pmTalle').value = '';
+    document.getElementById('pmNotas').value = '';
+  }catch(err){
+    alert(t.pedidoError);
+    console.error(err);
+  }
+  btn.disabled = false;
+}
+
 function fmtFechaSimple(fechaStr){
   const d = new Date(fechaStr + 'T00:00:00');
   const locale = currentLang === 'es' ? 'es-AR' : 'en-US';
@@ -1122,8 +1238,10 @@ async function cargarDatosPractica(){
     progresoData = parseProgresoSite(data.progreso);
     NEWSLETTER = data.noticias || [];
     ACTIVIDADES = data.eventos || [];
+    PRODUCTOS = data.productos || [];
     renderNewsletter();
     renderActividades();
+    renderTienda();
     renderHomeDynamic();
   }catch(err){
     console.error('No se pudo cargar la lista de jugadores:', err);
