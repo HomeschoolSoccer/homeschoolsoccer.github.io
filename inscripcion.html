@@ -1118,6 +1118,9 @@ document.getElementById('regForm').addEventListener('submit', async function(e) 
     if (!result || !result.ok) throw new Error('El script no confirmó el registro');
     document.getElementById('regForm').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
+        if (typeof gtag === 'function') {
+      gtag('event', 'sign_up', { method: 'formulario_inscripcion' });
+    }
     window.scrollTo({top:0, behavior:'smooth'});
   } catch(err) {
     const isLoadFailPrimary = err && err.message && err.message.indexOf('No se pudo cargar') !== -1;
