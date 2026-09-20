@@ -62,7 +62,18 @@
   .navcta{background:var(--green);color:#fff;padding:11px 20px;border-radius:99px;font-weight:700;}
   .navcta:hover{background:var(--green-dark);color:#fff;}
 
-  @media (max-width:860px){header.topnav{padding:16px 20px;}nav.links a{display:none;}}
+  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--ink);}
+  .mobile-menu{display:none;position:fixed;top:0;right:0;bottom:0;width:78vw;max-width:300px;background:var(--bg);z-index:100;box-shadow:-8px 0 24px rgba(30,51,69,0.15);padding:22px 20px;flex-direction:column;gap:4px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{padding:14px 8px;border-bottom:1px solid var(--line);color:var(--ink);font-weight:600;font-size:15px;}
+  .mobile-menu a.navcta{text-align:center;border:none;margin-top:12px;border-radius:12px;}
+  .menu-overlay{display:none;position:fixed;inset:0;background:rgba(30,51,69,0.4);z-index:99;}
+  .menu-overlay.open{display:block;}
+  .menu-close{align-self:flex-end;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-mute);padding:4px 8px;}
+
+  @media (max-width:860px){nav.links a, nav.links .navcta{display:none;} .hamburger{display:block;}}
+
+  @media (max-width:860px){header.topnav{padding:16px 20px;}}
 
   section{padding:60px 44px;}
   @media (max-width:720px){section{padding:44px 20px;}}
@@ -162,7 +173,20 @@
     </div>
     <a href="inscripcion.html" class="navcta" data-i18n="navCta">Inscribite</a>
   </nav>
+  <button class="hamburger" onclick="toggleMobileMenu(true)" aria-label="Menu">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
 </header>
+
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu(false)"></div>
+<nav class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="toggleMobileMenu(false)">✕</button>
+  <a href="#programas" onclick="toggleMobileMenu(false)" data-i18n="navPrograms">Programas</a>
+  <a href="#nosotros" onclick="toggleMobileMenu(false)" data-i18n="navAbout">Nosotros</a>
+  <a href="#precios" onclick="toggleMobileMenu(false)" data-i18n="navPricing">Precios</a>
+  <a href="app.html" data-i18n="portalTitle">Zona de Jugador</a>
+  <a href="inscripcion.html" class="navcta" data-i18n="navCta">Inscribite</a>
+</nav>
 
 <div class="hero">
   <div>
@@ -453,6 +477,12 @@ async function enviarInteres(){
     console.error(err);
   }
   btn.disabled = false;
+}
+
+function toggleMobileMenu(open){
+  document.getElementById('mobileMenu').classList.toggle('open', open);
+  document.getElementById('menuOverlay').classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
 }
 
 function setLang(lang){
