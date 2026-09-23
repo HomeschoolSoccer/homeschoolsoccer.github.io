@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9LSN21CQZ1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9LSN21CQZ1');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inscripción · Homeschool Soccer</title>
@@ -910,7 +901,7 @@ const translations = {
   }
 };
 
-let currentLang = 'es';
+let currentLang = 'en';
 
 function applyTranslations(lang) {
   const t = translations[lang];
@@ -941,6 +932,9 @@ function toggleLang() {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   applyTranslations(currentLang);
 }
+
+// Cargar la pagina en ingles por defecto
+applyTranslations(currentLang);
 
 // ── Fecha de nacimiento: Mes/Día/Año, sin objetos Date (evita bugs de huso horario) ──
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
@@ -1118,9 +1112,6 @@ document.getElementById('regForm').addEventListener('submit', async function(e) 
     if (!result || !result.ok) throw new Error('El script no confirmó el registro');
     document.getElementById('regForm').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
-        if (typeof gtag === 'function') {
-      gtag('event', 'sign_up', { method: 'formulario_inscripcion' });
-    }
     window.scrollTo({top:0, behavior:'smooth'});
   } catch(err) {
     const isLoadFailPrimary = err && err.message && err.message.indexOf('No se pudo cargar') !== -1;
