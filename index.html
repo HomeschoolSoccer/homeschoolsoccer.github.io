@@ -116,6 +116,26 @@
   .ps-card p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-soft);}
   .portal-badge{background:#D8E9D2;color:var(--green-text);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:7px 14px;border-radius:99px;}
 
+  .event{background:var(--green-soft);}
+  .event-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;max-width:1040px;margin:0 auto;}
+  @media (max-width:860px){.event-wrap{grid-template-columns:1fr;gap:28px;}}
+  .event h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1.1;letter-spacing:-0.8px;margin:14px 0 0;}
+  .event .ev-intro{font-size:16.5px;line-height:1.55;color:#3A5265;margin:12px 0 0;max-width:52ch;}
+  .ev-facts{margin:22px 0 0;background:var(--bg);border-radius:var(--r-md);border:1.5px solid var(--line);padding:6px 20px;}
+  .ev-row{display:grid;grid-template-columns:84px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+  .ev-row:last-child{border-bottom:none;}
+  .ev-row .lbl{font-size:11.5px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;}
+  .ev-row .val{font-weight:700;font-size:15px;color:var(--ink);}
+  .ev-bring{margin:22px 0 0;}
+  .ev-bring h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;margin:0 0 8px;}
+  .ev-bring ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px;color:#3A5265;line-height:1.5;}
+  .ev-bring li{display:flex;gap:10px;}
+  .ev-bring li span:first-child{color:var(--green);font-weight:700;}
+  .ev-note{margin:18px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+  .ev-flyer{display:block;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 10px 30px rgba(30,51,69,0.16);border:1.5px solid var(--line);background:#fff;max-width:380px;margin:0 auto;}
+  .ev-flyer img{width:100%;height:auto;}
+  .event-wrap.noflyer{grid-template-columns:1fr;max-width:720px;}
+
   .trial-banner{margin:0 44px;padding:36px 40px;background:var(--navy);border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
   @media (max-width:860px){.trial-banner{margin:0 20px;padding:30px;}}
   .trial-banner h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:27px;letter-spacing:-0.5px;margin:0;color:#fff;}
@@ -205,6 +225,33 @@
   </div>
   <img src="foto_hero_entrenamiento.jpg" alt="Entrenamiento de Homeschool Soccer" style="height:380px;width:100%;object-fit:cover;border-radius:var(--r-lg);">
 </div>
+
+<section id="evento" class="event">
+  <div class="event-wrap">
+    <div>
+      <span class="hero-badge" data-i18n="evBadge">Próximo evento</span>
+      <h2 data-i18n="evTitle">Fiesta de Navidad de Homeschool Soccer</h2>
+      <p class="ev-intro" data-i18n="evIntro">Celebración de fin de clases. Toda la comunidad homeschool es bienvenida, ¡invitá a tus amigos!</p>
+      <div class="ev-facts">
+        <div class="ev-row"><span class="lbl" data-i18n="evWhenLbl">Cuándo</span><span class="val" data-i18n="evWhen">Miércoles 9 de diciembre</span></div>
+        <div class="ev-row"><span class="lbl" data-i18n="evTimeLbl">Hora</span><span class="val" data-i18n="evTime">Al terminar la clase de 9:30-10:30 AM (desde las 10:30 AM)</span></div>
+        <div class="ev-row"><span class="lbl" data-i18n="evWhereLbl">Dónde</span><span class="val" data-i18n="evWhere">Miramar Regional Park (Pabellón principal)</span></div>
+        <div class="ev-row"><span class="lbl" data-i18n="evCostLbl">Costo</span><span class="val" data-i18n="evCost">Gratis</span></div>
+      </div>
+      <div class="ev-bring">
+        <h3 data-i18n="evBringTitle">Qué traer</h3>
+        <ul>
+          <li><span>-</span><span data-i18n="evBring1">Un plato o snack para compartir (picnic compartido)</span></li>
+          <li><span>-</span><span data-i18n="evBring2">Algo navideño para usar: gorro de Papá Noel, medias festivas, cuernos de reno, suéter navideño o una insignia festiva</span></li>
+        </ul>
+      </div>
+      <p class="ev-note" data-i18n="evNote">La clase es como siempre, solo para nuestros alumnos. La fiesta empieza después.</p>
+    </div>
+    <a class="ev-flyer" href="christmas_party_flyer.jpg" target="_blank" rel="noopener">
+      <img src="christmas_party_flyer.jpg" alt="Homeschool Soccer Christmas Party flyer" loading="lazy" onerror="var w=this.closest('.event-wrap');w.classList.add('noflyer');w.removeChild(this.parentNode)">
+    </a>
+  </div>
+</section>
 
 <section id="programas">
   <h2 class="stitle" data-i18n="programsTitle" style="margin-bottom:26px;">Qué hacemos</h2>
@@ -387,6 +434,13 @@ const translations = {
     interesBody:'Estamos evaluando nuevas sedes. Dejanos tu contacto y la zona que te interesaría, no es una inscripción.',
     interesNombre:'Nombre', interesZona:'Zona o ciudad', interesEdad:'Edad del hijo/a', interesEnviar:'Enviar',
     interesOk:'Gracias! Te vamos a avisar apenas tengamos novedades.',
+    evBadge:'Próximo evento', evTitle:'Fiesta de Navidad de Homeschool Soccer',
+    evIntro:'Celebración de fin de clases. Toda la comunidad homeschool es bienvenida, ¡invitá a tus amigos!',
+    evWhenLbl:'Cuándo', evWhen:'Miércoles 9 de diciembre', evTimeLbl:'Hora', evTime:'Al terminar la clase de 9:30-10:30 AM (desde las 10:30 AM)',
+    evWhereLbl:'Dónde', evWhere:'Miramar Regional Park (Pabellón principal)', evCostLbl:'Costo', evCost:'Gratis',
+    evBringTitle:'Qué traer', evBring1:'Un plato o snack para compartir (picnic compartido)',
+    evBring2:'Algo navideño para usar: gorro de Papá Noel, medias festivas, cuernos de reno, suéter navideño o una insignia festiva',
+    evNote:'La clase es como siempre, solo para nuestros alumnos. La fiesta empieza después.',
   },
   en: {
     tagline:'Season 2026-2027', navPrograms:'Programs', navAbout:'About Us', navPricing:'Pricing', portalTitle:'Player Zone', navCta:'Register',
@@ -426,6 +480,13 @@ const translations = {
     interesBody:"We're evaluating new locations. Leave your contact and the area you're interested in, this isn't a registration.",
     interesNombre:'Name', interesZona:'Area or city', interesEdad:"Child's age", interesEnviar:'Submit',
     interesOk:"Thanks! We'll reach out as soon as we have news.",
+    evBadge:'Upcoming event', evTitle:'Homeschool Soccer Christmas Party',
+    evIntro:'Join us for the end-of-class celebration. The whole homeschool community is welcome, so invite your friends!',
+    evWhenLbl:'When', evWhen:'Wednesday, December 9', evTimeLbl:'Time', evTime:'Right after the 9:30-10:30 AM class (from 10:30 AM onwards)',
+    evWhereLbl:'Where', evWhere:'Miramar Regional Park (Main Pavilion)', evCostLbl:'Cost', evCost:'Free',
+    evBringTitle:'What to bring', evBring1:'A dish or snack to share (potluck picnic)',
+    evBring2:'Something festive to wear: Santa hat, festive socks, reindeer antlers, Christmas sweater, or a festive badge',
+    evNote:'Class runs as usual, for our students only. The party starts afterward.',
   }
 };
 
