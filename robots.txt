@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /app.html
+Disallow: /Encuesta_Interes.html
+Disallow: /Encuesta_Interes_EN.html
+
+Sitemap: https://homeschoolsoccerfl.com/sitemap.xml
