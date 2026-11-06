@@ -540,6 +540,7 @@ async function enviarInteres(){
       edad: document.getElementById('intEdad').value
     });
     document.getElementById('intOk').style.display = 'block';
+    if (typeof gtag === 'function') gtag('event', 'interes_expansion', { zona: document.getElementById('intZona').value });
     document.getElementById('intOk').textContent = t.interesOk;
     document.getElementById('interesFormWrap').querySelectorAll('input').forEach(function(i){ i.value=''; });
   }catch(err){
