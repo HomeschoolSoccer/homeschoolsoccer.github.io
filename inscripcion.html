@@ -507,7 +507,7 @@
           <span class="err-msg" id="err-nombre" data-i18n="reqField">Campo requerido</span>
         </div>
         <div class="field full">
-          <label><span data-i18n="dob">Fecha de Nacimiento</span> <span class="req">*</span> <span style="font-weight:400;text-transform:none;color:var(--texto-sub)">(MM/DD/AAAA)</span></label>
+          <label><span data-i18n="dob">Fecha de Nacimiento</span> <span class="req">*</span> <span style="font-weight:400;text-transform:none;color:var(--texto-sub)"><span data-i18n="dobFormat">(MM/DD/AAAA)</span></span></label>
           <div class="grid-3" style="gap:8px;">
             <select id="dobMonth">
               <option value="" data-i18n="monthSelect">Mes...</option>
@@ -725,6 +725,7 @@
 
   <!-- SUBMIT -->
   <div class="submit-wrapper">
+    <p data-i18n="nextSteps" style="font-size:14px;color:var(--texto-sub);max-width:520px;margin:0 auto 14px;line-height:1.5;">Después de enviar, te contactamos para confirmar el lugar y coordinar el pago. Enviar este formulario no genera ningún cobro.</p>
     <button type="submit" class="btn-submit" id="btnSubmit">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       <span data-i18n="submit">Enviar Inscripción</span>
@@ -866,7 +867,11 @@ const translations = {
     successTitle: '¡Inscripción recibida!',
     successBody: 'Nos contactaremos a la brevedad para confirmar el lugar.',
     reqField: 'Campo requerido', invalidEmail: 'Email inválido',
-    yearsSuffix: 'años', adultLabel: 'Mayor de edad'
+    yearsSuffix: 'años', adultLabel: 'Mayor de edad',
+    phYear: 'AAAA', dobFormat: '(MM/DD/AAAA)', phTutor: 'Nombre del tutor', phEmail: 'correo@email.com',
+    phAddress: 'Ciudad, Estado', phEmergName: 'Nombre del contacto',
+    phMedical: 'Ninguna / Detallar si corresponde...', phNotes: 'Cualquier información adicional que quieras compartir...',
+    nextSteps: 'Después de enviar, te contactamos para confirmar el lugar y coordinar el pago. Enviar este formulario no genera ningún cobro.'
   },
   en: {
     subtitle: 'Registration Form', season: 'Season 2026–2027',
@@ -906,7 +911,11 @@ const translations = {
     successTitle: 'Registration received!',
     successBody: "We'll contact you shortly to confirm your spot.",
     reqField: 'Required field', invalidEmail: 'Invalid email',
-    yearsSuffix: 'years', adultLabel: 'Adult'
+    yearsSuffix: 'years', adultLabel: 'Adult',
+    phYear: 'YYYY', dobFormat: '(MM/DD/YYYY)', phTutor: 'Parent/guardian name', phEmail: 'name@email.com',
+    phAddress: 'City, State', phEmergName: 'Contact name',
+    phMedical: 'None / Please describe if applicable...', phNotes: "Anything else you'd like us to know...",
+    nextSteps: "After you submit, we'll reach out to confirm your spot and coordinate payment. Submitting this form does not charge you anything."
   }
 };
 
@@ -926,6 +935,13 @@ function applyTranslations(lang) {
   document.getElementById('langBtnText').textContent = lang === 'es' ? 'EN' : 'ES';
   document.getElementById('apellido').placeholder = t.lastName;
   document.getElementById('nombre').placeholder = t.firstName;
+  document.getElementById('dobYear').placeholder = t.phYear;
+  document.getElementById('tutor').placeholder = t.phTutor;
+  document.getElementById('email').placeholder = t.phEmail;
+  document.getElementById('direccion').placeholder = t.phAddress;
+  document.getElementById('emergenciaNombre').placeholder = t.phEmergName;
+  document.getElementById('medico').placeholder = t.phMedical;
+  document.getElementById('notas').placeholder = t.phNotes;
   document.documentElement.lang = lang;
   refreshDayOptions();
 
